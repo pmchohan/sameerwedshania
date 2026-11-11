@@ -59,7 +59,7 @@ The Urdu face is heavy, so it is not in the first English load.
 ## Dates and times
 
 - Dates: format from the Y-M-D parts with `timeZone: 'UTC'`, never `new Date('YYYY-MM-DD')` in local time. English `en-GB`. Urdu `ur-PK-u-nu-latn` (Latin digits). Verify the Urdu month and weekday names in a test.
-- Times: config is 24h. English shows `7:00 PM`. Urdu shows a day-period word, the time and `بجے`: `شام 7:00 بجے`. Proposed periods: 04:00 to 11:59 `صبح`, 12:00 to 15:59 `دوپہر`, 16:00 to 18:59 `شام`, 19:00 to 03:59 `رات`. Needs a native reader's review.
+- Times: config is 24h. English shows `7:00 PM`. Urdu shows a day-period word, the time and `بجے`: `شام 7:00 بجے`. Proposed periods: 04:00 to 11:59 `صبح`, 12:00 to 15:59 `دوپہر`, 16:00 to 19:59 `شام`, 20:00 to 03:59 `رات`. Needs a native reader's review.
 
 ## Tests
 
