@@ -15,6 +15,11 @@ export function Reveal({ children, delay = 0 }: RevealProps) {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    // Very old browsers have no IntersectionObserver: show the content instead of hiding it forever.
+    if (typeof IntersectionObserver === 'undefined') {
+      setSeen(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {

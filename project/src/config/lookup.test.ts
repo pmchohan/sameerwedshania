@@ -20,6 +20,7 @@ describe('normalizeCode', () => {
   it('trims, drops inner spaces and lowercases', () => {
     expect(normalizeCode('  AchunP ')).toBe('achunp');
     expect(normalizeCode('ach unp')).toBe('achunp');
+    expect(normalizeCode('/achunp/')).toBe('achunp');
   });
 });
 
@@ -40,9 +41,20 @@ describe('visibleEvents', () => {
     expect(visibleEvents(guest, fixtures).map((v) => v.key)).toEqual(['mehndi', 'walima']);
   });
 
-  it.each(guests.map((guest) => [guest.code, guest] as const))('%s sees nothing of events they are not invited to', (_code, guest) => {
+  const combos: EventKey[][] = [
+    ['mehndi'],
+    ['barat'],
+    ['walima'],
+    ['mehndi', 'barat'],
+    ['mehndi', 'walima'],
+    ['barat', 'walima'],
+    ['mehndi', 'barat', 'walima'],
+  ];
+
+  it.each(combos)('a guest invited to %j sees nothing of the other events', (...events) => {
+    const guest = { code: 'x', name: 'X', events };
     const shown = JSON.stringify(visibleEvents(guest, fixtures));
-    for (const key of EVENT_ORDER.filter((k) => !guest.events.includes(k))) {
+    for (const key of EVENT_ORDER.filter((k) => !events.includes(k))) {
       const hidden = fixtures[key];
       const secrets = [hidden.title, hidden.date, hidden.venue.name, hidden.venue.address, hidden.venue.mapUrl].flatMap((text) =>
         typeof text === 'string' ? [text] : [text.en, text.ur],

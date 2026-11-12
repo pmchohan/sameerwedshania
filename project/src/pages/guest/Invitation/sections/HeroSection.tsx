@@ -3,6 +3,7 @@ import type { Guest } from '@/config/types';
 import { fill } from '@/i18n/strings';
 import { useLang } from '@/i18n/useLang';
 import { Arch } from '../components/Arch';
+import { ScrollCue } from '../components/ScrollCue';
 import type { Phase } from '../phase';
 import s from './HeroSection.module.css';
 
@@ -20,7 +21,7 @@ export default function HeroSection({ guest, phase, onOpen }: HeroSectionProps) 
 
   return (
     // Tapping anywhere starts the build; the keystone button is the keyboard and screen-reader route.
-    <section className={s.hero} data-light="night" onClick={built ? undefined : onOpen}>
+    <section className={s.hero} data-light="night" data-built={built} onClick={built ? undefined : onOpen}>
       <p className={s.bismillah} lang="ar" dir="rtl">
         بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
       </p>
@@ -50,6 +51,8 @@ export default function HeroSection({ guest, phase, onOpen }: HeroSectionProps) 
           {guest.note && <p className={s.line}>{t(guest.note)}</p>}
         </div>
       </div>
+
+      <ScrollCue active={phase === 'open'} />
     </section>
   );
 }

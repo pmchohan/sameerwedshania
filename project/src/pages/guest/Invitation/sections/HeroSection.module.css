@@ -3,6 +3,8 @@
   align-content: center;
   justify-items: center;
   gap: calc(var(--m) * 3);
+  position: relative;
+  min-height: 100vh;
   min-height: 100svh;
   padding: calc(var(--m) * 9) calc(var(--m) * 2) calc(var(--m) * 12);
   background: var(--ground);
@@ -112,20 +114,20 @@
 }
 
 /* Built: the prompt gives way to the welcome. */
-.hero:has([data-state='built']) .tap {
+.hero[data-built='true'] .tap {
   opacity: 0;
 }
 
-.hero:has([data-state='built']) .welcome {
+.hero[data-built='true'] .welcome {
   opacity: 1;
   transform: none;
 }
 
-/* Short screens: tighten the hero so the welcome clears the scroll cue. */
+/* Short screens: tighten the hero. The bottom padding keeps room for the scroll cue. */
 @media (max-height: 700px) {
   .hero {
     gap: calc(var(--m) * 2);
-    padding: calc(var(--m) * 5) calc(var(--m) * 2) calc(var(--m) * 7);
+    padding: calc(var(--m) * 5) calc(var(--m) * 2) calc(var(--m) * 10);
   }
 }
 

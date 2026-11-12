@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { SiteLayout } from '@/layouts/SiteLayout/SiteLayout';
 import { InviteMiddleware } from '@/middleware/InviteMiddleware';
 import { useScrollLock } from '@/hooks/useScrollLock';
-import { ScrollCue } from './components/ScrollCue';
 import type { Phase } from './phase';
 import ClosingSection from './sections/ClosingSection';
 import EventsSection from './sections/EventsSection';
@@ -54,7 +53,6 @@ export default function Invitation({ code }: { code: string }) {
             <HeroSection guest={guest} phase={phase} onOpen={() => setPhase((current) => (current === 'closed' ? 'locking' : current))} />
             <EventsSection guest={guest} />
             <ClosingSection />
-            <ScrollCue active={phase === 'open'} />
           </>
         )}
       </InviteMiddleware>

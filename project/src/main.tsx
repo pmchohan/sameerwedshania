@@ -1,9 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@fontsource/alegreya-sans/latin-400.css';
-import '@fontsource/alegreya-sans/latin-500.css';
-import '@fontsource/alegreya-sans/latin-700.css';
-import '@fontsource/pinyon-script/latin-400.css';
+import './theme/fonts.css';
 import './theme/tokens.css';
 import './theme/global.css';
 import App from './App';

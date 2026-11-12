@@ -6,9 +6,9 @@ export interface VisibleEvent {
   event: WeddingEvent;
 }
 
-/** Trim, drop inner spaces, lowercase: "  AchunP " matches "achunp". */
+/** Trim, drop inner spaces and outer slashes, lowercase: "  AchunP " and "achunp/" match "achunp". */
 export function normalizeCode(raw: string): string {
-  return raw.replace(/\s+/g, '').toLowerCase();
+  return raw.replace(/\s+/g, '').replace(/^\/+|\/+$/g, '').toLowerCase();
 }
 
 export function findGuest(raw: string, guests: readonly Guest[]): Guest | undefined {
