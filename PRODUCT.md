@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Vite, React, TypeScript and React Router. Chosen by the owner (React). Hosted on GitHub Pages at `sameerwedshania.qd.je`.
+Vite, React, TypeScript and React Router. Chosen by the owner (React). Hosted on GitHub Pages at `https://pmchohan.github.io/sameerwedshania/`.
 
 ## Users
 

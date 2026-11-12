@@ -34,7 +34,7 @@ A one-page, animated, mobile-first React site that replaces printed wedding card
 - **Visibility.** Everything on a guest's page (text in both languages, hero, footer, `<title>`) comes only from that guest's own events. No date range, count or teaser hinting at events they are not invited to. Details in `docs/config.md`.
 - **Components.** One component per file. A page is a thin composition of sections; sections are built from small reusable components. The three events share one generic, data-driven event component (they have the same shape; do not copy-paste three). Opening, hero, scroll cue, language toggle, reveal, map button, ornaments and the code form are each their own component. Component map in `docs/engineering.md`.
 - **Palette.** No rust, terracotta, orange-brown, beige, sand, tan, khaki, cream, ivory, champagne or parchment, nor any warm off-white or brown-leaning neutral. Full rules in `docs/design-brief.md`.
-- **Build output.** `project/dist/index.html` is only a deployment test page, and its design is not a reference for anything. The content of `dist` is published to GitHub Pages through the `gh-pages` branch, so anything placed there can go public. Do not put the app in `dist` or deploy until the owner says so; build to another folder meanwhile (`docs/engineering.md`).
+- **Build output.** `project/dist` is the app build published to GitHub Pages through the `gh-pages` branch, so anything placed there can go public. The owner approved deployment on 2026-11-12. Build with `npm run build` and publish `project/dist` to `gh-pages`; do not redeploy without a new request (`docs/engineering.md`).
 - **Git.** Do not commit or push unless asked. When asked, use Conventional Commits (imperative, subject 50 characters or fewer).
 - **Privacy.** This is a static site: the whole config (every code, guest and event) ships in the JS bundle. Codes are an unlisted-link convenience, not access control. Keep anything truly private out of the config.
 - **Urdu copy.** Agents may draft Urdu text but must flag it as needing a native reader's review. Never ship machine-written Urdu as final.
@@ -73,17 +73,18 @@ Notes: `impeccable`'s launcher may download a binary on first run (needs network
 .agents/skills/     installed skills
 _notes/             owner's notes (empty); keep build output out
 docs/               config.md, language.md, design-brief.md, engineering.md
-project/dist/       deployment test page (published via gh-pages); not a design reference
-project/            the app: package.json, src/, public/ (to be created)
+project/dist/       app build published to gh-pages; do not edit by hand
+project/            the app: package.json, src/, public/
 PRODUCT.md DESIGN.md   written by impeccable (root)
 ```
 
 ## 8. Open items (update as resolved)
 
 - Confirmed names: **Sameer** (سمیر, groom) and **Hania** (ہانیہ, bride).
-- Dates, times, venues, dress codes and the guest list are not provided. Config starts with `TODO` placeholders; never invent real-looking venues or dates.
-- Hosting: GitHub Pages (`dist` goes to the `gh-pages` branch) on the custom domain `sameerwedshania.qd.je`, so Vite `base` is `/` and there is no router `basename`. Still unknown: what triggers a deploy.
-- Opening concept (Darwaza doors) is a proposal; the owner may redirect.
+- Dates, times, venues, dress codes and the guest list are not provided. Config starts with `TODO` placeholders; never invent real-looking venues or dates. Test guests were removed for launch; add them locally when testing.
+- Hosting: GitHub Pages at `https://pmchohan.github.io/sameerwedshania/`, so Vite `base` is `/sameerwedshania/` and BrowserRouter uses that basename. The custom domain `sameerwedshania.qd.je` is not configured (its DNS points to 185.27.134.95); no CNAME is deployed. Deploy is manual: build to `project/dist`, publish to `gh-pages`.
+- Opening concept: tiled kashi-kari mihrab; loose tiles lock into an arch after tapping the keystone. Recorded in `DESIGN.md` and `.impeccable/surfaces/project-index-html.md`.
+- `DESIGN.md` is at the repo root; `.impeccable/design.json` sits beside the surface brief.
 - Urdu copy and the Urdu time wording need a native reader's review. Name spellings are confirmed.
-- Bismillah header: recommended, not yet confirmed.
+- Bismillah header: included above the arch; owner confirmation pending.
 - Out of scope unless asked: RSVP form, backend, music, photo gallery, countdown, add-to-calendar, analytics, admin UI, languages beyond English and Urdu.

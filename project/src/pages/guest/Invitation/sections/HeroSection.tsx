@@ -21,13 +21,13 @@ export default function HeroSection({ guest, phase, onOpen }: HeroSectionProps) 
   return (
     // Tapping anywhere starts the build; the keystone button is the keyboard and screen-reader route.
     <section className={s.hero} data-light="night" onClick={built ? undefined : onOpen}>
+      <p className={s.bismillah} lang="ar" dir="rtl">
+        بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+      </p>
       <Arch built={built} onOpen={onOpen} openLabel={text('tapToOpen')}>
         <svg className={s.star} viewBox="0 0 40 40" aria-hidden="true" focusable="false">
           <use href="#tile-star" />
         </svg>
-        <p className={s.bismillah} lang="ar" dir="rtl">
-          بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
-        </p>
         <h1 className={s.names}>
           <span className={s.name}>{names.groom}</span>
           <span className={s.and}>{text('and')}</span>
@@ -41,7 +41,10 @@ export default function HeroSection({ guest, phase, onOpen }: HeroSectionProps) 
         </p>
         <div className={s.welcome}>
           <p className={s.guestLine}>
-            <span>{text('invitationFor')}</span> <span className={s.guest}>{t(guest.name)}</span>
+            <span>{text('invitationFor')}</span>{' '}
+            <span className={s.guest}>
+              <bdi>{t(guest.name)}</bdi>
+            </span>
           </p>
           <p className={s.line}>{fill(text('inviteLine'), names)}</p>
           {guest.note && <p className={s.line}>{t(guest.note)}</p>}

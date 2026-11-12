@@ -1,7 +1,8 @@
 .form {
   display: grid;
   gap: calc(var(--m) * 2);
-  width: min(100%, 22rem);
+  width: 100%;
+  max-width: 22rem;
 }
 
 .label {
@@ -9,6 +10,8 @@
 }
 
 .input {
+  width: 100%;
+  min-width: 0;
   min-height: calc(var(--m) * 7);
   padding: 0 calc(var(--m) * 2);
   border: 1px solid var(--gold-line);
@@ -32,4 +35,5 @@
 
 .error {
   color: var(--rose-300);
+  overflow-wrap: anywhere;
 }

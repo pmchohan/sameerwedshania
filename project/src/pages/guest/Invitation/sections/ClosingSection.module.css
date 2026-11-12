@@ -1,4 +1,7 @@
 .closing {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100svh;
   background: var(--ground);
   color: var(--ink);
   text-align: center;
@@ -6,6 +9,7 @@
 
 .body {
   display: grid;
+  align-content: center;
   justify-items: center;
   gap: calc(var(--m) * 4);
   max-width: 34rem;
@@ -29,4 +33,8 @@
   font-family: var(--font-latin);
   font-size: 0.4em;
   color: var(--ink-muted);
+}
+
+:global(html[lang='ur']) .names {
+  line-height: 1.9;
 }

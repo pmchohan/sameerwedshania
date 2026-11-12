@@ -1,5 +1,6 @@
-import { createContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { couple } from '@/config/invitation.config';
+import { createContext, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
+import { couple, guests } from '@/config/invitation.config';
+import { findGuest } from '@/config/lookup';
 import type { Lang, Text } from '@/config/types';
 import { loadUrduFont } from './loadUrduFont';
 import { resolveLang } from './resolveLang';
@@ -43,10 +44,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     query: new URLSearchParams(window.location.search).get('lang'),
     stored: readStored(),
     browser: navigator.language,
+    // Read the guest straight from a direct link, so their default language is right on the first paint.
+    guest: findGuest(window.location.pathname.slice(import.meta.env.BASE_URL.length), guests)?.lang,
   }));
   const [guestLang, setGuestLang] = useState<Lang | undefined>();
   const [chosen, setChosen] = useState<Lang | undefined>();
-  const lang = chosen ?? resolveLang({ ...start, guest: guestLang });
+  const lang = chosen ?? resolveLang({ ...start, guest: guestLang ?? start.guest });
 
   const value = useMemo<LanguageValue>(
     () => ({
@@ -63,7 +66,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     [lang],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (lang === 'ur') void loadUrduFont();
     const root = document.documentElement;
     root.lang = lang;

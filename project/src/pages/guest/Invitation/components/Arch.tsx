@@ -48,7 +48,7 @@ export function Arch({ built, onOpen, openLabel, children }: ArchProps) {
         <path className={s.line} d={INNER_LINE} vectorEffect="non-scaling-stroke" />
       </svg>
 
-      <div className={s.tiles}>
+      <div className={s.tiles} dir="ltr">
         {VIEWS.map(({ key, tile, motif, glaze, style }) =>
           tile.role === 'key' ? (
             <button key={key} type="button" className={`${s.tile} ${s.keystone}`} style={style} onClick={onOpen} disabled={built} aria-label={openLabel}>

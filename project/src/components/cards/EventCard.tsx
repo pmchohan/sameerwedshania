@@ -1,6 +1,5 @@
 import { useId } from 'react';
-import { Button } from '@/components/atoms/Button';
-import { PinIcon } from '@/components/icons/PinIcon';
+import { MapButton } from '@/components/maps/MapButton';
 import { Reveal } from '@/components/motion/Reveal';
 import { TileStrip } from '@/components/ornaments/TileStrip';
 import type { WeddingEvent } from '@/config/types';
@@ -51,8 +50,10 @@ export function EventCard({ event, light }: EventCardProps) {
             <div className={s.row}>
               <dt>{text('venue')}</dt>
               <dd>
-                {t(event.venue.name)}
-                <span className={s.address}>{t(event.venue.address)}</span>
+                <bdi>{t(event.venue.name)}</bdi>
+                <span className={s.address}>
+                  <bdi>{t(event.venue.address)}</bdi>
+                </span>
               </dd>
             </div>
             {event.dressCode && (
@@ -71,9 +72,7 @@ export function EventCard({ event, light }: EventCardProps) {
         )}
 
         <Reveal delay={280}>
-          <Button href={event.venue.mapUrl} icon={<PinIcon />}>
-            {text('viewOnMap')}
-          </Button>
+          <MapButton href={event.venue.mapUrl} />
         </Reveal>
       </div>
     </section>

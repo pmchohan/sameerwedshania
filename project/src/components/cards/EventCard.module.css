@@ -1,10 +1,14 @@
 .panel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100svh;
   background: var(--ground);
   color: var(--ink);
 }
 
 .body {
   display: grid;
+  align-content: center;
   justify-items: center;
   gap: calc(var(--m) * 5);
   max-width: 34rem;
@@ -15,6 +19,7 @@
 
 .title {
   font-family: var(--font-script);
+  overflow-wrap: anywhere;
   font-size: clamp(3.5rem, 17vw, 5rem);
   font-weight: 400;
   line-height: 1.3;
@@ -70,12 +75,14 @@
 }
 
 .row dd {
+  overflow-wrap: anywhere;
   font-size: 1.5rem;
   line-height: 1.35;
 }
 
 .address {
   display: block;
+  overflow-wrap: anywhere;
   margin-top: var(--m);
   color: var(--ink-muted);
   font-size: 1.125rem;
@@ -83,5 +90,28 @@
 
 .note {
   max-width: 28rem;
+  overflow-wrap: anywhere;
   color: var(--ink-muted);
+}
+
+/* Nastaliq needs more room than Latin at the same role. */
+:global(html[lang='ur']) .title {
+  line-height: 1.9;
+}
+
+:global(html[lang='ur']) .row dt {
+  font-size: 1.15rem;
+}
+
+:global(html[lang='ur']) .row dd {
+  line-height: 1.9;
+}
+
+:global(html[lang='ur']) .weekday,
+:global(html[lang='ur']) .month {
+  font-size: 1.2rem;
+}
+
+:global(html[lang='ur']) .address {
+  font-size: 1.2rem;
 }

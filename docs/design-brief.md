@@ -7,7 +7,7 @@ This is a brief for `impeccable` (`shape`, `new-work`). The settled visual syste
 ## Opening animation
 
 - Starts from a tap on a real `<button>` with a clear "tap to open" prompt, in the current language. No blank screen while assets load. The language toggle is visible.
-- Leading idea: **Darwaza**. A pair of ornate arched doors with jali panels and a gold monogram seal swing open to reveal the invitation. Wrap it in `dir="ltr"`. Alternatives: a royal farman scroll unrolling, or a fanoos lighting that reveals the arch. Fallback: envelope or card opening.
+- Leading idea: **Kashi-kari mihrab**. Loose glazed tiles tumble across a cobalt ground; the guest taps the gold keystone; the tiles lock into a pointed arch, the gold outline draws, and the niche fills with the couple's names. Wrap the tile scatter in `dir="ltr"` so it stays physical in Urdu. Alternatives: a royal farman scroll unrolling, or a fanoos lighting that reveals the arch. Fallback: envelope or card opening.
 - About 3 to 4 seconds from tap to content, and the hero is usable at once. `prefers-reduced-motion` gets a short cross-fade only.
 - Animate `transform` and `opacity`. One exception: a stroke-draw (`stroke-dashoffset`) on a handful of SVG paths, during the opening only.
 

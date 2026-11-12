@@ -25,6 +25,10 @@
   text-transform: uppercase;
 }
 
+:global(html[lang='ur']) .root {
+  font-size: 1.15rem;
+}
+
 .root:hover {
   background: var(--white-100);
 }

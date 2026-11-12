@@ -28,18 +28,16 @@ export default function Invitation({ code }: { code: string }) {
 
   // Dev only: #open skips the tap; #open=<n> also jumps to the nth section below the hero
   // (1..3 events, 4 closing) and settles transitions, so headless screenshots are deterministic.
-  // The jump runs after the load event, or the browser's own load-time scroll reset undoes it.
+  // The jump runs on load, after the browser's own load-time scroll reset.
   useEffect(() => {
     if (!import.meta.env.DEV || phase !== 'open' || !window.location.hash.startsWith('#open')) return;
     const jump = () => {
-      requestAnimationFrame(() => {
-        const style = document.createElement('style');
-        style.textContent = '*{transition-duration:0s!important;transition-delay:0s!important;animation-delay:0s!important}html{scroll-behavior:auto!important}';
-        document.head.append(style);
-        const index = Number(window.location.hash.split('=')[1]);
-        const target = document.querySelectorAll('main > section')[index] as HTMLElement | undefined;
-        if (target) window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
-      });
+      const style = document.createElement('style');
+      style.textContent = '*{transition-duration:0s!important;transition-delay:0s!important;animation-delay:0s!important}html{scroll-behavior:auto!important}';
+      document.head.append(style);
+      const index = Number(window.location.hash.split('=')[1]);
+      const target = document.querySelectorAll('main > section')[index] as HTMLElement | undefined;
+      if (target) window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
     };
     if (document.readyState === 'complete') jump();
     else {

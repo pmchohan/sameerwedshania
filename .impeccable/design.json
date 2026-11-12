@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-12T08:56:57Z",
+  "title": "Design System: Sameer & Hania",
+  "extensions": {
+    "colorMeta": {
+      "cobalt-night": {
+        "role": "neutral",
+        "displayName": "Cobalt Night",
+        "canonical": "#061638",
+        "tonalRamp": [
+          "#020817",
+          "#03102a",
+          "#051a45",
+          "#08245f",
+          "#0c317c",
+          "#21499a",
+          "#5d7fbd",
+          "#c2d4ea"
+        ]
+      },
+      "cobalt-deep": {
+        "role": "neutral",
+        "displayName": "Cobalt Deep",
+        "canonical": "#081d52",
+        "tonalRamp": [
+          "#020b1f",
+          "#041433",
+          "#071f4b",
+          "#0a2b63",
+          "#0e3a80",
+          "#24549e",
+          "#6588c2",
+          "#c7d6ec"
+        ]
+      },
+      "cobalt-royal": {
+        "role": "neutral",
+        "displayName": "Cobalt Royal",
+        "canonical": "#0a2463",
+        "tonalRamp": [
+          "#030d24",
+          "#05173a",
+          "#082255",
+          "#0a2463",
+          "#0e327f",
+          "#254c9b",
+          "#6785c0",
+          "#c8d5eb"
+        ]
+      },
+      "lapis-dusk": {
+        "role": "neutral",
+        "displayName": "Lapis Dusk",
+        "canonical": "#0a3b73",
+        "tonalRamp": [
+          "#031526",
+          "#05213a",
+          "#082e52",
+          "#0a3b73",
+          "#0e4d8e",
+          "#2668aa",
+          "#6a93c7",
+          "#c9d9ec"
+        ]
+      },
+      "turquoise-glaze": {
+        "role": "secondary",
+        "displayName": "Turquoise Glaze",
+        "canonical": "#1ba6a6",
+        "tonalRamp": [
+          "#042f33",
+          "#064449",
+          "#095a60",
+          "#0d7078",
+          "#128b93",
+          "#1ba6a6",
+          "#5ec9c9",
+          "#b8e8e8"
+        ]
+      },
+      "turquoise-deep": {
+        "role": "secondary",
+        "displayName": "Turquoise Deep",
+        "canonical": "#0f6f7c",
+        "tonalRamp": [
+          "#03272b",
+          "#05383d",
+          "#074b51",
+          "#0a5d65",
+          "#0c7078",
+          "#11909a",
+          "#4cb4bc",
+          "#a9dfe3"
+        ]
+      },
+      "leaf-glaze": {
+        "role": "secondary",
+        "displayName": "Leaf Glaze",
+        "canonical": "#1f8a4c",
+        "tonalRamp": [
+          "#082414",
+          "#0b321c",
+          "#0f4426",
+          "#135831",
+          "#186d3d",
+          "#1f8a4c",
+          "#4cae70",
+          "#a9dfb8"
+        ]
+      },
+      "gold-glaze": {
+        "role": "primary",
+        "displayName": "Gold Glaze",
+        "canonical": "#f2c94c",
+        "tonalRamp": [
+          "#3d2d08",
+          "#5c450d",
+          "#7d5f13",
+          "#a17c1b",
+          "#c49c25",
+          "#e0b637",
+          "#f2c94c",
+          "#fbe9a8"
+        ]
+      },
+      "cool-white": {
+        "role": "neutral",
+        "displayName": "Cool White",
+        "canonical": "#f4f8fb",
+        "tonalRamp": [
+          "#c6d8e6",
+          "#d2e1ed",
+          "#dce9f2",
+          "#e5f0f6",
+          "#edf5f9",
+          "#f4f8fb",
+          "#f8fbfc",
+          "#ffffff"
+        ]
+      },
+      "cool-paper": {
+        "role": "neutral",
+        "displayName": "Cool Paper",
+        "canonical": "#eaf3f8",
+        "tonalRamp": [
+          "#c2d6e3",
+          "#cfdfea",
+          "#dbe8f1",
+          "#e4eff5",
+          "#eaf3f8",
+          "#f0f7fa",
+          "#f6fafc",
+          "#ffffff"
+        ]
+      },
+      "mist-blue": {
+        "role": "neutral",
+        "displayName": "Mist Blue",
+        "canonical": "#b9cce6",
+        "tonalRamp": [
+          "#536b8a",
+          "#627b9b",
+          "#728cab",
+          "#829bbb",
+          "#93aac7",
+          "#a3b9d3",
+          "#b9cce6",
+          "#d9e5f2"
+        ]
+      },
+      "rose-error": {
+        "role": "tertiary",
+        "displayName": "Rose Error",
+        "canonical": "#ffa3b8",
+        "tonalRamp": [
+          "#5c2331",
+          "#7a2f40",
+          "#9b3b52",
+          "#bc4a64",
+          "#d95c77",
+          "#f07c95",
+          "#ffa3b8",
+          "#ffd6e0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Couple and guest names, event titles, closing names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose, addresses, times, notes."
+      },
+      "urdu-body": {
+        "displayName": "Urdu Body",
+        "purpose": "All Urdu text; larger and taller than Latin."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Row labels, buttons, scroll cue, language toggle."
+      },
+      "bismillah": {
+        "displayName": "Bismillah",
+        "purpose": "The header above the arch only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "button-keyline",
+        "value": "inset 0 0 0 1px #061638",
+        "purpose": "A hairline that separates the gold button from the page; not elevation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Every entrance, lock, reveal, and hover."
+      },
+      {
+        "name": "tile-lock",
+        "value": "1000ms",
+        "purpose": "One loose tile travels home."
+      },
+      {
+        "name": "build",
+        "value": "2800ms",
+        "purpose": "Time from tap to the page being scrollable."
+      },
+      {
+        "name": "reveal",
+        "value": "800ms",
+        "purpose": "Scroll reveal rise and fade."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "height-tight",
+        "value": "700px"
+      },
+      {
+        "name": "height-short",
+        "value": "620px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The map button and the code submit; gold ground, cobalt text, keyline, 2px corners.",
+      "html": "<a class='ds-btn-primary' href='#'><span>View on map</span><svg viewBox='0 0 24 24' width='20' height='20' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round' aria-hidden='true'><path d='M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z'/><circle cx='12' cy='10' r='2.5'/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 0 24px; border: 0; border-radius: 2px; background: var(--gold-400); color: var(--cobalt-950); box-shadow: inset 0 0 0 1px var(--cobalt-950); font-family: var(--font-latin); font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background-color 0.4s var(--ease-out), transform 0.4s var(--ease-out); } .ds-btn-primary:hover { background: var(--white-100); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--gold-400); outline-offset: 3px; } .ds-btn-primary svg { width: 20px; height: 20px; flex: none; }"
+    },
+    {
+      "name": "Language Toggle",
+      "kind": "button",
+      "refersTo": "language-toggle",
+      "description": "A quiet fixed chip at the physical top right; it names the language you can switch to.",
+      "html": "<button class='ds-language-toggle' type='button' lang='ur'>اردو</button>",
+      "css": ".ds-language-toggle { position: fixed; top: 12px; right: 12px; z-index: 50; min-width: 48px; height: 32px; padding: 0 12px; border: 1px solid rgb(242 201 76 / 0.55); border-radius: 2px; background: rgb(6 22 56 / 0.92); color: var(--mist-300); font-family: var(--font-urdu); font-size: 1.15rem; line-height: 1.6; cursor: pointer; transition: border-color 0.4s var(--ease-out); } .ds-language-toggle::after { content: ''; position: absolute; inset: -8px; } .ds-language-toggle:hover { border-color: var(--gold-400); } .ds-language-toggle:focus-visible { outline: 2px solid var(--gold-400); outline-offset: 3px; }"
+    },
+    {
+      "name": "Code Input",
+      "kind": "input",
+      "refersTo": "code-input",
+      "description": "A single centred code field on the entry screen; gold hairline, cobalt fill, rose error.",
+      "html": "<label class='ds-code-label' for='ds-code'>Enter the invitation code you were sent.</label><input id='ds-code' class='ds-code-input' type='text' lang='en' dir='ltr' autocomplete='off' spellcheck='false' /><p class='ds-code-error' role='alert'>We could not find that invitation.</p>",
+      "css": ".ds-code-label { display: block; color: var(--mist-300); font-family: var(--font-latin); font-size: 1.125rem; line-height: 1.55; text-align: center; } .ds-code-input { width: 100%; min-width: 0; min-height: 56px; margin-top: 16px; padding: 0 16px; border: 1px solid rgb(242 201 76 / 0.55); border-radius: 2px; background: var(--cobalt-900); color: var(--white-100); font-family: var(--font-latin); font-size: 1.25rem; letter-spacing: 0.12em; text-align: center; } .ds-code-input:focus-visible { border-color: var(--gold-400); outline: 2px solid var(--gold-400); outline-offset: 2px; } .ds-code-input[aria-invalid='true'] { border-color: var(--rose-300); } .ds-code-error { color: var(--rose-300); font-family: var(--font-latin); font-size: 1.125rem; line-height: 1.55; text-align: center; }"
+    },
+    {
+      "name": "Event Panel",
+      "kind": "card",
+      "description": "A full-height tile panel with a strip at the seam, a double-ruled date square, and a centred facts column.",
+      "html": "<section class='ds-event-panel' data-light='day'><div class='ds-event-body'><h2 class='ds-event-title'>Walima</h2><time class='ds-event-date'><span>Friday</span><strong>14</strong><span>November 2099</span></time><dl class='ds-event-facts'><div><dt>Time</dt><dd>7:00 pm</dd></div><div><dt>Venue</dt><dd>The venue name<span>123 Street, City</span></dd></div></dl><a class='ds-event-map' href='#'>View on map</a></div></section>",
+      "css": ".ds-event-panel { min-height: 100svh; background: var(--white-200); color: var(--cobalt-700); font-family: var(--font-latin); } .ds-event-panel[data-light='night'] { background: var(--cobalt-950); color: var(--white-100); } .ds-event-body { display: grid; align-content: center; justify-items: center; gap: 40px; max-width: 34rem; margin-inline: auto; padding: 80px 24px 96px; text-align: center; } .ds-event-title { margin: 0; font-family: var(--font-script); font-size: clamp(3.5rem, 17vw, 5rem); font-weight: 400; line-height: 1.3; color: var(--turquoise-800); } .ds-event-date { display: grid; justify-items: center; align-content: center; width: 176px; aspect-ratio: 1; border: 1px solid rgb(10 36 99 / 0.5); outline: 1px solid rgb(10 36 99 / 0.2); outline-offset: -12px; } .ds-event-date span { color: #3a4f85; font-size: 1.125rem; } .ds-event-date strong { font-size: 5.5rem; font-weight: 500; line-height: 1; font-variant-numeric: lining-nums; } .ds-event-facts { display: grid; gap: 24px; width: 100%; margin: 0; } .ds-event-facts div + div { padding-top: 24px; border-top: 1px solid rgb(10 36 99 / 0.2); } .ds-event-facts dt { color: #3a4f85; font-size: 0.875rem; letter-spacing: 0.14em; text-transform: uppercase; } .ds-event-facts dd { margin: 0; font-size: 1.5rem; line-height: 1.35; } .ds-event-facts dd span { display: block; margin-top: 8px; color: #3a4f85; font-size: 1.125rem; } .ds-event-map { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 2px; background: var(--gold-400); color: var(--cobalt-950); box-shadow: inset 0 0 0 1px var(--cobalt-950); font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; } .ds-event-map:hover { background: var(--white-100); } .ds-event-map:focus-visible { outline: 2px solid var(--cobalt-700); outline-offset: 3px; }"
+    },
+    {
+      "name": "Scroll Cue",
+      "kind": "custom",
+      "description": "A fixed gold cue that appears after the arch is built and leaves at the first scroll.",
+      "html": "<div class='ds-scroll-cue'><span>Scroll</span><svg viewBox='0 0 24 28' width='24' height='28' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='square' aria-hidden='true'><path d='M4 5 L12 13 L20 5'/><path d='M4 14 L12 22 L20 14'/></svg></div>",
+      "css": ".ds-scroll-cue { position: fixed; left: 50%; bottom: 16px; z-index: 20; display: grid; justify-items: center; gap: 8px; translate: -50% 0; color: var(--gold-400); font-family: var(--font-latin); font-size: 0.875rem; letter-spacing: 0.2em; text-transform: uppercase; pointer-events: none; } .ds-scroll-cue svg { animation: ds-nudge 1.8s ease-in-out infinite; } @keyframes ds-nudge { 0%, 100% { transform: translateY(0); opacity: 0.45; } 50% { transform: translateY(6px); opacity: 1; } } @media (prefers-reduced-motion: reduce) { .ds-scroll-cue svg { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Kashi-kari Mihrab",
+    "overview": "The invitation is one tiled wall from Wazir Khan's tomb complex: deep cobalt ground, turquoise and leaf glazes, cool white, and a bright yellow-gold outline. It is not a card with a mandala behind it. The wall assembles itself, opens into a pointed mihrab, and then continues as a sequence of tiled panels, one for each event the guest is invited to.\n\nThe experience is intimate and ceremonial, not decorative for its own sake. The Bismillah sits above the arch, the couple's names sit inside the niche, and the guest's name sits below it; the events read like plaques set into the same wall. Ornament frames the content and then gets out of the way. The palette is cool and saturated, with gold used as a thread rather than a wash.\n\nThe surface is flat glazed tile, not paper, fabric, or metal. Depth comes from tonal shifts, grout lines, and the double outline of the arch, never from soft shadows. Motion has the patience of laying tile: tiles tumble, settle, and lock; content reveals once and stays still. The language toggle stays quiet, fixed at the physical top right in both languages.",
+    "keyCharacteristics": [
+      "One square module (8px) governs tiles, spacing, the arch, and the strips.",
+      "Deep cobalt night gives way to lapis, turquoise, cool white, then night again.",
+      "Gold is a single thread: names, keystone, cue, focus, map button.",
+      "Flat glaze, hard edges, 1px rules, no soft shadows.",
+      "Phone-first, 320px safe, one thumb, full-height sections.",
+      "English and Urdu are equal citizens; Nastaliq gets more room, not less."
+    ],
+    "rules": [
+      {
+        "name": "The No Warm Neutral Rule",
+        "body": "No rust, terracotta, orange-brown, beige, sand, tan, khaki, cream, ivory, champagne, or parchment, and no warm off-white or brown-leaning neutral. Every white here leans blue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Glaze Rule",
+        "body": "Tiles are flat. Depth comes from glaze color, grout lines, and the double arch outline, never from a soft shadow.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Gold Thread Rule",
+        "body": "Gold is used on the keystone, names, cue, focus, and map button. It is not a background wash and not a default border.",
+        "section": "colors"
+      },
+      {
+        "name": "The Decorative Gold Rule",
+        "body": "Gold on turquoise is allowed in tile motifs and hairlines, but body copy must hold 4.5:1; use white or mist on turquoise instead.",
+        "section": "colors"
+      },
+      {
+        "name": "The Nastaliq Room Rule",
+        "body": "Urdu gets 10–20% more size and roughly 1.9–2.2 line-height. Never use Latin line-height on Nastaliq.",
+        "section": "typography"
+      },
+      {
+        "name": "The Script-Is-Names Rule",
+        "body": "Pinyon Script is for names and event titles only. Labels, addresses, times, and body copy stay in Alegreya Sans. In Urdu, Nastaliq is allowed to carry both roles.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Toggle Rule",
+        "body": "The language toggle uses label size, not display size. It must be findable without pulling attention from the invitation.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Glaze Rule",
+        "body": "If a surface needs to feel raised, change its glaze or add a 1px rule. Do not add a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the 8px module. Tile size, strips, gutters, and section spacing all count in it.",
+      "Do use cool whites (#f4f8fb, #eaf3f8) and blue-leaning neutrals.",
+      "Do keep every tap target at least 44px, including the 32px toggle via its pseudo-element.",
+      "Do give Urdu more size and line-height, and wrap Latin names in <bdi>.",
+      "Do keep the language toggle fixed at the physical top right in both languages.",
+      "Do use Gold Glaze for the keystone, names, cue, focus, and map button.",
+      "Do keep event panels full-height and the last panel on the day ground.",
+      "Do allow long guest names, venue names, and addresses to wrap; no horizontal overflow.",
+      "Do honour prefers-reduced-motion for the arch, reveals, and cue.",
+      "Do show only the guest's own events in both languages, including the title and footer."
+    ],
+    "donts": [
+      "Don't use rust, terracotta, orange-brown, beige, sand, tan, khaki, cream, ivory, champagne, parchment, or any warm off-white.",
+      "Don't add soft shadows, glows, or floating cards. Use a glaze change or a 1px rule.",
+      "Don't set body copy or labels in Pinyon Script; it is for names and event titles only.",
+      "Don't put long gold body text on turquoise; gold there is for motifs and hairlines.",
+      "Don't mirror the language toggle in Urdu or move it with the reading direction.",
+      "Don't add a navigation menu, RSVP form, countdown, gallery, music, or analytics.",
+      "Don't invent dates, venues, dress codes, or guests; use the config placeholders.",
+      "Don't hard-code visible text outside the language layer.",
+      "Don't ship machine-written Urdu as final; it needs a native reader's review."
+    ]
+  }
+}

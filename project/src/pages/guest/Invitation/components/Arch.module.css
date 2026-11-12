@@ -5,6 +5,13 @@
   margin-inline: auto;
 }
 
+/* Short screens: cap the arch by height too, or the welcome runs under the scroll cue. */
+@media (max-height: 700px) {
+  .arch {
+    width: min(88vw, 26rem, 40svh);
+  }
+}
+
 .shape {
   position: absolute;
   inset: 0;
@@ -72,6 +79,10 @@
 .frame {
   transform: translate(calc(var(--x) * 100%), calc(var(--y) * 100%)) rotate(var(--r));
   transition: transform 1s var(--ease-out) var(--d);
+}
+
+/* Hint the compositor only while the tiles are still loose. */
+.arch[data-state='loose'] .frame {
   will-change: transform;
 }
 

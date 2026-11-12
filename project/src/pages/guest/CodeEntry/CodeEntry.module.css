@@ -30,3 +30,7 @@
   font-size: 1.25rem;
   color: var(--ink-muted);
 }
+
+:global(html[lang='ur']) .names {
+  line-height: 1.7;
+}

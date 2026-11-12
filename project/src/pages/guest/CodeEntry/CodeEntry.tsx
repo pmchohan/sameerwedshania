@@ -6,10 +6,10 @@ import { SiteLayout } from '@/layouts/SiteLayout/SiteLayout';
 import { CodeForm } from './components/CodeForm';
 import s from './CodeEntry.module.css';
 
-/** `/`: asks for the invitation code. */
-export default function CodeEntry() {
+/** `/`: asks for the invitation code. An unknown path renders the same screen with the miss message. */
+export default function CodeEntry({ missed: missedProp = false }: { missed?: boolean }) {
   const { t, s: text } = useLang();
-  const missed = Boolean((useLocation().state as { miss?: boolean } | null)?.miss);
+  const missed = missedProp || Boolean((useLocation().state as { miss?: boolean } | null)?.miss);
 
   return (
     <SiteLayout>

@@ -12,24 +12,26 @@ One component per file, named exports, CapitalCase. Organise by type, not by pag
 
 ```
 project/src/
-├── config/        invitation.config.ts, types.ts, validate.ts
-├── i18n/          LanguageProvider, useLang, resolveLang, strings.ts, formatDate, formatTime
-├── routes/        index.ts (route table from config, data only, no JSX)
-├── middleware/    InviteMiddleware.tsx (code to guest; unknown goes to "/")
+├── config/        invitation.config.ts, types.ts, validate.ts, lookup.ts
+├── i18n/          LanguageProvider, useLang, resolveLang, strings.ts, formatDate, formatTime, loadUrduFont.ts
+├── routes/        index.ts (route table from config, data only, no JSX), buildRoutes.ts
+├── middleware/    InviteMiddleware.tsx (code to guest; unknown path renders the code screen with a message)
 ├── layouts/       SiteLayout/
 ├── pages/guest/
 │   ├── CodeEntry/        CodeEntry.tsx, components/CodeForm
-│   └── Invitation/       Invitation.tsx (owns the phase: closed, opening, open)
-│       ├── sections/     Opening/ (Opening, DoorLeaf, Seal), HeroSection, EventsSection, ClosingSection
-│       └── components/   ScrollCue
+│   └── Invitation/       Invitation.tsx (owns the phase: closed, locking, open)
+│       ├── sections/     HeroSection, EventsSection, ClosingSection
+│       └── components/   Arch, ScrollCue
 ├── components/
-│   ├── atoms/            Button, LinkButton
-│   ├── controls/         LanguageToggle
+│   ├── atoms/            Button
 │   ├── cards/            EventCard (generic, data-driven; used for all three events)
+│   ├── controls/         LanguageToggle
+│   ├── icons/            PinIcon
 │   ├── maps/             MapButton
 │   ├── motion/           Reveal
-│   └── ornaments/        Mehrab, Jali, Divider, Sparkle
-├── hooks/                useReveal, useScrollLock
+│   └── ornaments/        TileSprite, TileStrip
+├── hooks/                useScrollLock
+├── lib/                  archGeometry, light
 ├── theme/                tokens and font setup (CSS variables)
 ├── App.tsx               the only file that turns route data into router objects
 └── main.tsx
@@ -73,11 +75,11 @@ Aim for first paint of the opening under about 2 s on a mid-range Android over 4
 
 ## Build output and hosting
 
-- Hosting is GitHub Pages: the content of `project/dist` is published to the `gh-pages` branch. Today `dist/index.html` is only a deployment test page.
-- Until the owner says to deploy, set Vite `build.outDir` to `dist-next` and gitignore it. To launch, switch to the owner's deploy method.
-- GitHub Pages has no rewrites, so `/<code>` paths would 404. When development starts, add a build step that copies `index.html` to `404.html`.
-- The domain is `sameerwedshania.qd.je`: put a `CNAME` file with that name in `public/` and keep Vite `base` as `/`.
-- There is no `.gitignore` yet. Create one with `node_modules`, `dist-next` and `.env*`. Do not ignore `dist`.
+- Hosting is GitHub Pages at `https://pmchohan.github.io/sameerwedshania/`; the content of `project/dist` is published to the `gh-pages` branch.
+- Vite `base` is `/sameerwedshania/`; BrowserRouter uses the same basename. Build to `dist` and publish that folder to `gh-pages`.
+- The custom domain `sameerwedshania.qd.je` is not configured (its DNS points to 185.27.134.95); do not add a CNAME until DNS and SSL are fixed.
+- GitHub Pages has no rewrites, so `/<code>` paths would 404. The build step copies `index.html` to `404.html`.
+- `.gitignore` has `node_modules`, `dist-next` and `.env*`. Do not ignore `dist`.
 - Commit PRODUCT.md, DESIGN.md, `.impeccable/config.json` and `.impeccable/surfaces/`. Do not gitignore `.impeccable/` as a whole.
 
 ## Commands (in `project/`)

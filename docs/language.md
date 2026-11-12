@@ -34,7 +34,7 @@ Set `<html lang>` and `<html dir>` (`rtl` for Urdu), and update `<title>`.
 ## Direction (RTL)
 
 - Use logical CSS properties only: `margin-inline`, `padding-inline`, `inset-inline`, `text-align: start | center`. No `left`/`right` for content.
-- Things that must not mirror: the opening doors (wrap the opening in `dir="ltr"`), asymmetric ornaments, the toggle's position.
+- Things that must not mirror: the opening tile scatter and arch (wrap the scatter in `dir="ltr"`), asymmetric ornaments, the toggle's position.
 - Latin names and numbers inside Urdu text go in `<bdi>` or an element with `lang="en"`. Use Latin digits.
 
 ## Urdu typography

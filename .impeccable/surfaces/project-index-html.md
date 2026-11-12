@@ -11,7 +11,7 @@ Mode: Experience. Visitor: a wedding guest on a phone, opened from WhatsApp. Job
 
 Memorable moment: the tap on the keystone that locks the last tiles and opens the arch onto the names.
 
-Unresolved: tile motif drawing, type pairing, per-event panel treatment, desktop treatment.
+Unresolved: none for the first surface. Tile motifs, type pairing, per-event panel treatment and desktop treatment are recorded in `DESIGN.md`; remaining placeholders are product facts in config.
 
 ## Direction contract
 
