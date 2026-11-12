@@ -1,0 +1,38 @@
+/* Fixed to the physical top right in both languages: it does not mirror in Urdu, so it never moves. */
+.toggle {
+  position: fixed;
+  top: max(calc(var(--m) * 1.5), env(safe-area-inset-top));
+  right: max(calc(var(--m) * 1.5), env(safe-area-inset-right));
+  z-index: var(--z-toggle);
+  min-width: calc(var(--m) * 6);
+  height: calc(var(--m) * 4);
+  padding: 0 calc(var(--m) * 1.5);
+  border: 1px solid var(--gold-line);
+  border-radius: 2px;
+  background: var(--toggle-bg);
+  color: var(--mist-300);
+  font-size: 0.9375rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.4s var(--ease-out);
+}
+
+.toggle[lang='en'] {
+  font-family: var(--font-latin);
+}
+
+.toggle[lang='ur'] {
+  font-family: var(--font-urdu);
+  font-size: 1.05rem;
+}
+
+/* A larger tap area than the small visible chip. */
+.toggle::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--m) * -1);
+}
+
+.toggle:hover {
+  border-color: var(--gold-400);
+}

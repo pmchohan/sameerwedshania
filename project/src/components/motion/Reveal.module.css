@@ -1,0 +1,21 @@
+.root {
+  width: 100%;
+  opacity: 0;
+  transform: translateY(calc(var(--m) * 4));
+  transition:
+    opacity 0.8s var(--ease-out) var(--delay),
+    transform 0.8s var(--ease-out) var(--delay);
+}
+
+.seen {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

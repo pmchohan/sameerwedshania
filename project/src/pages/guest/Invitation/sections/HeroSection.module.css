@@ -1,0 +1,118 @@
+.hero {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: calc(var(--m) * 3);
+  min-height: 100svh;
+  padding: calc(var(--m) * 9) calc(var(--m) * 2) calc(var(--m) * 12);
+  background: var(--ground);
+  color: var(--ink);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Inside the niche */
+.star {
+  width: calc(var(--m) * 4);
+  height: calc(var(--m) * 4);
+  --tile-base: var(--gold-400);
+  --tile-main: var(--cobalt-900);
+  --tile-accent: var(--white-100);
+}
+
+.bismillah {
+  font-family: 'Bismillah', var(--font-urdu);
+  font-size: 1.35rem;
+  line-height: 2.2;
+  white-space: nowrap;
+  color: var(--gold-400);
+}
+
+.names {
+  display: grid;
+  justify-items: center;
+  font-family: var(--font-script);
+  font-size: clamp(2.75rem, 12vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--white-100);
+}
+
+:global(html[lang='ur']) .names {
+  font-size: 2.1rem;
+  line-height: 1.7;
+}
+
+.and {
+  font-family: var(--font-latin);
+  font-size: 1.25rem;
+  color: var(--gold-400);
+}
+
+/* Beneath the arch: the tap prompt first, then the welcome, stacked in one cell so nothing shifts. */
+.below {
+  display: grid;
+  width: min(100%, 26rem);
+}
+
+.below > * {
+  grid-area: 1 / 1;
+}
+
+.tap {
+  align-self: start;
+  color: var(--gold-400);
+  font-size: 1.125rem;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+:global(html[lang='en']) .tap {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.welcome {
+  display: grid;
+  justify-items: center;
+  gap: calc(var(--m) * 1.5);
+  opacity: 0;
+  transform: translateY(var(--m));
+  transition:
+    opacity 1s var(--ease-out) 2.3s,
+    transform 1s var(--ease-out) 2.3s;
+}
+
+.guestLine {
+  color: var(--ink-muted);
+}
+
+.guest {
+  display: block;
+  font-family: var(--font-script);
+  font-size: 2.75rem;
+  line-height: 1.3;
+  color: var(--gold-400);
+}
+
+.line {
+  max-width: 22rem;
+  color: var(--ink-muted);
+}
+
+/* Built: the prompt gives way to the welcome. */
+.hero:has([data-state='built']) .tap {
+  opacity: 0;
+}
+
+.hero:has([data-state='built']) .welcome {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome {
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
+}

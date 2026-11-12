@@ -1,0 +1,93 @@
+:root {
+  /* One module. Spacing, tile size (4 modules) and strip height all count in it. */
+  --m: 0.5rem;
+
+  /* Glaze palette, from Wazir Khan kashi-kari: cobalt, turquoise, leaf, white, gold. */
+  --cobalt-950: #061638;
+  --cobalt-900: #081d52;
+  --cobalt-700: #0a2463;
+  --lapis-800: #0a3b73;
+  --turquoise-600: #1ba6a6;
+  --turquoise-800: #0f6f7c;
+  --leaf-600: #1f8a4c;
+  --gold-400: #f2c94c;
+  --white-100: #f4f8fb;
+  --white-200: #eaf3f8;
+  --mist-300: #b9cce6;
+  --rose-300: #ffa3b8;
+  --gold-line: rgb(242 201 76 / 0.55);
+  --toggle-bg: rgb(6 22 56 / 0.92);
+
+  --font-latin: 'Alegreya Sans', system-ui, sans-serif;
+  --font-urdu: 'Noto Nastaliq Urdu', 'Alegreya Sans', serif;
+  --font-script: 'Pinyon Script', 'Alegreya Sans', cursive;
+  --font-text: var(--font-latin);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --z-cue: 20;
+  --z-toggle: 50;
+}
+
+/* In Urdu the Nastaliq face carries both the script role and the text role. */
+html[lang='ur'] {
+  --font-script: var(--font-urdu);
+  --font-text: var(--font-urdu);
+}
+
+/* The page runs from night toward day. Each region sets its own light. */
+:root,
+[data-light='night'] {
+  --ground: var(--cobalt-950);
+  --ink: var(--white-100);
+  --ink-muted: var(--mist-300);
+  --accent: var(--gold-400);
+  --focus: var(--gold-400);
+  --line: var(--gold-line);
+  --line-soft: rgb(242 201 76 / 0.25);
+  --tile-base: var(--cobalt-700);
+  --tile-main: var(--white-100);
+  --tile-accent: var(--turquoise-600);
+  --tile-grout: var(--cobalt-950);
+}
+
+[data-light='dusk'] {
+  --ground: var(--lapis-800);
+  --ink: var(--white-100);
+  --ink-muted: #cfe0f3;
+  --accent: var(--gold-400);
+  --focus: var(--gold-400);
+  --line: var(--gold-line);
+  --line-soft: rgb(242 201 76 / 0.28);
+  --tile-base: var(--cobalt-700);
+  --tile-main: var(--white-100);
+  --tile-accent: var(--turquoise-600);
+  --tile-grout: var(--lapis-800);
+}
+
+[data-light='dawn'] {
+  --ground: var(--turquoise-800);
+  --ink: var(--white-100);
+  --ink-muted: #e3f4f5;
+  --accent: var(--white-100);
+  --focus: var(--white-100);
+  --line: rgb(244 248 251 / 0.65);
+  --line-soft: rgb(244 248 251 / 0.3);
+  --tile-base: var(--turquoise-600);
+  --tile-main: var(--white-100);
+  --tile-accent: var(--gold-400);
+  --tile-grout: var(--turquoise-800);
+}
+
+[data-light='day'] {
+  --ground: var(--white-200);
+  --ink: var(--cobalt-700);
+  --ink-muted: #3a4f85;
+  --accent: var(--turquoise-800);
+  --focus: var(--cobalt-700);
+  --line: rgb(10 36 99 / 0.5);
+  --line-soft: rgb(10 36 99 / 0.2);
+  --tile-base: var(--white-200);
+  --tile-main: var(--cobalt-700);
+  --tile-accent: var(--turquoise-600);
+  --tile-grout: var(--white-100);
+}

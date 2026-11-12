@@ -1,0 +1,87 @@
+/* The Bismillah header: a subset of Noto Nastaliq Urdu holding only its own glyphs, so English first load stays small. */
+@font-face {
+  font-family: 'Bismillah';
+  src: url('../assets/fonts/bismillah.woff2') format('woff2');
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  background: var(--cobalt-950);
+  color-scheme: dark;
+  scrollbar-color: var(--gold-400) var(--cobalt-950);
+}
+
+/* Held while the arch is being built. */
+html[data-scroll-lock='true'],
+html[data-scroll-lock='true'] body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+html[lang='ur'] body {
+  font-size: 1.15rem;
+  line-height: 2.1;
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:lang(ur) {
+  letter-spacing: 0;
+  text-transform: none;
+  font-style: normal;
+  font-synthesis: none;
+}
+
+/* Browser surfaces carry the design too. */
+::selection {
+  background: var(--gold-400);
+  color: var(--cobalt-950);
+}
+
+input {
+  caret-color: var(--gold-400);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

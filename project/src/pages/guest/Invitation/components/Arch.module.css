@@ -1,0 +1,204 @@
+.arch {
+  position: relative;
+  width: min(88vw, 26rem);
+  aspect-ratio: var(--cols) / var(--rows);
+  margin-inline: auto;
+}
+
+.shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.niche {
+  fill: var(--cobalt-900);
+}
+
+.line {
+  fill: none;
+  stroke: var(--gold-400);
+  stroke-width: 1.5;
+  opacity: 0.4;
+  transition: opacity 0.8s var(--ease-out) 1.6s;
+}
+
+.arch[data-state='built'] .line {
+  opacity: 1;
+}
+
+.tiles {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+}
+
+.tile {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.tile > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Three glazes alternate around the frame; the wall corners use the leaf glaze. */
+.glazeA {
+  --tile-base: var(--cobalt-700);
+  --tile-main: var(--white-100);
+  --tile-accent: var(--turquoise-600);
+}
+
+.glazeB {
+  --tile-base: var(--turquoise-600);
+  --tile-main: var(--white-100);
+  --tile-accent: var(--cobalt-700);
+}
+
+.glazeC {
+  --tile-base: var(--cobalt-700);
+  --tile-main: var(--leaf-600);
+  --tile-accent: var(--gold-400);
+}
+
+/* Loose: tiles are pushed out from home and tumbled. Tapping sends them home, base first. */
+.frame {
+  transform: translate(calc(var(--x) * 100%), calc(var(--y) * 100%)) rotate(var(--r));
+  transition: transform 1s var(--ease-out) var(--d);
+  will-change: transform;
+}
+
+.arch[data-state='built'] .frame {
+  transform: none;
+}
+
+.spandrel {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out) 1.7s;
+}
+
+.arch[data-state='built'] .spandrel {
+  opacity: 1;
+}
+
+/* The keystone stays at home as the tap target, then locks in last. */
+.keystone {
+  position: relative;
+  cursor: pointer;
+  --tile-base: var(--gold-400);
+  --tile-main: var(--cobalt-950);
+  --tile-accent: var(--white-100);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.keystone::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--m) * -0.75);
+  border: 1px solid var(--gold-400);
+  animation: ring 2.4s ease-out infinite;
+}
+
+/* A larger tap area than the tile itself. */
+.keystone::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--m) * -1.5);
+}
+
+.arch[data-state='built'] .keystone {
+  cursor: default;
+  animation: lock 0.9s var(--ease-out) 1.4s both;
+}
+
+.arch[data-state='built'] .keystone::before {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes ring {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+
+@keyframes lock {
+  from {
+    transform: scale(1.35);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.content {
+  position: absolute;
+  left: calc(2 / var(--cols) * 100%);
+  right: calc(2 / var(--cols) * 100%);
+  top: 27%;
+  bottom: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(var(--m));
+  transition:
+    opacity 1s var(--ease-out) 2.1s,
+    transform 1s var(--ease-out) 2.1s;
+}
+
+.arch[data-state='built'] .content {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame {
+    transform: none;
+    transition: none;
+  }
+
+  .spandrel {
+    opacity: 1;
+    transition: none;
+  }
+
+  .keystone,
+  .arch[data-state='built'] .keystone {
+    animation: none;
+  }
+
+  .keystone::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .line {
+    opacity: 1;
+    transition: none;
+  }
+
+  .content {
+    transition: opacity 0.4s ease;
+  }
+}

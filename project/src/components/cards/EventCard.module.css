@@ -1,0 +1,87 @@
+.panel {
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.body {
+  display: grid;
+  justify-items: center;
+  gap: calc(var(--m) * 5);
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: calc(var(--m) * 10) calc(var(--m) * 3) calc(var(--m) * 12);
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-script);
+  font-size: clamp(3.5rem, 17vw, 5rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--accent);
+}
+
+/* The date sits in a double-ruled square, like a single large tile. */
+.date {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  width: calc(var(--m) * 22);
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  outline: 1px solid var(--line-soft);
+  outline-offset: calc(var(--m) * -1.5);
+}
+
+.weekday,
+.month {
+  color: var(--ink-muted);
+  font-size: 1.125rem;
+}
+
+.day {
+  font-family: var(--font-latin);
+  font-size: 5.5rem;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+
+.facts {
+  display: grid;
+  gap: calc(var(--m) * 3);
+  width: 100%;
+}
+
+.row + .row {
+  padding-top: calc(var(--m) * 3);
+  border-top: 1px solid var(--line-soft);
+}
+
+.row dt {
+  color: var(--ink-muted);
+  font-size: 1rem;
+}
+
+:global(html[lang='en']) .row dt {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.row dd {
+  font-size: 1.5rem;
+  line-height: 1.35;
+}
+
+.address {
+  display: block;
+  margin-top: var(--m);
+  color: var(--ink-muted);
+  font-size: 1.125rem;
+}
+
+.note {
+  max-width: 28rem;
+  color: var(--ink-muted);
+}

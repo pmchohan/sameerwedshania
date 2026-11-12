@@ -28,6 +28,7 @@ export const STRINGS = {
     ur: 'یہ کوڈ نہیں ملا۔ براہِ کرم موصول ہونے والا پیغام دیکھ کر دوبارہ کوشش کریں۔',
   },
   closing: { en: 'We look forward to celebrating with you.', ur: 'ہم آپ کے ساتھ خوشیاں بانٹنے کے منتظر ہیں۔' },
+  and: { en: '&', ur: 'اور' },
   switchLanguage: { en: 'Switch to Urdu', ur: 'انگریزی میں دیکھیں' },
 } satisfies Record<string, Pair>;
 

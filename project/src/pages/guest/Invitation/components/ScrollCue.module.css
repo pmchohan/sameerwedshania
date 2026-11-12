@@ -1,0 +1,52 @@
+.cue {
+  position: fixed;
+  left: 50%;
+  bottom: max(calc(var(--m) * 2), env(safe-area-inset-bottom));
+  z-index: var(--z-cue);
+  display: grid;
+  justify-items: center;
+  gap: var(--m);
+  translate: -50% 0;
+  color: var(--gold-400);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.cue[data-visible='true'] {
+  opacity: 1;
+}
+
+.label {
+  font-size: 1rem;
+}
+
+:global(html[lang='en']) .label {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.chevrons {
+  width: calc(var(--m) * 3);
+  height: calc(var(--m) * 3.5);
+  animation: nudge 1.8s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(calc(var(--m) * 0.75));
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevrons {
+    animation: none;
+  }
+}

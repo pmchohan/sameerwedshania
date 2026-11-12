@@ -1,0 +1,35 @@
+.form {
+  display: grid;
+  gap: calc(var(--m) * 2);
+  width: min(100%, 22rem);
+}
+
+.label {
+  color: var(--ink-muted);
+}
+
+.input {
+  min-height: calc(var(--m) * 7);
+  padding: 0 calc(var(--m) * 2);
+  border: 1px solid var(--gold-line);
+  border-radius: 2px;
+  background: var(--cobalt-900);
+  color: var(--ink);
+  font-family: var(--font-latin);
+  font-size: 1.25rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.input:focus-visible {
+  border-color: var(--gold-400);
+  outline-offset: 2px;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--rose-300);
+}
+
+.error {
+  color: var(--rose-300);
+}

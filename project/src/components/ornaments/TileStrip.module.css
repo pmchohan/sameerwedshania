@@ -1,0 +1,5 @@
+.strip {
+  display: block;
+  width: 100%;
+  height: calc(var(--m) * 4);
+}

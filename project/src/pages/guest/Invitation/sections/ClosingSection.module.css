@@ -1,0 +1,32 @@
+.closing {
+  background: var(--ground);
+  color: var(--ink);
+  text-align: center;
+}
+
+.body {
+  display: grid;
+  justify-items: center;
+  gap: calc(var(--m) * 4);
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: calc(var(--m) * 12) calc(var(--m) * 3) calc(var(--m) * 16);
+}
+
+.line {
+  max-width: 22rem;
+  color: var(--ink-muted);
+}
+
+.names {
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 14vw, 4.5rem);
+  line-height: 1.4;
+  color: var(--gold-400);
+}
+
+.and {
+  font-family: var(--font-latin);
+  font-size: 0.4em;
+  color: var(--ink-muted);
+}
