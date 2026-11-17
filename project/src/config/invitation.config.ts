@@ -45,5 +45,6 @@ export const events: Record<EventKey, WeddingEvent> = {
 export const guests: Guest[] = [
   // Owner's example: Ali is invited to the walima only.
   { code: 'achunp', name: { en: 'Ali', ur: 'علی' }, events: ['walima'] },
+  { code: 'xzzium', name: { en: 'Ahmed', ur: 'احمد' }, events: ['mehndi', 'walima', 'barat'] },
   // Add test guests here while working; remove them before a public deploy.
 ];
