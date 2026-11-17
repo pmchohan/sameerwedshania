@@ -77,6 +77,8 @@ components:
 
 # Design System: Sameer & Hania
 
+> **Current direction (2026-11-17):** The default opening is **Darwaza**: a whole portrait two-leaf peacock-green door with a gold frame and `S & H` knocker swings open onto a lit courtyard. The Kashi, Sehra and Standard systems below remain available as previews (`?theme=kashi`, `?theme=sehra`, `?theme=standard`) but are not the default. This document still describes the old Kashi system and needs a full rewrite after owner approval.
+
 ## Overview
 
 **Creative North Star: "The Kashi-kari Mihrab"**

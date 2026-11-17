@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { MapButton } from '@/components/maps/MapButton';
 import { Reveal } from '@/components/motion/Reveal';
-import { TileStrip } from '@/components/ornaments/TileStrip';
+import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
 import type { WeddingEvent } from '@/config/types';
 import { formatDate } from '@/i18n/formatDate';
 import { formatTime } from '@/i18n/formatTime';
@@ -23,7 +23,7 @@ export function EventCard({ event, light }: EventCardProps) {
 
   return (
     <section className={s.panel} data-light={light} aria-labelledby={titleId}>
-      <TileStrip />
+      <ThemeOrnament />
       <div className={s.body}>
         <Reveal>
           <h2 id={titleId} className={s.title}>

@@ -37,3 +37,31 @@
   color: var(--rose-300);
   overflow-wrap: anywhere;
 }
+
+:global(html[data-theme='standard']) .form {
+  padding: calc(var(--m) * 3);
+  border: 1px solid var(--gold-line);
+  outline: 1px solid rgb(201 162 39 / 0.25);
+  outline-offset: calc(var(--m) * -0.75);
+  background: var(--white-100);
+  color: var(--cobalt-700);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.18);
+}
+
+:global(html[data-theme='standard']) .label {
+  color: #4e665b;
+}
+
+:global(html[data-theme='standard']) .input {
+  border-color: rgb(10 61 48 / 0.45);
+  background: var(--white-100);
+  color: var(--cobalt-700);
+}
+
+:global(html[data-theme='standard']) .input:focus-visible {
+  border-color: var(--gold-400);
+}
+
+:global(html[data-theme='standard']) .error {
+  color: #9b2c2c;
+}

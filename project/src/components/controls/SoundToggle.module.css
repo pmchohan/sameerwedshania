@@ -1,0 +1,47 @@
+.toggle {
+  position: fixed;
+  top: max(calc(var(--m) * 1.5), env(safe-area-inset-top));
+  left: max(calc(var(--m) * 1.5), env(safe-area-inset-left));
+  z-index: var(--z-toggle);
+  display: grid;
+  place-items: center;
+  width: calc(var(--m) * 5);
+  height: calc(var(--m) * 5);
+  padding: 0;
+  border: 1px solid var(--gold-line);
+  border-radius: 50%;
+  background: var(--toggle-bg);
+  color: var(--mist-300);
+  cursor: pointer;
+  transition:
+    border-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out);
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--m) * -0.5);
+  border-radius: 50%;
+}
+
+.toggle:hover {
+  border-color: var(--gold-400);
+  color: var(--gold-400);
+}
+
+.toggle svg {
+  width: calc(var(--m) * 2.5);
+  height: calc(var(--m) * 2.5);
+}
+
+.speaker {
+  fill: currentColor;
+}
+
+.wave {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}

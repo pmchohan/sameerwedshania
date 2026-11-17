@@ -1,0 +1,31 @@
+.rule {
+  display: block;
+  width: 100%;
+  height: calc(var(--m) * 4);
+  color: var(--gold-400);
+}
+
+.line,
+.lineSoft,
+.diamond {
+  fill: none;
+  stroke: currentColor;
+  vector-effect: non-scaling-stroke;
+}
+
+.line {
+  stroke-width: 1;
+}
+
+.lineSoft {
+  stroke-width: 0.7;
+  opacity: 0.45;
+}
+
+.diamond {
+  stroke-width: 1;
+}
+
+.dot {
+  fill: currentColor;
+}

@@ -1,29 +1,29 @@
 import { useEffect, useState } from 'react';
 import { SiteLayout } from '@/layouts/SiteLayout/SiteLayout';
 import { InviteMiddleware } from '@/middleware/InviteMiddleware';
+import { OPEN_MS, useTheme } from '@/theme/theme';
 import { useScrollLock } from '@/hooks/useScrollLock';
 import type { Phase } from './phase';
 import ClosingSection from './sections/ClosingSection';
 import EventsSection from './sections/EventsSection';
-import HeroSection from './sections/HeroSection';
+import OpeningHero from './sections/OpeningHero';
 
-/** Time for the tiles to lock in and the niche to fill, before the page starts to scroll. */
-const BUILD_MS = 2800;
 const REDUCED_MOTION_MS = 400;
 
 // Dev only: open /<code>#open to skip the tap while working on the sections below the hero.
 const startPhase = (): Phase => (import.meta.env.DEV && window.location.hash.startsWith('#open') ? 'open' : 'closed');
 
 export default function Invitation({ code }: { code: string }) {
+  const theme = useTheme();
   const [phase, setPhase] = useState<Phase>(startPhase);
   useScrollLock(phase !== 'open');
 
   useEffect(() => {
     if (phase !== 'locking') return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const timer = window.setTimeout(() => setPhase('open'), reduced ? REDUCED_MOTION_MS : BUILD_MS);
+    const timer = window.setTimeout(() => setPhase('open'), reduced ? REDUCED_MOTION_MS : OPEN_MS[theme]);
     return () => window.clearTimeout(timer);
-  }, [phase]);
+  }, [phase, theme]);
 
   // Dev only: #open skips the tap; #open=<n> also jumps to the nth section below the hero
   // (1..3 events, 4 closing) and settles transitions, so headless screenshots are deterministic.
@@ -50,7 +50,7 @@ export default function Invitation({ code }: { code: string }) {
       <InviteMiddleware code={code}>
         {(guest) => (
           <>
-            <HeroSection guest={guest} phase={phase} onOpen={() => setPhase((current) => (current === 'closed' ? 'locking' : current))} />
+            <OpeningHero guest={guest} phase={phase} onOpen={() => setPhase((current) => (current === 'closed' ? 'locking' : current))} />
             <EventsSection guest={guest} />
             <ClosingSection />
           </>

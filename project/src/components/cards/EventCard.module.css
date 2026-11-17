@@ -116,3 +116,160 @@
 :global(html[lang='ur']) .address {
   font-size: 1.2rem;
 }
+
+:global(html[data-theme='sehra']) .title {
+  font-style: italic;
+  font-size: clamp(3.2rem, 15vw, 4.8rem);
+  line-height: 1.05;
+}
+
+:global(html[data-theme='sehra']) .date {
+  border-color: var(--line);
+  border-radius: 50%;
+  outline-color: var(--line-soft);
+}
+
+:global(html[data-theme='sehra']) .day {
+  font-family: var(--font-script);
+  font-weight: 500;
+}
+
+:global(html[data-theme='sehra']) .weekday,
+:global(html[data-theme='sehra']) .month {
+  color: var(--ink-muted);
+}
+
+:global(html[data-theme='sehra']) .address,
+:global(html[data-theme='sehra']) .note {
+  color: var(--ink-muted);
+}
+
+:global(html[lang='ur'][data-theme='sehra']) .title {
+  font-style: normal;
+  font-size: 2.5rem;
+  line-height: 1.9;
+}
+
+:global(html[data-theme='standard']) .body {
+  --ink: var(--cobalt-700);
+  --ink-muted: #4e665b;
+  --line: rgb(10 61 48 / 0.45);
+  --line-soft: rgb(10 61 48 / 0.18);
+  width: calc(100% - var(--m) * 4);
+  max-width: 32rem;
+  margin: calc(var(--m) * 6) auto;
+  padding: calc(var(--m) * 6) calc(var(--m) * 3);
+  border: 1px solid var(--gold-line);
+  outline: 1px solid rgb(201 162 39 / 0.25);
+  outline-offset: calc(var(--m) * -0.75);
+  background: var(--white-100);
+  color: var(--ink);
+}
+
+:global(html[data-theme='standard']) .title {
+  font-family: var(--font-script);
+  font-size: clamp(2.75rem, 12vw, 4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+:global(html[data-theme='standard']) .date {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: calc(var(--m) * 1);
+  width: 100%;
+  aspect-ratio: auto;
+  padding-block: calc(var(--m) * 2);
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  outline: 0;
+}
+
+:global(html[data-theme='standard']) .weekday,
+:global(html[data-theme='standard']) .month {
+  font-size: 0.875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+:global(html[data-theme='standard']) .day {
+  font-family: var(--font-script);
+  font-size: 4.25rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink);
+}
+
+:global(html[data-theme='standard']) .row dd {
+  color: var(--ink);
+}
+
+:global(html[data-theme='standard']) .address,
+:global(html[data-theme='standard']) .note {
+  color: var(--ink-muted);
+}
+
+:global(html[lang='ur'][data-theme='standard']) .title {
+  font-size: 2.2rem;
+  line-height: 1.8;
+}
+
+
+@media (max-height: 850px) {
+  :global(html[data-theme='sehra']) .body {
+    gap: calc(var(--m) * 3);
+    padding: calc(var(--m) * 6) calc(var(--m) * 3) calc(var(--m) * 8);
+  }
+
+  :global(html[data-theme='sehra']) .date {
+    width: calc(var(--m) * 18);
+  }
+}
+
+/* Darwaza: the event panels continue the courtyard, with an arch drawn behind the content. */
+:global(html[data-theme='darwaza']) .panel {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(255 111 159 / 0.12), transparent 38%),
+    radial-gradient(ellipse at 50% 100%, rgb(47 181 168 / 0.1), transparent 46%),
+    var(--ground);
+}
+
+:global(html[data-theme='darwaza']) .body {
+  position: relative;
+}
+
+:global(html[data-theme='darwaza']) .body::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--m) * 2) calc(var(--m) * 1.5);
+  border: 1px solid var(--line-soft);
+  border-radius: 50% 50% 0 0 / 15% 15% 0 0;
+  pointer-events: none;
+}
+
+:global(html[data-theme='darwaza']) .body > * {
+  position: relative;
+  z-index: 1;
+}
+
+:global(html[data-theme='darwaza']) .date {
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(242 201 76 / 0.08), transparent 68%);
+}
+
+:global(html[data-theme='darwaza']) .title {
+  font-family: var(--font-script);
+  font-size: clamp(3.2rem, 16vw, 4.8rem);
+  line-height: 1.1;
+}
+
+:global(html[lang='ur'][data-theme='darwaza']) .title {
+  font-size: 2.5rem;
+  line-height: 1.9;
+}

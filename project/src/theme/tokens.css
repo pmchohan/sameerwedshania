@@ -15,7 +15,8 @@
   --white-200: #eaf3f8;
   --mist-300: #b9cce6;
   --rose-300: #ffa3b8;
-  --gold-line: rgb(242 201 76 / 0.55);
+  --line-rgb: 242 201 76;
+  --gold-line: rgb(var(--line-rgb) / 0.55);
   --toggle-bg: rgb(6 22 56 / 0.92);
 
   --font-latin: 'Alegreya Sans', system-ui, sans-serif;
@@ -43,7 +44,7 @@ html[lang='ur'] {
   --accent: var(--gold-400);
   --focus: var(--gold-400);
   --line: var(--gold-line);
-  --line-soft: rgb(242 201 76 / 0.25);
+  --line-soft: rgb(var(--line-rgb) / 0.25);
   --tile-base: var(--cobalt-700);
   --tile-main: var(--white-100);
   --tile-accent: var(--turquoise-600);
@@ -57,7 +58,7 @@ html[lang='ur'] {
   --accent: var(--gold-400);
   --focus: var(--gold-400);
   --line: var(--gold-line);
-  --line-soft: rgb(242 201 76 / 0.28);
+  --line-soft: rgb(var(--line-rgb) / 0.28);
   --tile-base: var(--cobalt-700);
   --tile-main: var(--white-100);
   --tile-accent: var(--turquoise-600);

@@ -29,6 +29,8 @@ export const STRINGS = {
   },
   closing: { en: 'We look forward to celebrating with you.', ur: 'ہم آپ کے ساتھ خوشیاں بانٹنے کے منتظر ہیں۔' },
   and: { en: '&', ur: 'اور' },
+  muteSound: { en: 'Mute sound', ur: 'آواز بند کریں' },
+  unmuteSound: { en: 'Turn sound on', ur: 'آواز چالو کریں' },
   switchLanguage: { en: 'Switch to Urdu', ur: 'انگریزی میں دیکھیں' },
 } satisfies Record<string, Pair>;
 

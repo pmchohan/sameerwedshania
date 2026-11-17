@@ -1,0 +1,129 @@
+.scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stars circle {
+  fill: var(--white-100);
+}
+
+.moon {
+  fill: var(--dz-gold-hi);
+}
+
+.farPalace {
+  fill: var(--dz-far);
+  opacity: 0.82;
+}
+
+.archFill {
+  fill: var(--dz-mid);
+  stroke: none;
+}
+
+.archLine,
+.archInnerLine,
+.innerLine,
+.chain,
+.lanternLine,
+.pilasters path,
+.garland path,
+.reflection path,
+.floorLights path {
+  fill: none;
+  stroke: var(--dz-gold);
+  vector-effect: non-scaling-stroke;
+}
+
+.archLine {
+  stroke-width: 1.6;
+}
+
+.archInnerLine {
+  stroke-width: 0.8;
+  opacity: 0.55;
+}
+
+.innerDoor {
+  filter: drop-shadow(0 0 16px var(--dz-gold));
+}
+
+.innerLine {
+  stroke-width: 1.2;
+}
+
+.innerLight {
+  fill: var(--dz-gold);
+  opacity: 0.68;
+}
+
+.chain {
+  stroke-width: 0.8;
+  opacity: 0.6;
+}
+
+.lanternBody {
+  fill: var(--dz-lacquer-lo);
+  stroke: var(--dz-gold);
+  stroke-width: 1.2;
+}
+
+.lanternLine {
+  stroke-width: 0.7;
+  opacity: 0.8;
+}
+
+.lanternGlow {
+  fill: var(--dz-window-b);
+  opacity: 0.16;
+}
+
+.lanternFlame {
+  fill: var(--dz-gold-hi);
+}
+
+.pilasters path {
+  stroke-width: 0.9;
+  opacity: 0.7;
+}
+
+.garland path {
+  stroke: var(--dz-rose);
+  stroke-width: 1.2;
+  opacity: 0.8;
+}
+
+.garlandFlower {
+  fill: var(--dz-rose);
+}
+
+.floor {
+  opacity: 0.92;
+}
+
+.reflection path {
+  stroke: var(--dz-gold);
+  stroke-width: 0.7;
+  opacity: 0.26;
+}
+
+.reflection ellipse {
+  opacity: 0.7;
+}
+
+.petals ellipse {
+  fill: var(--dz-rose);
+  opacity: 0.7;
+}
+
+.floorLights path {
+  stroke: var(--dz-gold-hi);
+  stroke-width: 1.2;
+  opacity: 0.8;
+}
+
+.floorLights circle {
+  fill: var(--dz-gold-hi);
+  opacity: 0.9;
+}

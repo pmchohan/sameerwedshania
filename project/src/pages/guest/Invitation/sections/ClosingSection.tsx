@@ -1,5 +1,5 @@
 import { Reveal } from '@/components/motion/Reveal';
-import { TileStrip } from '@/components/ornaments/TileStrip';
+import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
 import { couple } from '@/config/invitation.config';
 import { useLang } from '@/i18n/useLang';
 import s from './ClosingSection.module.css';
@@ -9,7 +9,7 @@ export default function ClosingSection() {
   const { t, s: text } = useLang();
   return (
     <section className={s.closing} data-light="night">
-      <TileStrip />
+      <ThemeOrnament />
       <div className={s.body}>
         <Reveal>
           <p className={s.line}>{text('closing')}</p>

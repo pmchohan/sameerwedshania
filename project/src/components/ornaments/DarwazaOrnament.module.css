@@ -1,0 +1,79 @@
+.ornament {
+  display: block;
+  width: 100%;
+  height: calc(var(--m) * 12);
+  color: var(--accent);
+}
+
+.rule,
+.ruleSoft,
+.arch,
+.archInner,
+.chain,
+.body,
+.slats,
+.vine {
+  fill: none;
+  stroke: currentColor;
+  vector-effect: non-scaling-stroke;
+}
+
+.rule {
+  stroke-width: 1;
+  opacity: 0.8;
+}
+
+.ruleSoft {
+  stroke-width: 0.7;
+  opacity: 0.35;
+}
+
+.arch {
+  stroke-width: 1.4;
+}
+
+.archInner {
+  stroke-width: 0.7;
+  opacity: 0.55;
+}
+
+.archDot,
+.stars path {
+  fill: currentColor;
+}
+
+.chain {
+  stroke-width: 0.7;
+  opacity: 0.6;
+}
+
+.body {
+  stroke-width: 1.1;
+}
+
+.slats {
+  stroke-width: 0.7;
+  opacity: 0.65;
+}
+
+.flame {
+  fill: var(--gold-400);
+}
+
+.vine {
+  stroke: var(--rose-300);
+  stroke-width: 1.1;
+  opacity: 0.72;
+}
+
+.flowers circle {
+  fill: var(--rose-300);
+}
+
+.flowers circle:nth-child(3) {
+  fill: var(--gold-400);
+}
+
+.stars {
+  opacity: 0.7;
+}

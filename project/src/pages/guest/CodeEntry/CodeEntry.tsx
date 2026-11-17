@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { TileStrip } from '@/components/ornaments/TileStrip';
+import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
 import { couple } from '@/config/invitation.config';
 import { useLang } from '@/i18n/useLang';
 import { SiteLayout } from '@/layouts/SiteLayout/SiteLayout';
@@ -14,7 +14,7 @@ export default function CodeEntry({ missed: missedProp = false }: { missed?: boo
   return (
     <SiteLayout>
       <div className={s.page} data-light="night">
-        <TileStrip />
+        <ThemeOrnament />
         <div className={s.body}>
           <h1 className={s.names}>
             <span>{t(couple.groom)}</span>
@@ -23,7 +23,7 @@ export default function CodeEntry({ missed: missedProp = false }: { missed?: boo
           </h1>
           <CodeForm missed={missed} />
         </div>
-        <TileStrip />
+        <ThemeOrnament />
       </div>
     </SiteLayout>
   );

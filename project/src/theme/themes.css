@@ -1,0 +1,104 @@
+html[data-theme='sehra'] {
+  --cobalt-950: #031713;
+  --cobalt-900: #05231c;
+  --cobalt-700: #0a3a2c;
+  --lapis-800: #0d4a38;
+  --turquoise-600: #c7ecd8;
+  --turquoise-800: #0f5b43;
+  --leaf-600: #2e8a63;
+  --gold-400: #dbe9ec;
+  --white-100: #f5fff9;
+  --white-200: #e7f5ec;
+  --mist-300: #aac8b8;
+  --rose-300: #ffb4a6;
+  --line-rgb: 219 233 236;
+  --gold-line: rgb(var(--line-rgb) / 0.55);
+  --toggle-bg: rgb(3 23 19 / 0.92);
+  --mogra-center: var(--turquoise-600);
+}
+
+html[data-theme='sehra'][lang='en'] {
+  --font-script: 'Cormorant Garamond', 'Times New Roman', serif;
+}
+
+html[data-theme='sehra'] [data-light='dawn'] {
+  --line: rgb(245 255 249 / 0.7);
+  --line-soft: rgb(245 255 249 / 0.3);
+}
+
+html[data-theme='sehra'] [data-light='day'] {
+  --line: rgb(10 58 44 / 0.5);
+  --line-soft: rgb(10 58 44 / 0.2);
+}
+
+html[data-theme='standard'] {
+  --cobalt-950: #052e25;
+  --cobalt-900: #041f19;
+  --cobalt-700: #0a3d30;
+  --lapis-800: #0b4a3a;
+  --turquoise-600: #c9a227;
+  --turquoise-800: #0e5a42;
+  --leaf-600: #1f6b4f;
+  --gold-400: #c9a227;
+  --white-100: #f7fbf8;
+  --white-200: #eef6f1;
+  --mist-300: #b9c9c0;
+  --rose-300: #ffb4a8;
+  --line-rgb: 201 162 39;
+  --gold-line: rgb(var(--line-rgb) / 0.6);
+  --toggle-bg: rgb(5 46 37 / 0.92);
+}
+
+html[data-theme='standard'][lang='en'] {
+  --font-script: 'Cormorant Garamond', 'Times New Roman', serif;
+}
+
+html[data-theme='standard'] [data-light='dawn'] {
+  --line: rgb(247 251 248 / 0.7);
+  --line-soft: rgb(247 251 248 / 0.3);
+}
+
+html[data-theme='standard'] [data-light='day'] {
+  --line: rgb(10 61 48 / 0.5);
+  --line-soft: rgb(10 61 48 / 0.2);
+}
+
+/* Darwaza: a courtyard at night behind a peacock-green door. Plum and indigo night, gold light, rose glow.
+   Warm light is gold on small sources and rose-magenta in the air, never a gold-to-rose blend, which would turn peach. */
+html[data-theme='darwaza'] {
+  --cobalt-950: #120a2b;
+  --cobalt-900: #1a0f3d;
+  --cobalt-700: #2a1760;
+  --lapis-800: #37207a;
+  --turquoise-600: #2fb5a8;
+  --turquoise-800: #0d5a56;
+  --leaf-600: #1d7a5f;
+  --gold-400: #f2c94c;
+  --white-100: #f6f2ff;
+  --white-200: #ece6fb;
+  --mist-300: #cbc3ec;
+  --rose-300: #ff9db8;
+  --line-rgb: 242 201 76;
+  --gold-line: rgb(var(--line-rgb) / 0.6);
+  --toggle-bg: rgb(18 10 43 / 0.92);
+
+  --dz-sky-top: #0b051f;
+  --dz-sky-mid: #25115c;
+  --dz-sky-low: #7a2a7a;
+  --dz-far: #24124f;
+  --dz-mid: #170a38;
+  --dz-floor: #0c0524;
+  --dz-window-a: #a02a73;
+  --dz-window-b: #ff7aa8;
+  --dz-lacquer: #0b4a48;
+  --dz-lacquer-hi: #12615d;
+  --dz-lacquer-lo: #06302f;
+  --dz-gold-hi: #fff0a6;
+  --dz-gold: #f2c94c;
+  --dz-gold-lo: #e0b020;
+  --dz-rose: #ff6f9f;
+}
+
+html[data-theme='darwaza'][lang='en'] {
+  --font-script: 'Pinyon Script', 'Alegreya Sans', cursive;
+}

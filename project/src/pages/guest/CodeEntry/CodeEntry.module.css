@@ -35,3 +35,10 @@
 :global(html[lang='ur']) .names {
   line-height: 1.7;
 }
+
+:global(html[data-theme='darwaza']) .page {
+  background:
+    radial-gradient(ellipse at 50% 32%, rgb(242 201 76 / 0.1), transparent 36%),
+    radial-gradient(ellipse at 50% 100%, rgb(255 111 159 / 0.12), transparent 48%),
+    var(--ground);
+}

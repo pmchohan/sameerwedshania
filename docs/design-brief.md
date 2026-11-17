@@ -7,9 +7,10 @@ This is a brief for `impeccable` (`shape`, `new-work`). The settled visual syste
 ## Opening animation
 
 - Starts from a tap on a real `<button>` with a clear "tap to open" prompt, in the current language. No blank screen while assets load. The language toggle is visible.
-- Leading idea: **Kashi-kari mihrab**. Loose glazed tiles tumble across a cobalt ground; the guest taps the gold keystone; the tiles lock into a pointed arch, the gold outline draws, and the niche fills with the couple's names. Wrap the tile scatter in `dir="ltr"` so it stays physical in Urdu. Alternatives: a royal farman scroll unrolling, or a fanoos lighting that reveals the arch. Fallback: envelope or card opening.
-- About 3 to 4 seconds from tap to content, and the hero is usable at once. `prefers-reduced-motion` gets a short cross-fade only.
-- Animate `transform` and `opacity`. One exception: a stroke-draw (`stroke-dashoffset`) on a handful of SVG paths, during the opening only.
+- Current direction: **Darwaza**. A whole, portrait two-leaf peacock-green lacquered door fills the hero, framed in gold, with jali, vines and a central `S & H` knocker. Tapping the knocker or the door swings both leaves outward onto a lit courtyard; the couple's names settle in a dark arched plaque, then the guest's name and welcome appear below. The door carries the physicality the owner asked for: layered static shadows, gold light, and a soft rose glow in the courtyard.
+- The earlier **Kashi-kari mihrab** remains available at `?theme=kashi`: loose glazed tiles lock into an arch after tapping the keystone. The old Sehra and Standard themes also remain as previews.
+- About 3 to 4 seconds from tap to content, and the hero is usable at once. `prefers-reduced-motion` gets a short cross-fade only; the door and ornament transitions are removed, and the opening resolves in about 400 ms.
+- Animate `transform` and `opacity`. The Darwaza opening may animate the door leaves in 3D; keep shadows static so the phone does not repaint large blurred surfaces every frame. One stroke-draw exception remains for the Kashi arch.
 
 ## Scroll
 
