@@ -81,7 +81,7 @@ PRODUCT.md DESIGN.md   written by impeccable (root)
 ## 8. Open items (update as resolved)
 
 - Confirmed names: **Sameer** (سمیر, groom) and **Hania** (ہانیہ, bride).
-- Dates, times, venues, dress codes and the guest list are not provided. Config starts with `TODO` placeholders; never invent real-looking venues or dates. Test guests were removed for launch; add them locally when testing.
+- Dates, times, venues, dress codes and the guest list are not provided. Config starts with `TODO` placeholders; never invent real-looking venues or dates.
 - Hosting: GitHub Pages at `https://pmchohan.github.io/sameerwedshania/`, so Vite `base` is `/sameerwedshania/` and BrowserRouter uses that basename. The custom domain `sameerwedshania.qd.je` is not configured (its DNS points to 185.27.134.95); no CNAME is deployed. Deploy is manual: build to `project/dist`, publish to `gh-pages`.
 - Opening concept: **Darwaza** is the current default: a whole portrait two-leaf peacock-green door with a gold frame and `S & H` knocker swings open onto a lit courtyard; the names settle in an arched plaque, then the welcome and scroll cue. Kashi (tiled mihrab), Sehra and Standard remain previews. `DESIGN.md` still describes the old Kashi system and needs a full rewrite after owner approval.
 - `DESIGN.md` is at the repo root; `.impeccable/design.json` sits beside the surface brief.
