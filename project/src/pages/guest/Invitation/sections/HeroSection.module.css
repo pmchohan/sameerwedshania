@@ -227,7 +227,7 @@
 .gate[data-open='true'] .doorSeam,
 .gate[data-open='true'] .doorWarm,
 .gate[data-open='true'] .doorPrompt,
-.gate[data-open='true'] .skipBtn {
+.gate[data-open='true'] .doorControls {
   opacity: 0;
   pointer-events: none;
 }
@@ -240,12 +240,26 @@
   display: none;
 }
 
-/* Skip Button (Pill pinned to top left of gate) */
-.skipBtn {
+/* Door Controls: Skip button and Audio control together at top left of gate */
+.doorControls {
   position: absolute;
   top: max(calc(var(--m, 8px) * 1.5), env(safe-area-inset-top));
   left: max(calc(var(--m, 8px) * 1.5), env(safe-area-inset-left));
   z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--m, 8px) * 1);
+  transition: opacity 0.4s ease;
+}
+
+@media (min-width: 768px) {
+  .doorControls {
+    left: calc(50% - 220px + 1rem);
+  }
+}
+
+/* Skip Button (Pill styled to match SoundToggle) */
+.skipBtn {
   height: calc(var(--m, 8px) * 4.25);
   padding: 0 calc(var(--m, 8px) * 1.75);
   display: inline-flex;
@@ -276,12 +290,6 @@
 .skipBtn:hover {
   border-color: var(--gold-400);
   color: var(--gold-400);
-}
-
-@media (min-width: 768px) {
-  .skipBtn {
-    left: calc(50% - 220px + 1rem);
-  }
 }
 
 /* Visual FX */

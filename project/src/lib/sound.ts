@@ -1,6 +1,23 @@
 // The door's sound: synthesized acoustic wood/brass resonant knock with Web Audio,
 // and ambient background wedding music playback with seamless mute/unmute control.
+// Audio is always ON by default on page load. Muted state is in-memory only
+// and never persisted across reloads, so reloads always start fresh with sound active.
 const STORAGE_KEY = 'invitation-sound-muted';
+try {
+  if (typeof window !== 'undefined') {
+    window.localStorage.removeItem(STORAGE_KEY);
+  }
+} catch {
+  // ignore in-app browser restrictions
+}
+
+let muted = false;
+let context: AudioContext | undefined;
+let master: GainNode | undefined;
+let noiseBuffer: AudioBuffer | undefined;
+let musicAudio: HTMLAudioElement | undefined;
+let musicStarted = false;
+const listeners = new Set<() => void>();
 
 type AudioContextClass = typeof AudioContext;
 const AudioContextCtor: AudioContextClass | undefined =
@@ -8,22 +25,6 @@ const AudioContextCtor: AudioContextClass | undefined =
     ? undefined
     : (window.AudioContext ??
       (window as unknown as { webkitAudioContext?: AudioContextClass }).webkitAudioContext);
-
-const readMuted = (): boolean => {
-  try {
-    return window.localStorage.getItem(STORAGE_KEY) === '1';
-  } catch {
-    return false;
-  }
-};
-
-let muted = readMuted();
-let context: AudioContext | undefined;
-let master: GainNode | undefined;
-let noiseBuffer: AudioBuffer | undefined;
-let musicAudio: HTMLAudioElement | undefined;
-let musicStarted = false;
-const listeners = new Set<() => void>();
 
 function audio(): { ctx: AudioContext; out: GainNode } | undefined {
   if (!AudioContextCtor) return undefined;
@@ -213,11 +214,6 @@ export const sound = {
   isMuted: () => muted,
   setMuted(next: boolean) {
     muted = next;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, next ? '1' : '0');
-    } catch {
-      // in-app browsers can block storage
-    }
     if (musicAudio) {
       if (next) {
         musicAudio.pause();

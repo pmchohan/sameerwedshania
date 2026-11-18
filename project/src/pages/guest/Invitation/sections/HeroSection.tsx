@@ -4,6 +4,7 @@ import type { Guest } from '@/config/types';
 import { fill } from '@/i18n/strings';
 import { useLang } from '@/i18n/useLang';
 import { sound } from '@/lib/sound';
+import { SoundToggle } from '@/components/controls/SoundToggle';
 import { ScrollCue } from '../components/ScrollCue';
 import type { Phase } from '../phase';
 import s from './HeroSection.module.css';
@@ -127,7 +128,8 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
     }
   };
 
-  const handleSkip = () => {
+  const handleSkip = (ev?: React.MouseEvent) => {
+    ev?.stopPropagation();
     sound.playOpening();
     if (onSkip) onSkip();
     else onOpen();
@@ -141,14 +143,17 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
       <div className={s.gate} data-open={isOpen} data-gone={isGone} aria-hidden={isOpen}>
         <div className={s.gateBg} />
 
-        <button
-          type="button"
-          className={s.skipBtn}
-          onClick={handleSkip}
-          aria-label={text('skip')}
-        >
-          {text('skip')}
-        </button>
+        <div className={s.doorControls}>
+          <button
+            type="button"
+            className={s.skipBtn}
+            onClick={handleSkip}
+            aria-label={text('skip')}
+          >
+            {text('skip')}
+          </button>
+          <SoundToggle />
+        </div>
 
         <div className={s.doorStage} ref={doorStageRef}>
           <div className={s.doorSeam} aria-hidden="true" />

@@ -3,15 +3,19 @@ import { useLang } from '@/i18n/useLang';
 import { sound } from '@/lib/sound';
 import s from './SoundToggle.module.css';
 
+interface SoundToggleProps {
+  className?: string;
+}
+
 /** The quiet sound switch for the door opening. It sits opposite the language toggle. */
-export function SoundToggle() {
+export function SoundToggle({ className }: SoundToggleProps = {}) {
   const { s: text } = useLang();
   const muted = useSyncExternalStore(sound.subscribe, sound.isMuted, () => false);
 
   return (
     <button
       type="button"
-      className={s.toggle}
+      className={`${s.toggle} ${className ?? ''}`}
       aria-label={text(muted ? 'unmuteSound' : 'muteSound')}
       aria-pressed={muted}
       onClick={(event) => {
