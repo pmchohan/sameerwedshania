@@ -469,9 +469,9 @@
 .bismillah {
   margin: 0.75rem 0 0;
   color: #f7d978;
-  font-family: var(--font-arabic, 'Amiri', serif);
-  font-size: 1.4rem;
-  line-height: 1.8;
+  font-family: var(--font-urdu, 'Noto Nastaliq Urdu', serif);
+  font-size: 1.45rem;
+  line-height: 2;
   text-shadow: 0 0 16px rgba(247, 217, 120, 0.4);
   opacity: 0;
   transform: translateY(18px);

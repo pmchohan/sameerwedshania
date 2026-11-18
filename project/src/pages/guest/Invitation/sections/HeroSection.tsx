@@ -229,7 +229,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
           </p>
 
           <p className={s.bismillah} lang="ar" dir="rtl" data-open={isOpen}>
-            بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </p>
 
           <div className={s.heroMiddle}>

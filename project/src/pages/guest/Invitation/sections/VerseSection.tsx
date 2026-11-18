@@ -23,7 +23,7 @@ export function VerseSection({ guest: _guest }: VerseSectionProps) {
           <CornerOrnament className={`${s.corner} ${s.cornerBottomRight}`} />
 
           <p className={s.bismillah} lang="ar" dir="rtl">
-            بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </p>
 
           <p className={s.arabicVerse} lang="ar" dir="rtl">
