@@ -1,4 +1,6 @@
 import { Reveal } from '@/components/motion/Reveal';
+import { CardRule } from '@/components/ornaments/CardRule';
+import { CornerOrnament } from '@/components/ornaments/CornerOrnament';
 import { families } from '@/config/invitation.config';
 import type { Guest } from '@/config/types';
 import { useLang } from '@/i18n/useLang';
@@ -10,36 +12,15 @@ interface VerseSectionProps {
 
 export function VerseSection({ guest: _guest }: VerseSectionProps) {
   const { t, s: text } = useLang();
-  const base = import.meta.env.BASE_URL ?? '/';
 
   return (
     <section className={s.verseSection} aria-label={text('withBlessings')}>
       <Reveal>
         <div className={s.panel}>
-          <img
-            className={`${s.corner} ${s.cornerTopLeft}`}
-            src={`${base}assets/img/corner-ornament.webp`}
-            alt=""
-            aria-hidden="true"
-          />
-          <img
-            className={`${s.corner} ${s.cornerTopRight}`}
-            src={`${base}assets/img/corner-ornament.webp`}
-            alt=""
-            aria-hidden="true"
-          />
-          <img
-            className={`${s.corner} ${s.cornerBottomLeft}`}
-            src={`${base}assets/img/corner-ornament.webp`}
-            alt=""
-            aria-hidden="true"
-          />
-          <img
-            className={`${s.corner} ${s.cornerBottomRight}`}
-            src={`${base}assets/img/corner-ornament.webp`}
-            alt=""
-            aria-hidden="true"
-          />
+          <CornerOrnament className={`${s.corner} ${s.cornerTopLeft}`} />
+          <CornerOrnament className={`${s.corner} ${s.cornerTopRight}`} />
+          <CornerOrnament className={`${s.corner} ${s.cornerBottomLeft}`} />
+          <CornerOrnament className={`${s.corner} ${s.cornerBottomRight}`} />
 
           <p className={s.bismillah} lang="ar" dir="rtl">
             بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
@@ -57,12 +38,9 @@ export function VerseSection({ guest: _guest }: VerseSectionProps) {
             {text('surahArRum')}
           </span>
 
-          <img
-            className={s.roseDivider}
-            src={`${base}assets/img/rose-divider.webp`}
-            alt=""
-            aria-hidden="true"
-          />
+          <div className={s.dividerWrap}>
+            <CardRule />
+          </div>
 
           <div className={s.familiesBox}>
             <p className={s.familyLine}>

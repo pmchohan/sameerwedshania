@@ -1,13 +1,13 @@
 import { Reveal } from '@/components/motion/Reveal';
+import { CardRule } from '@/components/ornaments/CardRule';
 import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
 import { couple } from '@/config/invitation.config';
 import { useLang } from '@/i18n/useLang';
 import s from './ClosingSection.module.css';
 
-/** The close: wedding dua, thank-you, rose ornament, and couple signature. */
+/** The close: wedding dua, thank-you, geometric ornament, and couple signature. */
 export default function ClosingSection() {
   const { t, s: text } = useLang();
-  const base = import.meta.env.BASE_URL ?? '/';
 
   return (
     <section className={s.closing} data-light="night">
@@ -29,12 +29,9 @@ export default function ClosingSection() {
         </Reveal>
 
         <Reveal delay={160}>
-          <img
-            className={s.roseDivider}
-            src={`${base}assets/img/rose-divider.webp`}
-            alt=""
-            aria-hidden="true"
-          />
+          <div className={s.dividerWrap}>
+            <CardRule />
+          </div>
         </Reveal>
 
         <Reveal delay={200}>

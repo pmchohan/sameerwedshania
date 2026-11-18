@@ -76,15 +76,10 @@
   margin: 0;
 }
 
-.roseDivider {
-  display: block;
-  width: 100%;
-  max-width: 12rem;
+.dividerWrap {
   margin: 0.5rem auto;
-  opacity: 0.85;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
-  pointer-events: none;
-  user-select: none;
+  max-width: 14rem;
+  opacity: 0.8;
 }
 
 :global([dir="rtl"]) .line {

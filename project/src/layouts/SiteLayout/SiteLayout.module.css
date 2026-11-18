@@ -15,3 +15,27 @@
   gap: calc(var(--m, 8px) * 1);
   pointer-events: auto;
 }
+
+/* On tablet & desktop: frame the mobile experience in an elegant centered handset column */
+@media (min-width: 768px) {
+  .root {
+    background: #020713;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .root main {
+    width: 100%;
+    max-width: 440px;
+    min-height: 100vh;
+    position: relative;
+    box-shadow:
+      0 0 60px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(247, 217, 120, 0.18);
+  }
+
+  .topNav {
+    right: calc(50% - 220px + 1rem);
+  }
+}

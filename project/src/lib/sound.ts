@@ -236,22 +236,42 @@ export const sound = {
       listeners.delete(listener);
     };
   },
-  /** Starts ambient background wedding music on user interaction. */
-  startMusic() {
+  /** Starts ambient background wedding music with a gentle fade-in over 3.5 - 4 seconds. */
+  startMusic(fadeDurationMs = 4000) {
     if (muted) return;
     const audio = getMusicAudio();
     if (!audio) return;
+
     if (!musicStarted) {
       musicStarted = true;
-      audio.volume = 0.45;
-      audio.play().catch(() => {});
+      audio.volume = 0;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            const targetVol = 0.6;
+            const startTime = performance.now();
+            function fadeIn() {
+              if (!musicAudio || muted) return;
+              const elapsed = performance.now() - startTime;
+              const progress = Math.min(1, elapsed / fadeDurationMs);
+              // Ease-out curve for smooth rising volume
+              const eased = 1 - Math.pow(1 - progress, 2);
+              musicAudio.volume = Math.max(0, Math.min(1, eased * targetVol));
+              if (progress < 1) {
+                requestAnimationFrame(fadeIn);
+              }
+            }
+            requestAnimationFrame(fadeIn);
+          })
+          .catch(() => {});
+      }
     } else if (audio.paused) {
       audio.play().catch(() => {});
     }
   },
-  /** Plays an acoustic wooden/brass knocker sound and starts ambient music. */
+  /** Plays an acoustic wooden/brass knocker sound. Does not start music until opening. */
   playKnock() {
-    sound.startMusic();
     if (muted) return;
     const engine = audio();
     if (!engine) return;
@@ -259,9 +279,9 @@ export const sound = {
     void ctx.resume();
     playAcousticKnock(ctx, out, ctx.currentTime + 0.01);
   },
-  /** Plays the grand opening sequence timed to the 3D door swing. */
+  /** Plays the grand opening sequence and starts the ambient wedding music fading in. */
   playOpening() {
-    sound.startMusic();
+    sound.startMusic(4000);
     if (muted) return;
     const engine = audio();
     if (!engine) return;

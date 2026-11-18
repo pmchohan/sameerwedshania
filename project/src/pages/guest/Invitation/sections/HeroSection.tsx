@@ -25,22 +25,20 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
   const doorRightRef = useRef<HTMLDivElement>(null);
   const plateLeftRef = useRef<HTMLDivElement>(null);
   const plateRightRef = useRef<HTMLDivElement>(null);
-  const ringLeftRef = useRef<HTMLDivElement>(null);
-  const ringRightRef = useRef<HTMLDivElement>(null);
   const knockZoneRef = useRef<HTMLButtonElement>(null);
 
   const isOpen = phase === 'locking' || phase === 'open';
   const names = { groom: t(couple.groom), bride: t(couple.bride) };
 
-  // Door Plate Sizing logic to maintain seamless fit
+  // Door Plate Sizing logic to maintain seamless 9:16 fit (384 x 1376 per leaf)
   useEffect(() => {
     function sizePlate(half: HTMLElement | null, plate: HTMLElement | null, side: 'left' | 'right') {
       if (!half || !plate) return;
       const rect = half.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      const n = Math.max(rect.width / 434, rect.height / 1800);
-      const w = 506 * n;
-      const h = 1800 * n;
+      const n = Math.max(rect.width / 384, rect.height / 1376);
+      const w = 384 * n;
+      const h = 1376 * n;
       plate.style.width = `${w}px`;
       plate.style.height = `${h}px`;
       plate.style.left = `${side === 'left' ? rect.width - w : 0}px`;
@@ -64,7 +62,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
     };
   }, []);
 
-  // Remove the gate from the layout when opening finishes
+  // Remove the gate overlay once opening finishes
   useEffect(() => {
     if (phase === 'open') {
       setIsGone(true);
@@ -92,21 +90,6 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
     window.setTimeout(() => flash.remove(), 550);
   };
 
-  const ringKnock = (el: HTMLElement | null, dir: number) => {
-    if (!el) return;
-    el.animate(
-      [
-        { transform: 'rotate(0deg)' },
-        { transform: `rotate(${18 * dir}deg)` },
-        { transform: `rotate(${-11 * dir}deg)` },
-        { transform: 'rotate(6deg)' },
-        { transform: 'rotate(-3deg)' },
-        { transform: 'rotate(0deg)' },
-      ],
-      { duration: 900, easing: 'ease-out' },
-    );
-  };
-
   const rattleDoor = (el: HTMLElement | null, dir: number) => {
     if (!el) return;
     el.animate(
@@ -124,6 +107,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
   const handleKnock = (ev: React.MouseEvent<HTMLButtonElement>) => {
     if (isOpen || knocks >= 3) return;
 
+    // Play crisp acoustic knock
     sound.playKnock();
 
     const rect = knockZoneRef.current?.getBoundingClientRect();
@@ -132,8 +116,6 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
 
     spawnDust(x, y);
     spawnFlash();
-    ringKnock(ringLeftRef.current, 1);
-    ringKnock(ringRightRef.current, -1);
     rattleDoor(doorLeftRef.current, 1);
     rattleDoor(doorRightRef.current, -1);
 
@@ -156,7 +138,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
 
   return (
     <>
-      {/* 1. 3D GRAND MARBLE PORTAL (DOOR GATE) */}
+      {/* 1. 3D GRAND KASHI-KARI PORTAL (DOOR GATE) */}
       <div className={s.gate} data-open={isOpen} data-gone={isGone} aria-hidden={isOpen}>
         <div className={s.gateBg} />
 
@@ -182,13 +164,6 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
                     alt=""
                     draggable="false"
                   />
-                  <div className={s.doorRing} ref={ringLeftRef} aria-hidden="true">
-                    <img
-                      src={`${base}assets/img/door-ring-left.webp`}
-                      alt=""
-                      draggable="false"
-                    />
-                  </div>
                 </div>
                 <div className={s.doorShade} />
               </div>
@@ -203,13 +178,6 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
                     alt=""
                     draggable="false"
                   />
-                  <div className={s.doorRing} ref={ringRightRef} aria-hidden="true">
-                    <img
-                      src={`${base}assets/img/door-ring-right.webp`}
-                      alt=""
-                      draggable="false"
-                    />
-                  </div>
                 </div>
                 <div className={s.doorShade} />
               </div>
@@ -218,7 +186,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
 
           <div className={s.doorWarm} />
 
-          {/* Interactive Knocker Zone */}
+          {/* Interactive Knocker Touch Target */}
           <button
             className={s.doorKnock}
             ref={knockZoneRef}

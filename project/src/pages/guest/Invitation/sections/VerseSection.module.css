@@ -30,33 +30,33 @@
 
 .corner {
   position: absolute;
-  width: 3.8rem;
-  max-width: 22vw;
+  width: 3.2rem;
+  height: 3.2rem;
   pointer-events: none;
   user-select: none;
   opacity: 0.88;
 }
 
 .cornerTopLeft {
-  top: -0.35rem;
-  left: -0.35rem;
+  top: 4px;
+  left: 4px;
 }
 
 .cornerTopRight {
-  top: -0.35rem;
-  right: -0.35rem;
+  top: 4px;
+  right: 4px;
   transform: scaleX(-1);
 }
 
 .cornerBottomLeft {
-  bottom: -0.35rem;
-  left: -0.35rem;
+  bottom: 4px;
+  left: 4px;
   transform: scaleY(-1);
 }
 
 .cornerBottomRight {
-  bottom: -0.35rem;
-  right: -0.35rem;
+  bottom: 4px;
+  right: 4px;
   transform: scale(-1);
 }
 
@@ -108,15 +108,10 @@
   letter-spacing: normal;
 }
 
-.roseDivider {
-  display: block;
-  width: 100%;
-  max-width: 13rem;
-  margin: 1.25rem auto 1.75rem;
-  opacity: 0.85;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
-  pointer-events: none;
-  user-select: none;
+.dividerWrap {
+  margin: 1rem auto 1.5rem;
+  max-width: 16rem;
+  opacity: 0.8;
 }
 
 .familiesBox {
