@@ -70,16 +70,16 @@ export const families = {
 
 export const hosts = [
   {
-    name: { en: 'Hamza Chohan', ur: 'حمزہ چوہان' },
-    role: { en: "Groom's Brother", ur: 'دولہا کے بھائی' },
-    phone: '+92 300 1234567',
-    whatsapp: '923001234567',
+    name: { en: 'Faisal Abdul Qayyum', ur: 'فیصل عبد القیوم' },
+    role: { en: "Groom's Father", ur: 'دولہے کے والد' },
+    phone: '+92 323 7417757',
+    whatsapp: '923237417757',
   },
   {
-    name: { en: 'Usman Malik', ur: 'عثمان ملک' },
-    role: { en: "Bride's Brother", ur: 'دلہن کے بھائی' },
-    phone: '+92 300 7654321',
-    whatsapp: '923007654321',
+    name: { en: 'Abdullah Faisal', ur: 'عَبْدُاللّٰهُ فَيْصَلُ' },
+    role: { en: "Groom's Brother", ur: 'دولہے کے بھائی' },
+    phone: '+92 306 1569919',
+    whatsapp: '923061569919',
   },
 ];
 
