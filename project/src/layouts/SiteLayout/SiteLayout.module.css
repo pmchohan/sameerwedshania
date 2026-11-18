@@ -4,3 +4,14 @@
   overflow-x: hidden;
   overflow-x: clip;
 }
+
+.topNav {
+  position: fixed;
+  top: max(calc(var(--m, 8px) * 1.5), env(safe-area-inset-top));
+  right: max(calc(var(--m, 8px) * 1.5), env(safe-area-inset-right));
+  z-index: var(--z-toggle, 100);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--m, 8px) * 1);
+  pointer-events: auto;
+}

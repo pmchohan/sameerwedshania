@@ -10,15 +10,36 @@ interface VerseSectionProps {
 
 export function VerseSection({ guest: _guest }: VerseSectionProps) {
   const { t, s: text } = useLang();
+  const base = import.meta.env.BASE_URL ?? '/';
 
   return (
     <section className={s.verseSection} aria-label={text('withBlessings')}>
       <Reveal>
         <div className={s.panel}>
-          <span className={`${s.corner} ${s.cornerTopLeft}`} aria-hidden="true" />
-          <span className={`${s.corner} ${s.cornerTopRight}`} aria-hidden="true" />
-          <span className={`${s.corner} ${s.cornerBottomLeft}`} aria-hidden="true" />
-          <span className={`${s.corner} ${s.cornerBottomRight}`} aria-hidden="true" />
+          <img
+            className={`${s.corner} ${s.cornerTopLeft}`}
+            src={`${base}assets/img/corner-ornament.webp`}
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            className={`${s.corner} ${s.cornerTopRight}`}
+            src={`${base}assets/img/corner-ornament.webp`}
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            className={`${s.corner} ${s.cornerBottomLeft}`}
+            src={`${base}assets/img/corner-ornament.webp`}
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            className={`${s.corner} ${s.cornerBottomRight}`}
+            src={`${base}assets/img/corner-ornament.webp`}
+            alt=""
+            aria-hidden="true"
+          />
 
           <p className={s.bismillah} lang="ar" dir="rtl">
             بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
@@ -36,11 +57,12 @@ export function VerseSection({ guest: _guest }: VerseSectionProps) {
             {text('surahArRum')}
           </span>
 
-          <div className={s.divider} aria-hidden="true">
-            <span className={s.rule} />
-            <span className={s.diamond} />
-            <span className={s.rule} />
-          </div>
+          <img
+            className={s.roseDivider}
+            src={`${base}assets/img/rose-divider.webp`}
+            alt=""
+            aria-hidden="true"
+          />
 
           <div className={s.familiesBox}>
             <p className={s.familyLine}>

@@ -4,9 +4,11 @@ import { couple } from '@/config/invitation.config';
 import { useLang } from '@/i18n/useLang';
 import s from './ClosingSection.module.css';
 
-/** The close: wedding dua, thank-you, and couple signature. */
+/** The close: wedding dua, thank-you, rose ornament, and couple signature. */
 export default function ClosingSection() {
   const { t, s: text } = useLang();
+  const base = import.meta.env.BASE_URL ?? '/';
+
   return (
     <section className={s.closing} data-light="night">
       <ThemeOrnament />
@@ -26,7 +28,16 @@ export default function ClosingSection() {
           </div>
         </Reveal>
 
-        <Reveal delay={180}>
+        <Reveal delay={160}>
+          <img
+            className={s.roseDivider}
+            src={`${base}assets/img/rose-divider.webp`}
+            alt=""
+            aria-hidden="true"
+          />
+        </Reveal>
+
+        <Reveal delay={200}>
           <p className={s.line}>{text('closingNote')}</p>
         </Reveal>
 

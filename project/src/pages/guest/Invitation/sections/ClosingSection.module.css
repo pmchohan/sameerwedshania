@@ -76,6 +76,17 @@
   margin: 0;
 }
 
+.roseDivider {
+  display: block;
+  width: 100%;
+  max-width: 12rem;
+  margin: 0.5rem auto;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+  user-select: none;
+}
+
 :global([dir="rtl"]) .line {
   font-family: var(--font-urdu);
   font-size: 1.15rem;

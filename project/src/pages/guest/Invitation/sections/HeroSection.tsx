@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { LanguageToggle } from '@/components/controls/LanguageToggle';
+import { useEffect, useRef, useState } from 'react';
 import { couple } from '@/config/invitation.config';
 import type { Guest } from '@/config/types';
 import { fill } from '@/i18n/strings';
@@ -17,21 +16,133 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectionProps) {
-  const { lang, t, s: text } = useLang();
+  const { t, s: text } = useLang();
   const [knocks, setKnocks] = useState(0);
+  const [isGone, setIsGone] = useState(phase === 'open');
 
+  const doorStageRef = useRef<HTMLDivElement>(null);
+  const doorLeftRef = useRef<HTMLDivElement>(null);
+  const doorRightRef = useRef<HTMLDivElement>(null);
+  const plateLeftRef = useRef<HTMLDivElement>(null);
+  const plateRightRef = useRef<HTMLDivElement>(null);
+  const ringLeftRef = useRef<HTMLDivElement>(null);
+  const ringRightRef = useRef<HTMLDivElement>(null);
+  const knockZoneRef = useRef<HTMLButtonElement>(null);
+
+  const isOpen = phase === 'locking' || phase === 'open';
   const names = { groom: t(couple.groom), bride: t(couple.bride) };
 
-  const handleKnock = () => {
-    if (phase !== 'closed') return;
+  // Door Plate Sizing logic to maintain seamless fit
+  useEffect(() => {
+    function sizePlate(half: HTMLElement | null, plate: HTMLElement | null, side: 'left' | 'right') {
+      if (!half || !plate) return;
+      const rect = half.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const n = Math.max(rect.width / 434, rect.height / 1800);
+      const w = 506 * n;
+      const h = 1800 * n;
+      plate.style.width = `${w}px`;
+      plate.style.height = `${h}px`;
+      plate.style.left = `${side === 'left' ? rect.width - w : 0}px`;
+      plate.style.top = `${(rect.height - h) / 2}px`;
+    }
+
+    function update() {
+      sizePlate(doorLeftRef.current, plateLeftRef.current, 'left');
+      sizePlate(doorRightRef.current, plateRightRef.current, 'right');
+    }
+
+    update();
+    const ro = new ResizeObserver(update);
+    if (doorLeftRef.current) ro.observe(doorLeftRef.current);
+    if (doorRightRef.current) ro.observe(doorRightRef.current);
+    window.addEventListener('resize', update);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
+  // Remove the gate from the layout when opening finishes
+  useEffect(() => {
+    if (phase === 'open') {
+      setIsGone(true);
+    } else if (phase === 'locking') {
+      const timer = window.setTimeout(() => setIsGone(true), 2400);
+      return () => window.clearTimeout(timer);
+    }
+  }, [phase]);
+
+  const spawnDust = (x: number, y: number) => {
+    if (!knockZoneRef.current) return;
+    const dust = document.createElement('span');
+    dust.className = s.knockDust ?? '';
+    dust.style.left = `${x}px`;
+    dust.style.top = `${y}px`;
+    knockZoneRef.current.appendChild(dust);
+    window.setTimeout(() => dust.remove(), 1700);
+  };
+
+  const spawnFlash = () => {
+    if (!doorStageRef.current) return;
+    const flash = document.createElement('span');
+    flash.className = s.doorFlash ?? '';
+    doorStageRef.current.appendChild(flash);
+    window.setTimeout(() => flash.remove(), 550);
+  };
+
+  const ringKnock = (el: HTMLElement | null, dir: number) => {
+    if (!el) return;
+    el.animate(
+      [
+        { transform: 'rotate(0deg)' },
+        { transform: `rotate(${18 * dir}deg)` },
+        { transform: `rotate(${-11 * dir}deg)` },
+        { transform: 'rotate(6deg)' },
+        { transform: 'rotate(-3deg)' },
+        { transform: 'rotate(0deg)' },
+      ],
+      { duration: 900, easing: 'ease-out' },
+    );
+  };
+
+  const rattleDoor = (el: HTMLElement | null, dir: number) => {
+    if (!el) return;
+    el.animate(
+      [
+        { transform: 'rotateY(0deg)' },
+        { transform: `rotateY(${-6.2 * dir}deg)` },
+        { transform: `rotateY(${2.6 * dir}deg)` },
+        { transform: `rotateY(${-1 * dir}deg)` },
+        { transform: 'rotateY(0deg)' },
+      ],
+      { duration: 520, easing: 'cubic-bezier(.2, .8, .3, 1)' },
+    );
+  };
+
+  const handleKnock = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    if (isOpen || knocks >= 3) return;
+
+    sound.playKnock();
+
+    const rect = knockZoneRef.current?.getBoundingClientRect();
+    const x = ev.clientX ? ev.clientX - (rect?.left ?? 0) : (rect?.width ?? 200) / 2;
+    const y = ev.clientY ? ev.clientY - (rect?.top ?? 0) : (rect?.height ?? 400) / 2;
+
+    spawnDust(x, y);
+    spawnFlash();
+    ringKnock(ringLeftRef.current, 1);
+    ringKnock(ringRightRef.current, -1);
+    rattleDoor(doorLeftRef.current, 1);
+    rattleDoor(doorRightRef.current, -1);
+
     const next = knocks + 1;
     setKnocks(next);
 
-    if (next < 3) {
-      sound.playKnock();
-    } else {
+    if (next >= 3) {
       sound.playOpening();
-      onOpen();
+      window.setTimeout(onOpen, 250);
     }
   };
 
@@ -41,225 +152,133 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
     else onOpen();
   };
 
+  const base = import.meta.env.BASE_URL ?? '/';
+
   return (
     <>
-      {/* 1. FULL-SCREEN KASHI-KARI GATE OVERLAY */}
-      <div className={s.gateOverlay} data-phase={phase} aria-hidden={phase === 'open'}>
-        <div className={s.gateBackdrop} />
+      {/* 1. 3D GRAND MARBLE PORTAL (DOOR GATE) */}
+      <div className={s.gate} data-open={isOpen} data-gone={isGone} aria-hidden={isOpen}>
+        <div className={s.gateBg} />
 
-        <div className={s.topBar}>
-          <button
-            type="button"
-            className={s.skipBtn}
-            onClick={handleSkip}
-            aria-label={text('skip')}
-          >
-            {text('skip')}
-          </button>
-          <LanguageToggle />
-        </div>
+        <button
+          type="button"
+          className={s.skipBtn}
+          onClick={handleSkip}
+          aria-label={text('skip')}
+        >
+          {text('skip')}
+        </button>
 
-        <div className={s.stage3d}>
-          <div className={s.seamLight} aria-hidden="true" />
+        <div className={s.doorStage} ref={doorStageRef}>
+          <div className={s.doorSeam} aria-hidden="true" />
 
           <div className={s.doorTrack}>
-            {/* LEFT LEAF */}
-            <div className={s.doorLeaf} data-side="left">
-              <svg className={s.doorSvg} viewBox="0 0 240 700" preserveAspectRatio="none" aria-hidden="true">
-                <defs>
-                  <linearGradient id="kashiGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#f7d978" />
-                    <stop offset="50%" stopColor="#d4af37" />
-                    <stop offset="100%" stopColor="#f7d978" />
-                  </linearGradient>
-                  <pattern id="kashiJaaliL" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 0 10 L 10 0 L 20 10 L 10 20 Z" fill="none" stroke="#1ba6a6" strokeWidth="1" strokeOpacity="0.4" />
-                    <circle cx="10" cy="10" r="1.5" fill="#f2c94c" fillOpacity="0.6" />
-                  </pattern>
-                </defs>
-
-                {/* Base ground */}
-                <rect width="240" height="700" fill="#061638" />
-
-                {/* Outer decorative border band */}
-                <rect x="6" y="6" width="228" height="688" fill="none" stroke="url(#kashiGoldGrad)" strokeWidth="2" />
-                <rect x="14" y="14" width="212" height="672" fill="#081d52" stroke="#1ba6a6" strokeWidth="1.5" />
-
-                {/* Arch frame */}
-                <path d="M 24 160 C 24 60 120 28 240 28 L 240 400 L 24 400 Z" fill="url(#kashiJaaliL)" opacity="0.6" />
-                <path d="M 24 160 C 24 60 120 28 240 28" fill="none" stroke="url(#kashiGoldGrad)" strokeWidth="2.5" />
-
-                {/* Star mosaic row at top */}
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <rect
-                    key={i}
-                    x={28 + i * 34}
-                    y={32}
-                    width="14"
-                    height="14"
-                    fill="#1ba6a6"
-                    stroke="#f2c94c"
-                    strokeWidth="1"
-                    transform={`rotate(45 ${35 + i * 34} 39)`}
+            {/* Left Leaf */}
+            <div className={s.doorHalf} data-side="left" ref={doorLeftRef}>
+              <div className={s.doorArt}>
+                <div className={s.doorPlate} ref={plateLeftRef}>
+                  <img
+                    src={`${base}assets/img/door-left.webp`}
+                    alt=""
+                    draggable="false"
                   />
-                ))}
-
-                {/* Half of center plaque cartouche */}
-                <path
-                  d="M 240 300 C 180 300 160 320 160 350 C 160 380 180 400 240 400 Z"
-                  fill="#061638"
-                  stroke="url(#kashiGoldGrad)"
-                  strokeWidth="2"
-                />
-
-                {/* Left calligraphy text */}
-                <text
-                  x="215"
-                  y="358"
-                  textAnchor="end"
-                  fill="url(#kashiGoldGrad)"
-                  fontSize="24"
-                  fontFamily={lang === 'ur' ? 'Noto Nastaliq Urdu' : 'Pinyon Script'}
-                >
-                  {lang === 'ur' ? 'دعوت' : "You're"}
-                </text>
-
-                {/* Left Brass Door Knocker */}
-                <circle cx="215" cy="450" r="14" fill="#140a02" stroke="url(#kashiGoldGrad)" strokeWidth="2" />
-                <circle cx="215" cy="450" r="6" fill="url(#kashiGoldGrad)" />
-                <path
-                  d="M 215 456 A 15 15 0 0 1 200 471 A 15 15 0 0 1 215 486 A 15 15 0 0 1 215 456"
-                  fill="none"
-                  stroke="url(#kashiGoldGrad)"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-              </svg>
+                  <div className={s.doorRing} ref={ringLeftRef} aria-hidden="true">
+                    <img
+                      src={`${base}assets/img/door-ring-left.webp`}
+                      alt=""
+                      draggable="false"
+                    />
+                  </div>
+                </div>
+                <div className={s.doorShade} />
+              </div>
             </div>
 
-            {/* RIGHT LEAF */}
-            <div className={s.doorLeaf} data-side="right">
-              <svg className={s.doorSvg} viewBox="0 0 240 700" preserveAspectRatio="none" aria-hidden="true">
-                <defs>
-                  <linearGradient id="kashiGoldGradR" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#f7d978" />
-                    <stop offset="50%" stopColor="#d4af37" />
-                    <stop offset="100%" stopColor="#f7d978" />
-                  </linearGradient>
-                  <pattern id="kashiJaaliR" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 0 10 L 10 0 L 20 10 L 10 20 Z" fill="none" stroke="#1ba6a6" strokeWidth="1" strokeOpacity="0.4" />
-                    <circle cx="10" cy="10" r="1.5" fill="#f2c94c" fillOpacity="0.6" />
-                  </pattern>
-                </defs>
-
-                {/* Base ground */}
-                <rect width="240" height="700" fill="#061638" />
-
-                {/* Outer decorative border band */}
-                <rect x="6" y="6" width="228" height="688" fill="none" stroke="url(#kashiGoldGradR)" strokeWidth="2" />
-                <rect x="14" y="14" width="212" height="672" fill="#081d52" stroke="#1ba6a6" strokeWidth="1.5" />
-
-                {/* Arch frame */}
-                <path d="M 0 28 C 120 28 216 60 216 160 L 216 400 L 0 400 Z" fill="url(#kashiJaaliR)" opacity="0.6" />
-                <path d="M 0 28 C 120 28 216 60 216 160" fill="none" stroke="url(#kashiGoldGradR)" strokeWidth="2.5" />
-
-                {/* Star mosaic row at top */}
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <rect
-                    key={i}
-                    x={28 + i * 34}
-                    y={32}
-                    width="14"
-                    height="14"
-                    fill="#1ba6a6"
-                    stroke="#f2c94c"
-                    strokeWidth="1"
-                    transform={`rotate(45 ${35 + i * 34} 39)`}
+            {/* Right Leaf */}
+            <div className={s.doorHalf} data-side="right" ref={doorRightRef}>
+              <div className={s.doorArt}>
+                <div className={s.doorPlate} ref={plateRightRef}>
+                  <img
+                    src={`${base}assets/img/door-right.webp`}
+                    alt=""
+                    draggable="false"
                   />
-                ))}
-
-                {/* Half of center plaque cartouche */}
-                <path
-                  d="M 0 300 C 60 300 80 320 80 350 C 80 380 60 400 0 400 Z"
-                  fill="#061638"
-                  stroke="url(#kashiGoldGradR)"
-                  strokeWidth="2"
-                />
-
-                {/* Right calligraphy text */}
-                <text
-                  x="25"
-                  y="358"
-                  textAnchor="start"
-                  fill="url(#kashiGoldGradR)"
-                  fontSize="24"
-                  fontFamily={lang === 'ur' ? 'Noto Nastaliq Urdu' : 'Pinyon Script'}
-                >
-                  {lang === 'ur' ? 'نامہ' : 'Invited'}
-                </text>
-
-                {/* Right Brass Door Knocker */}
-                <circle cx="25" cy="450" r="14" fill="#140a02" stroke="url(#kashiGoldGradR)" strokeWidth="2" />
-                <circle cx="25" cy="450" r="6" fill="url(#kashiGoldGradR)" />
-                <path
-                  d="M 25 456 A 15 15 0 0 0 40 471 A 15 15 0 0 0 25 486 A 15 15 0 0 0 25 456"
-                  fill="none"
-                  stroke="url(#kashiGoldGradR)"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-              </svg>
+                  <div className={s.doorRing} ref={ringRightRef} aria-hidden="true">
+                    <img
+                      src={`${base}assets/img/door-ring-right.webp`}
+                      alt=""
+                      draggable="false"
+                    />
+                  </div>
+                </div>
+                <div className={s.doorShade} />
+              </div>
             </div>
           </div>
 
-          {/* Knocker click button */}
+          <div className={s.doorWarm} />
+
+          {/* Interactive Knocker Zone */}
           <button
+            className={s.doorKnock}
+            ref={knockZoneRef}
             type="button"
-            className={s.knockerTrigger}
             onClick={handleKnock}
             aria-label={`Knock on the portal, ${knocks} of 3`}
           />
 
-          {/* Prompt and progress dots */}
-          <div className={s.promptWrap} aria-hidden="true">
-            <p className={s.promptText}>{text('knockPrompt')}</p>
-            <div className={s.dotsRow}>
-              <span className={s.dot} data-active={knocks >= 1} />
-              <span className={s.dot} data-active={knocks >= 2} />
-              <span className={s.dot} data-active={knocks >= 3} />
+          {/* Prompt & Progress Dots */}
+          <div className={s.doorPrompt} aria-hidden="true">
+            <p>{text('knockPrompt')}</p>
+            <div className={s.doorDots}>
+              <span className={knocks >= 1 ? s.dotActive : undefined} />
+              <span className={knocks >= 2 ? s.dotActive : undefined} />
+              <span className={knocks >= 3 ? s.dotActive : undefined} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* 2. REVEALED HERO CONTENT (AFTER GATE OPENS) */}
-      <section className={s.hero} data-light="night" aria-label={`${names.groom} & ${names.bride}`}>
-        <div className={s.starsOverlay} aria-hidden="true" />
-
-        <svg className={s.crescentMoon} viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
-          <path d="M70 12 A42 42 0 1 0 70 88 A34 34 0 1 1 70 12 Z" />
-        </svg>
-
-        <p className={s.bismillah} lang="ar" dir="rtl">
-          بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
-        </p>
+      {/* 2. REVEALED PALACE COURTYARD & COUPLE INVITATION */}
+      <header className={s.hero} id="hero" aria-label={`${names.groom} & ${names.bride}`}>
+        <div className={s.heroBackdrop} />
+        <div className={s.heroPhoto}>
+          <div className={s.heroPhotoScale} data-open={isOpen}>
+            <div className={s.heroPhotoInner} data-open={isOpen}>
+              <img
+                src={`${base}assets/img/courtyard-night.jpg`}
+                alt="Illuminated palace courtyard at night"
+                fetchPriority="high"
+              />
+            </div>
+          </div>
+        </div>
+        <div className={s.heroShade} data-open={isOpen} />
 
         <div className={s.heroContent}>
-          <div className={s.namesBox}>
-            <h1 className={s.names}>
+          <p className={s.invitationEyebrow} data-open={isOpen}>
+            {text('youAreInvited')}
+          </p>
+
+          <p className={s.bismillah} lang="ar" dir="rtl" data-open={isOpen}>
+            بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+          </p>
+
+          <div className={s.heroMiddle}>
+            <h1 className={s.heroNames} data-open={isOpen}>
               <span>{names.groom}</span>
-              <span className={s.and}>{text('and')}</span>
+              <span className={s.amp}>{text('and')}</span>
               <span>{names.bride}</span>
             </h1>
           </div>
 
-          <div className={s.welcomeCard}>
-            <p className={s.guestBadge}>
-              <span>{text('invitationFor')}</span>{' '}
-              <span className={s.guestName}>
+          <div className={s.welcomeBox} data-open={isOpen}>
+            <div className={s.guestBadge}>
+              <span className={s.guestLabel}>{text('invitationFor')}</span>
+              <h2 className={s.guestName}>
                 <bdi>{t(guest.name)}</bdi>
-              </span>
-            </p>
+              </h2>
+            </div>
 
             <p className={s.inviteMessage}>
               {fill(text('inviteLine'), names)}
@@ -269,10 +288,12 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
               <p className={s.guestNote}>{t(guest.note)}</p>
             )}
           </div>
-        </div>
 
-        <ScrollCue active={phase === 'open'} />
-      </section>
+          <div className={s.scrollIndicator} data-open={isOpen}>
+            <ScrollCue active={isOpen} />
+          </div>
+        </div>
+      </header>
     </>
   );
 }

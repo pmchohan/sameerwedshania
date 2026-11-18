@@ -1,10 +1,13 @@
-// The door's sound, made on the spot with Web Audio: no audio files to download, nothing to license.
-// Sounds only ever play after the guest's own tap, which is what browsers require anyway.
+// The door's sound: synthesized acoustic wood/brass resonant knock with Web Audio,
+// and ambient background wedding music playback with seamless mute/unmute control.
 const STORAGE_KEY = 'invitation-sound-muted';
 
 type AudioContextClass = typeof AudioContext;
 const AudioContextCtor: AudioContextClass | undefined =
-  typeof window === 'undefined' ? undefined : (window.AudioContext ?? (window as unknown as { webkitAudioContext?: AudioContextClass }).webkitAudioContext);
+  typeof window === 'undefined'
+    ? undefined
+    : (window.AudioContext ??
+      (window as unknown as { webkitAudioContext?: AudioContextClass }).webkitAudioContext);
 
 const readMuted = (): boolean => {
   try {
@@ -18,6 +21,8 @@ let muted = readMuted();
 let context: AudioContext | undefined;
 let master: GainNode | undefined;
 let noiseBuffer: AudioBuffer | undefined;
+let musicAudio: HTMLAudioElement | undefined;
+let musicStarted = false;
 const listeners = new Set<() => void>();
 
 function audio(): { ctx: AudioContext; out: GainNode } | undefined {
@@ -44,8 +49,41 @@ function noiseSource(ctx: AudioContext): AudioBufferSourceNode {
   return source;
 }
 
+/** A tone that glides from one pitch to another while it fades. */
+function tone(
+  ctx: AudioContext,
+  out: AudioNode,
+  at: number,
+  type: OscillatorType,
+  from: number,
+  to: number,
+  duration: number,
+  peak: number,
+) {
+  const osc = ctx.createOscillator();
+  osc.type = type;
+  osc.frequency.setValueAtTime(from, at);
+  osc.frequency.exponentialRampToValueAtTime(to, at + duration * 0.6);
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(peak, at);
+  gain.gain.exponentialRampToValueAtTime(0.0001, at + duration);
+  osc.connect(gain);
+  gain.connect(out);
+  osc.start(at);
+  osc.stop(at + duration + 0.05);
+}
+
 /** A short burst of filtered noise: clicks, scrapes, thuds. */
-function burst(ctx: AudioContext, out: AudioNode, at: number, duration: number, type: BiquadFilterType, frequency: number, q: number, peak: number) {
+function burst(
+  ctx: AudioContext,
+  out: AudioNode,
+  at: number,
+  duration: number,
+  type: BiquadFilterType,
+  frequency: number,
+  q: number,
+  peak: number,
+) {
   const source = noiseSource(ctx);
   const filter = ctx.createBiquadFilter();
   filter.type = type;
@@ -61,20 +99,36 @@ function burst(ctx: AudioContext, out: AudioNode, at: number, duration: number, 
   source.start(at, Math.random() * 1.5, duration + 0.05);
 }
 
-/** A tone that glides from one pitch to another while it fades. */
-function tone(ctx: AudioContext, out: AudioNode, at: number, type: OscillatorType, from: number, to: number, duration: number, peak: number) {
-  const osc = ctx.createOscillator();
-  osc.type = type;
-  osc.frequency.setValueAtTime(from, at);
-  osc.frequency.exponentialRampToValueAtTime(to, at + duration);
-  const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.0001, at);
-  gain.gain.exponentialRampToValueAtTime(peak, at + 0.006);
-  gain.gain.exponentialRampToValueAtTime(0.0001, at + duration);
-  osc.connect(gain);
-  gain.connect(out);
-  osc.start(at);
-  osc.stop(at + duration + 0.05);
+/** Rich acoustic wood and brass knock (low wooden thud + metallic resonance). */
+function playAcousticKnock(ctx: AudioContext, out: AudioNode, at: number) {
+  tone(ctx, out, at, 'sine', 170, 52, 0.26, 0.95);
+  tone(ctx, out, at, 'triangle', 310, 120, 0.12, 0.35);
+
+  try {
+    const len = Math.floor(0.05 * ctx.sampleRate);
+    const buffer = ctx.createBuffer(1, len, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+      data[i] = (2 * Math.random() - 1) * (1 - i / len);
+    }
+    const noise = ctx.createBufferSource();
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+    noise.buffer = buffer;
+    filter.type = 'bandpass';
+    filter.frequency.value = 1100;
+    filter.Q.value = 0.8;
+    gain.gain.value = 0.55;
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(out);
+    noise.start(at);
+  } catch {
+    // optional audio fallback
+  }
+
+  tone(ctx, out, at + 0.012, 'sine', 2600, 2500, 0.2, 0.07);
+  tone(ctx, out, at + 0.012, 'sine', 3900, 3800, 0.14, 0.04);
 }
 
 /** The bolt sliding back: two metal clicks and a clunk. */
@@ -127,20 +181,6 @@ function creak(ctx: AudioContext, out: AudioNode, at: number, duration: number) 
   wobble.start(at);
   osc.stop(at + duration + 0.05);
   wobble.stop(at + duration + 0.05);
-
-  const rasp = noiseSource(ctx);
-  const rasper = ctx.createBiquadFilter();
-  rasper.type = 'bandpass';
-  rasper.frequency.value = 700;
-  rasper.Q.value = 1;
-  const raspGain = ctx.createGain();
-  raspGain.gain.setValueAtTime(0.0001, at);
-  raspGain.gain.linearRampToValueAtTime(0.05, at + 0.4);
-  raspGain.gain.linearRampToValueAtTime(0.0001, at + duration);
-  rasp.connect(rasper);
-  rasper.connect(raspGain);
-  raspGain.connect(out);
-  rasp.start(at, 0, duration + 0.05);
 }
 
 /** The leaves meeting the wall: a low thud. */
@@ -149,11 +189,24 @@ function thud(ctx: AudioContext, out: AudioNode, at: number) {
   burst(ctx, out, at, 0.18, 'lowpass', 220, 0.7, 0.35);
 }
 
-/** A soft bell chord as the courtyard comes into view. */
+/** A soft bell chime chord as the courtyard comes into view. */
 function chime(ctx: AudioContext, out: AudioNode, at: number) {
   for (const [freq, peak, decay] of [[784, 0.12, 2.6], [1175, 0.08, 2.2], [1568, 0.06, 1.8], [2349, 0.03, 1.4]] as const) {
     tone(ctx, out, at, 'sine', freq, freq * 0.998, decay, peak);
   }
+}
+
+function getMusicAudio(): HTMLAudioElement | undefined {
+  if (typeof window === 'undefined' || typeof Audio === 'undefined') return undefined;
+  if (!musicAudio) {
+    const base = import.meta.env.BASE_URL ?? '/';
+    const src = `${base}assets/audio/wedding-music.mp3`;
+    musicAudio = new Audio(src);
+    musicAudio.loop = true;
+    musicAudio.preload = 'auto';
+    musicAudio.volume = muted ? 0 : 0.45;
+  }
+  return musicAudio;
 }
 
 export const sound = {
@@ -163,7 +216,17 @@ export const sound = {
     try {
       window.localStorage.setItem(STORAGE_KEY, next ? '1' : '0');
     } catch {
-      // in-app browsers can block storage; the choice then lasts until the page closes
+      // in-app browsers can block storage
+    }
+    if (musicAudio) {
+      if (next) {
+        musicAudio.pause();
+      } else {
+        musicAudio.volume = 0.45;
+        if (musicStarted) {
+          musicAudio.play().catch(() => {});
+        }
+      }
     }
     listeners.forEach((listener) => listener());
   },
@@ -173,17 +236,32 @@ export const sound = {
       listeners.delete(listener);
     };
   },
-  /** Plays a single crisp brass knocker ring sound. */
+  /** Starts ambient background wedding music on user interaction. */
+  startMusic() {
+    if (muted) return;
+    const audio = getMusicAudio();
+    if (!audio) return;
+    if (!musicStarted) {
+      musicStarted = true;
+      audio.volume = 0.45;
+      audio.play().catch(() => {});
+    } else if (audio.paused) {
+      audio.play().catch(() => {});
+    }
+  },
+  /** Plays an acoustic wooden/brass knocker sound and starts ambient music. */
   playKnock() {
+    sound.startMusic();
     if (muted) return;
     const engine = audio();
     if (!engine) return;
     const { ctx, out } = engine;
     void ctx.resume();
-    rings(ctx, out, ctx.currentTime + 0.01);
+    playAcousticKnock(ctx, out, ctx.currentTime + 0.01);
   },
-  /** Plays the whole opening, timed to the door animation. Call it from the guest's tap. */
+  /** Plays the grand opening sequence timed to the 3D door swing. */
   playOpening() {
+    sound.startMusic();
     if (muted) return;
     const engine = audio();
     if (!engine) return;
@@ -191,9 +269,9 @@ export const sound = {
     void ctx.resume();
     const start = ctx.currentTime + 0.02;
     latch(ctx, out, start);
-    rings(ctx, out, start + 0.55);
-    creak(ctx, out, start + 0.75, 2.1);
-    thud(ctx, out, start + 2.9);
-    chime(ctx, out, start + 3.05);
+    rings(ctx, out, start + 0.35);
+    creak(ctx, out, start + 0.65, 2.0);
+    thud(ctx, out, start + 2.1);
+    chime(ctx, out, start + 2.2);
   },
 };
