@@ -288,10 +288,7 @@ export const sound = {
     const { ctx, out } = engine;
     void ctx.resume();
     const start = ctx.currentTime + 0.02;
-    latch(ctx, out, start);
-    rings(ctx, out, start + 0.35);
-    creak(ctx, out, start + 0.65, 2.0);
-    thud(ctx, out, start + 2.1);
-    chime(ctx, out, start + 2.2);
+    rings(ctx, out, start + 0.1);
+    chime(ctx, out, start + 1.2);
   },
 };

@@ -13,7 +13,7 @@ export const events: Record<EventKey, WeddingEvent> = {
     date: '2027-03-19',
     time: '16:00',
     venue: {
-      name: 'TODO: Chohan\'s House',
+      name: 'Chohan\'s House',
       address: 'st4 Awami Colony, behind General Hospital, Lahore',
       mapUrl: 'https://maps.app.goo.gl/Pkje8We1XD9ZGDKF9',
     },
@@ -60,11 +60,11 @@ export const events: Record<EventKey, WeddingEvent> = {
 };
 
 export const families = {
-  groomParents: { en: 'Mr. & Mrs. Chohan', ur: 'مسٹر اور مسز چوہان' },
-  brideParents: { en: 'Mr. & Mrs. Nasir', ur: 'مسٹر اور مسز ناصر' },
+  groomParents: { en: 'Mr. & Mrs. Chohan', ur: 'فیصل صاحب اور بیگم' },
+  brideParents: { en: 'Mr. & Mrs. Nasir', ur: 'ناصر صاحب اور بیگم' },
   line: {
-    en: 'Together with the prayers of families and elders, Sameer & Hania invite you to share their joy.',
-    ur: 'اپنے خاندانوں اور بزرگوں کی دعاؤں کے ساتھ، سمیر اور ہانیہ آپ کو اپنی شادی کے مسرت انگیز لمحات میں شرکت کی دعوت دیتے ہیں۔',
+    en: 'Sameer & Hania invite you to share their joy.',
+    ur: 'سمیر اور ہانیہ آپ کو اپنی شادی کے مسرت انگیز لمحات میں شرکت کی دعوت دیتے ہیں۔',
   },
 };
 

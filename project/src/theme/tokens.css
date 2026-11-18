@@ -21,6 +21,9 @@
 
   --font-latin: 'Alegreya Sans', system-ui, sans-serif;
   --font-urdu: 'Noto Nastaliq Urdu', 'Alegreya Sans', serif;
+  --font-urdu-clean: 'Noto Sans Arabic', 'Noto Nastaliq Urdu', sans-serif;
+  --font-arabic: 'Rakkas', 'Noto Nastaliq Urdu', serif;
+  --font-arabic-display: 'El Messiri', 'Rakkas', serif;
   --font-script: 'Pinyon Script', 'Alegreya Sans', cursive;
   --font-text: var(--font-latin);
 
