@@ -46,11 +46,11 @@ export const events: Record<EventKey, WeddingEvent> = {
     date: '2027-03-21',
     time: '19:30',
     venue: {
-      name: 'TODO: venue name',
-      address: 'TODO: full address',
-      mapUrl: 'https://maps.google.com/',
+      name: 'Mughal-e-Azam Banquet Complex',
+      address: 'Usmani Rd, Aibak Block Garden Town, Lahore',
+      mapUrl: 'https://maps.app.goo.gl/EQoY2sPBjBorbxb9A',
     },
-    dressCode: 'TODO: dress code',
+    dressCode: 'As you wish!',
     schedule: [
       { time: '19:30', title: { en: 'Gates Open & Reception', ur: 'آمد اور خیر مقدم' } },
       { time: '20:15', title: { en: "Couple's Grand Entrance", ur: 'دولہا دلہن کا استقبال' } },
@@ -63,7 +63,7 @@ export const families = {
   groomParents: { en: 'Mr. & Mrs. Chohan', ur: 'مسٹر اور مسز چوہان' },
   brideParents: { en: 'Mr. & Mrs. Nasir', ur: 'مسٹر اور مسز ناصر' },
   line: {
-    en: 'Together with their families and elders, Sameer & Hania invite you to share their joy.',
+    en: 'Together with the prayers of families and elders, Sameer & Hania invite you to share their joy.',
     ur: 'اپنے خاندانوں اور بزرگوں کی دعاؤں کے ساتھ، سمیر اور ہانیہ آپ کو اپنی شادی کے مسرت انگیز لمحات میں شرکت کی دعوت دیتے ہیں۔',
   },
 };
