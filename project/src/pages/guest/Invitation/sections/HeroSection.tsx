@@ -240,18 +240,14 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
             </h1>
           </div>
 
-          <div className={s.welcomeBox} data-open={isOpen}>
-            <div className={s.guestBadge}>
-              <span className={s.guestLabel}>{text('invitationFor')}</span>
-              <h2 className={s.guestName}>
-                <bdi>{t(guest.name)}</bdi>
-              </h2>
-            </div>
-
+          <div className={s.guestDedication} data-open={isOpen}>
+            <p className={s.guestLabel}>{text('invitationFor')}</p>
+            <h2 className={s.guestName}>
+              <bdi>{t(guest.name)}</bdi>
+            </h2>
             <p className={s.inviteMessage}>
               {fill(text('inviteLine'), names)}
             </p>
-
             {guest.note && (
               <p className={s.guestNote}>{t(guest.note)}</p>
             )}

@@ -25,6 +25,8 @@ function calculateTimeLeft(targetDateMs: number): TimeLeft {
   return { days, hours, minutes, seconds };
 }
 
+const CIRCUMFERENCE = 276.46; // 2 * PI * 44
+
 export function CountdownSection({ guest }: CountdownSectionProps) {
   const { s: text } = useLang();
 
@@ -47,27 +49,58 @@ export function CountdownSection({ guest }: CountdownSectionProps) {
     return () => clearInterval(timer);
   }, [earliestTimestamp]);
 
+  const units = [
+    {
+      value: timeLeft.days,
+      label: text('countdownDays'),
+      offset: CIRCUMFERENCE * (1 - Math.min(timeLeft.days / 60, 1)),
+    },
+    {
+      value: timeLeft.hours,
+      label: text('countdownHours'),
+      offset: CIRCUMFERENCE * (1 - timeLeft.hours / 24),
+    },
+    {
+      value: timeLeft.minutes,
+      label: text('countdownMinutes'),
+      offset: CIRCUMFERENCE * (1 - timeLeft.minutes / 60),
+    },
+    {
+      value: timeLeft.seconds,
+      label: text('countdownSeconds'),
+      offset: CIRCUMFERENCE * (1 - timeLeft.seconds / 60),
+    },
+  ];
+
   return (
     <section className={s.countdownSection} aria-label={text('countdownUntil')}>
       <Reveal>
         <p className={s.heading}>{text('countdownUntil')}</p>
         <div className={s.grid} role="timer" aria-live="off">
-          <div className={s.unit}>
-            <span className={s.value}>{String(timeLeft.days).padStart(2, '0')}</span>
-            <span className={s.label}>{text('countdownDays')}</span>
-          </div>
-          <div className={s.unit}>
-            <span className={s.value}>{String(timeLeft.hours).padStart(2, '0')}</span>
-            <span className={s.label}>{text('countdownHours')}</span>
-          </div>
-          <div className={s.unit}>
-            <span className={s.value}>{String(timeLeft.minutes).padStart(2, '0')}</span>
-            <span className={s.label}>{text('countdownMinutes')}</span>
-          </div>
-          <div className={s.unit}>
-            <span className={s.value}>{String(timeLeft.seconds).padStart(2, '0')}</span>
-            <span className={s.label}>{text('countdownSeconds')}</span>
-          </div>
+          {units.map((u, i) => (
+            <div key={i} className={s.unit}>
+              <div className={s.ring}>
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <circle
+                    className={s.track}
+                    cx="50"
+                    cy="50"
+                    r="44"
+                  />
+                  <circle
+                    className={s.fill}
+                    cx="50"
+                    cy="50"
+                    r="44"
+                    strokeDasharray={CIRCUMFERENCE}
+                    strokeDashoffset={u.offset}
+                  />
+                </svg>
+                <span className={s.value}>{String(u.value).padStart(2, '0')}</span>
+              </div>
+              <span className={s.label}>{u.label}</span>
+            </div>
+          ))}
         </div>
       </Reveal>
     </section>

@@ -1,11 +1,11 @@
 import { Reveal } from '@/components/motion/Reveal';
-import { CardRule } from '@/components/ornaments/CardRule';
+import { RoseDivider } from '@/components/ornaments/RoseDivider';
 import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
 import { couple } from '@/config/invitation.config';
 import { useLang } from '@/i18n/useLang';
 import s from './ClosingSection.module.css';
 
-/** The close: wedding dua, thank-you, geometric ornament, and couple signature. */
+/** The close: wedding dua, thank-you, botanical rose divider, and grand couple signature. */
 export default function ClosingSection() {
   const { t, s: text } = useLang();
 
@@ -14,11 +14,11 @@ export default function ClosingSection() {
       <ThemeOrnament />
       <div className={s.body}>
         <Reveal>
-          <p className={s.thankYou}>{text('thankYou')}</p>
+          <p className={s.eyebrow}>{text('thankYou')}</p>
         </Reveal>
 
         <Reveal delay={100}>
-          <div className={s.duaBox}>
+          <div className={s.duaBlock}>
             <p className={s.duaArabic} lang="ar" dir="rtl">
               {text('duaArabic')}
             </p>
@@ -28,20 +28,20 @@ export default function ClosingSection() {
           </div>
         </Reveal>
 
-        <Reveal delay={160}>
-          <div className={s.dividerWrap}>
-            <CardRule />
-          </div>
-        </Reveal>
-
-        <Reveal delay={200}>
-          <p className={s.line}>{text('closingNote')}</p>
+        <Reveal delay={180}>
+          <RoseDivider width="clamp(12rem, 55vw, 18rem)" />
         </Reveal>
 
         <Reveal delay={240}>
-          <p className={s.names}>
-            {t(couple.groom)} <span className={s.and}>{text('and')}</span> {t(couple.bride)}
-          </p>
+          <p className={s.closingNote}>{text('closingNote')}</p>
+        </Reveal>
+
+        <Reveal delay={300}>
+          <div className={s.signatureBlock}>
+            <p className={s.names}>
+              {t(couple.groom)} <span className={s.and}>{text('and')}</span> {t(couple.bride)}
+            </p>
+          </div>
         </Reveal>
       </div>
     </section>

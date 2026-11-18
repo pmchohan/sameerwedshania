@@ -1,37 +1,52 @@
 .contactSection {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: calc(var(--m) * 8) calc(var(--m) * 2.5);
   background:
-    radial-gradient(ellipse at 50% 50%, rgb(10 36 99 / 0.35), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgb(10 36 99 / 0.4), transparent 75%),
     var(--ground);
   color: var(--ink);
   text-align: center;
 }
 
-.heading {
+.eyebrow {
   font-family: var(--font-body);
-  font-size: 0.88rem;
-  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--gold-400);
-  margin-bottom: calc(var(--m) * 1);
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+}
+
+:global([dir="rtl"]) .eyebrow {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 1.05rem;
+}
+
+.heading {
+  font-family: var(--font-latin);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 500;
+  color: var(--white-100);
+  margin: 0 0 0.5rem;
 }
 
 :global([dir="rtl"]) .heading {
   font-family: var(--font-urdu);
-  letter-spacing: normal;
-  font-size: 1.15rem;
+  font-size: 1.85rem;
 }
 
 .subheading {
   font-family: var(--font-body);
   font-size: 0.95rem;
   color: var(--ink-muted);
-  max-width: 24rem;
-  margin-bottom: calc(var(--m) * 4);
+  max-width: 22rem;
+  margin: 0 auto calc(var(--m) * 4);
 }
 
 :global([dir="rtl"]) .subheading {
@@ -39,102 +54,146 @@
   font-size: 1.05rem;
 }
 
-.cardsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: calc(var(--m) * 2.5);
+.contactsGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(var(--m) * 2);
   width: 100%;
-  max-width: 32rem;
+  max-width: 26rem;
+  margin-inline: auto;
 }
 
-.card {
-  flex: 1 1 calc(50% - var(--m) * 2);
-  min-width: 14rem;
+.contactsGrid::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgb(247 217 120 / 0.3) 25%, rgb(247 217 120 / 0.3) 75%, transparent);
+}
+
+.contact {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(var(--m) * 1.5);
-  padding: calc(var(--m) * 3) calc(var(--m) * 2);
-  border: 1px solid var(--gold-line);
-  border-radius: 4px;
-  background: rgb(6 22 56 / 0.75);
-  box-shadow: 0 8px 24px rgb(0 0 0 / 0.3);
+  padding-inline: 0.75rem;
 }
 
 .avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 4.2rem;
+  height: 4.2rem;
   border-radius: 50%;
-  border: 1px solid var(--gold-line);
-  background: rgb(10 36 99 / 0.6);
+  border: 1px solid rgb(247 217 120 / 0.45);
+  background: linear-gradient(135deg, rgb(10 36 99 / 0.8), rgb(6 22 56 / 0.9));
   color: var(--gold-400);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-family: var(--font-latin);
+  font-weight: 500;
+  font-size: 1.45rem;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.35);
 }
 
 .name {
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-family: var(--font-latin);
+  font-size: 1.18rem;
+  font-weight: 600;
   color: var(--white-100);
-  margin: 0;
+  margin: 1rem 0 0.25rem;
+}
+
+:global([dir="rtl"]) .name {
+  font-family: var(--font-urdu);
+  font-size: 1.3rem;
 }
 
 .role {
-  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--gold-400);
+  opacity: 0.85;
   margin: 0;
+  min-height: 1.8rem;
+}
+
+:global([dir="rtl"]) .role {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 0.92rem;
 }
 
 .phone {
-  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
   color: var(--mist-blue);
   direction: ltr;
-  margin: 0;
+  margin: 0.5rem 0 1rem;
+  font-variant-numeric: tabular-nums;
 }
 
-.buttonRow {
+.actions {
   display: flex;
-  gap: calc(var(--m) * 1);
-  width: 100%;
-  margin-top: calc(var(--m) * 0.5);
+  gap: 0.75rem;
 }
 
-.contactBtn {
-  flex: 1;
-  display: inline-flex;
+.actionBtn {
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  min-height: 40px;
-  padding: 0 calc(var(--m) * 1.25);
-  border: 1px solid var(--gold-line);
-  border-radius: 2px;
-  background: rgb(10 36 99 / 0.85);
+  border-radius: 50%;
+  border: 1px solid rgb(247 217 120 / 0.35);
   color: var(--gold-400);
-  font-size: 0.85rem;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  background: rgb(6 22 56 / 0.6);
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.contactBtn:hover,
-.contactBtn:focus-visible {
+.actionBtn:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-400);
+  background: rgb(10 36 99 / 0.8);
+}
+
+.actionBtn:active {
+  transform: scale(0.95);
+}
+
+.callBtn {
   background: var(--gold-400);
-  color: var(--cobalt-900);
+  color: var(--navy-900);
+  border-color: var(--gold-400);
+}
+
+.callBtn:hover {
+  background: #f7d978;
 }
 
 .whatsappBtn {
-  border-color: rgb(37 211 102 / 0.6);
-  color: rgb(37 211 102);
+  color: #25d366;
+  border-color: rgba(37, 211, 102, 0.4);
 }
 
-.whatsappBtn:hover,
-.whatsappBtn:focus-visible {
-  background: rgb(37 211 102);
-  color: #000;
+.whatsappBtn:hover {
+  border-color: #25d366;
+  background: rgba(37, 211, 102, 0.15);
+}
+
+@media (max-width: 440px) {
+  .contactsGrid {
+    gap: calc(var(--m) * 1);
+  }
+  .avatar {
+    width: 3.6rem;
+    height: 3.6rem;
+    font-size: 1.25rem;
+  }
+  .name {
+    font-size: 1.05rem;
+  }
 }

@@ -45,6 +45,8 @@ export const STRINGS = {
   },
   surahArRum: { en: 'Surah Ar-Rum · 30:21', ur: 'سورۃ الروم · ۳۰:۲۱' },
   withBlessings: { en: 'With the blessings of our families', ur: 'خاندان اور بزرگوں کی دعاؤں کے ساتھ' },
+  saveTheDate: { en: 'Save the date', ur: 'تاریخ یاد رکھیے' },
+  questionsTitle: { en: 'Any questions?', ur: 'کوئی سوال؟' },
   schedule: { en: 'Program Timeline', ur: 'پروگرام کی تفصیل' },
   addToCalendar: { en: 'Add to calendar', ur: 'کیلنڈر میں شامل کریں' },
   countdownUntil: { en: 'Counting down to the celebration', ur: 'تقریب کے آغاز میں باقی وقت' },

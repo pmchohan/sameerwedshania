@@ -1,26 +1,49 @@
-import s from './CornerOrnament.module.css';
+interface CornerOrnamentProps {
+  className?: string;
+  position?: 'tl' | 'tr' | 'bl' | 'br';
+}
 
-export function CornerOrnament({ className }: { className?: string }) {
+export function CornerOrnament({ className = '', position = 'tl' }: CornerOrnamentProps) {
+  const base = import.meta.env.BASE_URL ?? '/';
+  const src = `${base}assets/img/corner-ornament.webp`;
+
+  const positionStyles: Record<string, React.CSSProperties> = {
+    tl: { top: 0, left: 0 },
+    tr: { top: 0, right: 0, transform: 'scaleX(-1)' },
+    bl: { bottom: 0, left: 0, transform: 'scaleY(-1)' },
+    br: { bottom: 0, right: 0, transform: 'scale(-1)' },
+  };
+
   return (
-    <svg className={className} viewBox="0 0 54 54" fill="none" aria-hidden="true" focusable="false">
-      <path
-        d="M2 52 V16 C2 8.27 8.27 2 16 2 H52"
-        stroke="var(--gold-400, #d4af37)"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M7 52 V18 C7 11.93 11.93 7 18 7 H52"
-        stroke="var(--gold-line, #f7d978)"
-        strokeWidth="0.8"
-        strokeOpacity="0.6"
-        strokeLinecap="round"
-      />
-      <path
-        d="M18 12 L22 18 L18 24 L14 18 Z"
-        fill="var(--gold-400, #d4af37)"
-      />
-      <circle cx="18" cy="18" r="1.5" fill="#061638" />
-    </svg>
+    <img
+      src={src}
+      alt=""
+      aria-hidden="true"
+      className={className}
+      style={{
+        position: 'absolute',
+        width: 'clamp(4.5rem, 16vw, 7.5rem)',
+        height: 'auto',
+        pointerEvents: 'none',
+        userSelect: 'none',
+        zIndex: 2,
+        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45))',
+        ...positionStyles[position],
+      }}
+      loading="lazy"
+    />
   );
 }
+
+/** Renders all four corners pinned to the container. */
+export function FourCorners({ className = '' }: { className?: string }) {
+  return (
+    <>
+      <CornerOrnament position="tl" className={className} />
+      <CornerOrnament position="tr" className={className} />
+      <CornerOrnament position="bl" className={className} />
+      <CornerOrnament position="br" className={className} />
+    </>
+  );
+}
+

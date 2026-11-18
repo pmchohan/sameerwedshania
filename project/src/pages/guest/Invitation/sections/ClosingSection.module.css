@@ -1,120 +1,122 @@
 .closing {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  min-height: 100vh;
-  min-height: 100svh;
-  background: var(--ground);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  min-height: 90svh;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 60%, rgb(10 36 99 / 0.5), transparent 75%),
+    var(--ground);
   color: var(--ink);
   text-align: center;
+  padding-block: calc(var(--m) * 8);
+  overflow: hidden;
 }
 
 .body {
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: calc(var(--m) * 3);
-  max-width: 34rem;
-  margin-inline: auto;
-  padding: calc(var(--m) * 10) calc(var(--m) * 3) calc(var(--m) * 14);
-}
-
-.thankYou {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold-400);
-  margin: 0;
-}
-
-:global([dir="rtl"]) .thankYou {
-  font-family: var(--font-urdu);
-  letter-spacing: normal;
-  font-size: 1.25rem;
-}
-
-.duaBox {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--m) * 1.5);
-  padding: calc(var(--m) * 3) calc(var(--m) * 2.5);
-  border: 1px solid var(--gold-line);
-  border-radius: 4px;
-  background: rgb(6 22 56 / 0.65);
-  max-width: 28rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 32rem;
+  margin-inline: auto;
+  padding: calc(var(--m) * 4) calc(var(--m) * 2.5);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: calc(var(--m) * 2.5);
+  opacity: 0.88;
+}
+
+:global([dir="rtl"]) .eyebrow {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 1.2rem;
+}
+
+.duaBlock {
+  max-width: 26rem;
+  margin: 0 auto;
 }
 
 .duaArabic {
   font-family: var(--font-urdu);
-  font-size: clamp(1.15rem, 4vw, 1.35rem);
-  line-height: 2;
+  font-size: clamp(1.3rem, 4.8vw, 1.65rem);
+  line-height: 2.2;
   color: var(--gold-400);
-  margin: 0;
+  text-shadow: 0 0 16px rgba(247, 217, 120, 0.4);
+  margin: 0 0 1rem;
+  text-wrap: balance;
 }
 
 .duaTranslation {
   font-family: var(--font-body);
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--mist-blue);
   font-style: italic;
   margin: 0;
+  text-wrap: balance;
 }
 
 :global([dir="rtl"]) .duaTranslation {
   font-family: var(--font-urdu);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-style: normal;
   line-height: 1.9;
 }
 
-.line {
-  max-width: 24rem;
-  color: var(--ink-muted);
-  font-size: 1.025rem;
+.closingNote {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
   line-height: 1.6;
-  margin: 0;
+  color: var(--ink-muted);
+  max-width: 22rem;
+  margin: 0 auto calc(var(--m) * 2);
 }
 
-.dividerWrap {
-  margin: 0.5rem auto;
-  max-width: 14rem;
-  opacity: 0.8;
-}
-
-:global([dir="rtl"]) .line {
+:global([dir="rtl"]) .closingNote {
   font-family: var(--font-urdu);
   font-size: 1.15rem;
-  line-height: 2;
+}
+
+.signatureBlock {
+  margin-top: calc(var(--m) * 1);
 }
 
 .names {
   font-family: var(--font-script);
-  font-size: clamp(3rem, 14vw, 4.5rem);
-  line-height: 1.4;
+  font-size: clamp(3.2rem, 13vw, 4.8rem);
+  line-height: 1.2;
   color: var(--gold-400);
+  text-shadow: 0 0 16px rgba(247, 217, 120, 0.35);
   margin: 0;
+}
+
+:global([dir="rtl"]) .names {
+  font-family: var(--font-urdu);
+  font-size: clamp(2.4rem, 9vw, 3.2rem);
 }
 
 .and {
   font-family: var(--font-latin);
-  font-size: 0.4em;
-  color: var(--ink-muted);
+  font-size: 0.45em;
+  color: var(--mist-blue);
+  vertical-align: middle;
+  margin-inline: 0.3em;
+  font-style: normal;
 }
 
-:global(html[lang='ur']) .names {
-  line-height: 1.9;
-}
-
-:global(html[data-theme='darwaza']) .closing {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgb(255 111 159 / 0.12), transparent 42%),
-    radial-gradient(ellipse at 50% 100%, rgb(47 181 168 / 0.1), transparent 45%),
-    var(--ground);
-}
-
-@media (max-width: 360px) {
-  .names {
-    font-size: 2.4rem;
-  }
+:global([dir="rtl"]) .and {
+  font-family: var(--font-urdu);
 }
