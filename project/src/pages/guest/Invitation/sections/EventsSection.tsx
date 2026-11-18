@@ -9,7 +9,7 @@ export default function EventsSection({ guest }: { guest: Guest }) {
   return (
     <>
       {shown.map(({ key, event }) => (
-        <EventCard key={key} event={event} light="night" />
+        <EventCard key={key} eventKey={key} event={event} light="night" />
       ))}
     </>
   );

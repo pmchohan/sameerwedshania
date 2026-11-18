@@ -1,0 +1,123 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #040e26;
+  color: var(--white-100);
+  opacity: 1;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: auto;
+}
+
+.loader[data-loaded='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(10, 36, 99, 0.65), transparent 75%),
+    linear-gradient(180deg, #020713 0%, #061638 50%, #020713 100%);
+  z-index: 1;
+}
+
+.arches {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.archLine {
+  fill: none;
+  stroke: rgba(247, 217, 120, 0.25);
+  stroke-width: 1.5;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawArch 1.8s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s) forwards;
+}
+
+@keyframes drawArch {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.monogram {
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 12vw, 4.2rem);
+  color: var(--gold-400);
+  text-shadow: 0 0 20px rgba(247, 217, 120, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  line-height: 1;
+  animation: pulseLogo 2s ease-in-out infinite;
+}
+
+.amp {
+  font-family: var(--font-latin);
+  font-size: 0.5em;
+  color: var(--mist-300);
+}
+
+@keyframes pulseLogo {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mist-blue);
+  opacity: 0.85;
+}
+
+:global([dir="rtl"]) .caption {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 1.05rem;
+}
+
+.track {
+  width: 12rem;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(247, 217, 120, 0.15);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.bar {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37, #f7d978);
+  border-radius: 999px;
+  transition: width 0.35s ease-out;
+  box-shadow: 0 0 8px rgba(247, 217, 120, 0.8);
+}

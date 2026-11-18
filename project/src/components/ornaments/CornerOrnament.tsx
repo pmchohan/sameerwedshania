@@ -22,12 +22,12 @@ export function CornerOrnament({ className = '', position = 'tl' }: CornerOrname
       className={className}
       style={{
         position: 'absolute',
-        width: 'clamp(4.5rem, 16vw, 7.5rem)',
+        width: 'clamp(3.8rem, 14vw, 5.8rem)',
         height: 'auto',
         pointerEvents: 'none',
         userSelect: 'none',
         zIndex: 2,
-        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45))',
+        filter: 'drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4))',
         ...positionStyles[position],
       }}
       loading="lazy"

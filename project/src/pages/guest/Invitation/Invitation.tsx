@@ -10,6 +10,7 @@ import { CountdownSection } from './sections/CountdownSection';
 import EventsSection from './sections/EventsSection';
 import OpeningHero from './sections/OpeningHero';
 import { VerseSection } from './sections/VerseSection';
+import { PageLoader } from '@/components/loading/PageLoader';
 
 const REDUCED_MOTION_MS = 400;
 
@@ -50,6 +51,7 @@ export default function Invitation({ code }: { code: string }) {
 
   return (
     <SiteLayout>
+      <PageLoader />
       <InviteMiddleware code={code}>
         {(guest) => (
           <>

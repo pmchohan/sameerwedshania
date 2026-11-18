@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--m) * 6) calc(var(--m) * 2);
+  padding: calc(var(--m) * 4) calc(var(--m) * 2) calc(var(--m) * 2);
   background:
     radial-gradient(ellipse 60% 50% at 50% 50%, rgb(10 36 99 / 0.45), transparent 70%),
     var(--ground);

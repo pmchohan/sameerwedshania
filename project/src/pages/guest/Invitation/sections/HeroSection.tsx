@@ -30,14 +30,14 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
   const isOpen = phase === 'locking' || phase === 'open';
   const names = { groom: t(couple.groom), bride: t(couple.bride) };
 
-  // Door Plate Sizing logic to maintain seamless 9:16 fit (361 x 1376 per leaf)
+  // Door Plate Sizing logic to maintain seamless 9:16 fit (384 x 1376 per leaf)
   useEffect(() => {
     function sizePlate(half: HTMLElement | null, plate: HTMLElement | null, side: 'left' | 'right') {
       if (!half || !plate) return;
       const rect = half.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      const n = Math.max(rect.width / 361, rect.height / 1376);
-      const w = 361 * n;
+      const n = Math.max(rect.width / 384, rect.height / 1376);
+      const w = 384 * n;
       const h = 1376 * n;
       plate.style.width = `${w}px`;
       plate.style.height = `${h}px`;
@@ -52,8 +52,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
 
     update();
     const ro = new ResizeObserver(update);
-    if (doorLeftRef.current) ro.observe(doorLeftRef.current);
-    if (doorRightRef.current) ro.observe(doorRightRef.current);
+    if (doorStageRef.current) ro.observe(doorStageRef.current);
     window.addEventListener('resize', update);
 
     return () => {
@@ -245,9 +244,6 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
             <h2 className={s.guestName}>
               <bdi>{t(guest.name)}</bdi>
             </h2>
-            <p className={s.inviteMessage}>
-              {fill(text('inviteLine'), names)}
-            </p>
             {guest.note && (
               <p className={s.guestNote}>{t(guest.note)}</p>
             )}

@@ -85,7 +85,8 @@
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform;
-  transition: transform 2s cubic-bezier(0.45, 0.02, 0.2, 1);
+  transform: translateZ(0);
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .doorHalf[data-side='left'] {
@@ -405,12 +406,12 @@
 .heroPhotoInner {
   position: absolute;
   inset: 0;
-  filter: blur(8px) brightness(0.65);
-  transition: filter 3.5s ease-in-out;
+  opacity: 0.7;
+  transition: opacity 2s ease-in-out;
 }
 
 .heroPhotoInner[data-open='true'] {
-  filter: blur(0) brightness(0.95);
+  opacity: 0.95;
 }
 
 .heroPhotoInner img {
@@ -508,7 +509,7 @@
 
 :global([dir='rtl']) .heroNames {
   font-family: var(--font-urdu);
-  font-size: 3.25rem;
+  font-size: clamp(2.2rem, 7.5vw, 2.75rem);
   font-weight: 600;
   line-height: 1.35;
 }
@@ -573,7 +574,7 @@
 
 :global([dir='rtl']) .guestName {
   font-family: var(--font-urdu);
-  font-size: 2.25rem;
+  font-size: clamp(1.5rem, 5.5vw, 1.85rem);
   line-height: 1.4;
 }
 

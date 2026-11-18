@@ -14,17 +14,18 @@ import s from './EventCard.module.css';
 
 interface EventCardProps {
   event: WeddingEvent;
+  eventKey?: string;
   light: Light;
 }
 
-export function EventCard({ event, light }: EventCardProps) {
+export function EventCard({ event, eventKey, light }: EventCardProps) {
   const { lang, t, s: text } = useLang();
   const titleId = useId();
   const date = formatDate(event.date, lang);
   const hijri = event.hijriDate ? t(event.hijriDate) : formatHijriDate(event.date, lang);
 
   return (
-    <section className={s.panel} data-light={light} aria-labelledby={titleId}>
+    <section className={s.panel} data-event={eventKey} data-light={light} aria-labelledby={titleId}>
       <ThemeOrnament />
       <div className={s.body}>
         <Reveal>

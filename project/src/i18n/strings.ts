@@ -33,7 +33,7 @@ export const STRINGS = {
   unmuteSound: { en: 'Play music', ur: 'موسیقی چلائیں' },
   switchLanguage: { en: 'Switch to Urdu', ur: 'انگریزی میں دیکھیں' },
   skip: { en: 'Skip', ur: 'چھوڑیے' },
-  youAreInvited: { en: "You're Invited", ur: 'دعوت نامہ' },
+  youAreInvited: { en: "You're Invited", ur: 'آپ مدعو ہیں' },
   knockPrompt: { en: 'Knock three times to enter', ur: 'داخل ہونے کے لیے تین بار دستک دیجیے' },
   quranVerseArabic: {
     en: 'وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً',

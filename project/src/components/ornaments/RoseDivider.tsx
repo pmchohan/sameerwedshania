@@ -4,7 +4,7 @@ interface RoseDividerProps {
 }
 
 /** Bespoke botanical floral divider featuring blushing roses, white jasmine blossoms, and gold filigree. */
-export function RoseDivider({ className = '', width = 'clamp(14rem, 65vw, 22rem)' }: RoseDividerProps) {
+export function RoseDivider({ className = '', width = 'clamp(14rem, 60vw, 20rem)' }: RoseDividerProps) {
   const base = import.meta.env.BASE_URL ?? '/';
   const src = `${base}assets/img/rose-divider.webp`;
 
@@ -17,7 +17,7 @@ export function RoseDivider({ className = '', width = 'clamp(14rem, 65vw, 22rem)
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        margin: '1.75rem auto',
+        margin: '1.25rem auto',
         userSelect: 'none',
         pointerEvents: 'none',
       }}
@@ -28,7 +28,7 @@ export function RoseDivider({ className = '', width = 'clamp(14rem, 65vw, 22rem)
         style={{
           width,
           height: 'auto',
-          filter: 'drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4))',
+          filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4))',
           opacity: 0.95,
         }}
         loading="lazy"
