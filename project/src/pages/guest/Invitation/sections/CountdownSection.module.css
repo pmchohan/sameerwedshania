@@ -1,0 +1,74 @@
+.countdownSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--m) * 6) calc(var(--m) * 2);
+  background:
+    radial-gradient(circle at 50% 50%, rgb(10 36 99 / 0.3), transparent 60%),
+    var(--ground);
+  color: var(--ink);
+  text-align: center;
+}
+
+.heading {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: calc(var(--m) * 2.5);
+}
+
+:global([dir="rtl"]) .heading {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 1.1rem;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--m) * 1.5);
+  max-width: 26rem;
+  width: 100%;
+}
+
+.unit {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(var(--m) * 1.5) calc(var(--m) * 0.75);
+  border: 1px solid var(--gold-line);
+  border-radius: 4px;
+  background: rgb(6 22 56 / 0.82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.35);
+}
+
+.value {
+  font-family: var(--font-body);
+  font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--gold-400);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist-blue);
+  margin-top: calc(var(--m) * 0.5);
+}
+
+:global([dir="rtl"]) .label {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 0.85rem;
+}

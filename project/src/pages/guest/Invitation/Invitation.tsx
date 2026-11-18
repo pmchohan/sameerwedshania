@@ -5,8 +5,11 @@ import { OPEN_MS, useTheme } from '@/theme/theme';
 import { useScrollLock } from '@/hooks/useScrollLock';
 import type { Phase } from './phase';
 import ClosingSection from './sections/ClosingSection';
+import { ContactSection } from './sections/ContactSection';
+import { CountdownSection } from './sections/CountdownSection';
 import EventsSection from './sections/EventsSection';
 import OpeningHero from './sections/OpeningHero';
+import { VerseSection } from './sections/VerseSection';
 
 const REDUCED_MOTION_MS = 400;
 
@@ -50,8 +53,16 @@ export default function Invitation({ code }: { code: string }) {
       <InviteMiddleware code={code}>
         {(guest) => (
           <>
-            <OpeningHero guest={guest} phase={phase} onOpen={() => setPhase((current) => (current === 'closed' ? 'locking' : current))} />
+            <OpeningHero
+              guest={guest}
+              phase={phase}
+              onOpen={() => setPhase((current) => (current === 'closed' ? 'locking' : current))}
+              onSkip={() => setPhase('open')}
+            />
+            <VerseSection guest={guest} />
+            <CountdownSection guest={guest} />
             <EventsSection guest={guest} />
+            <ContactSection />
             <ClosingSection />
           </>
         )}

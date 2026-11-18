@@ -10,11 +10,12 @@ const THEME_COLOR: Record<Theme, string> = {
 };
 
 /** How long the opening takes before the page starts to scroll, per theme (ms). */
-export const OPEN_MS: Record<Theme, number> = { darwaza: 3800, kashi: 2800, sehra: 2800, standard: 2800 };
+export const OPEN_MS: Record<Theme, number> = { kashi: 2200, darwaza: 3800, sehra: 2800, standard: 2800 };
 
 export function parseTheme(value: string | null | undefined): Theme | undefined {
+  if (value === 'kashi') return 'kashi';
   if (value === 'darwaza' || value === 'door') return 'darwaza';
-  if (value === 'kashi' || value === 'sehra' || value === 'standard') return value;
+  if (value === 'sehra' || value === 'standard') return value;
   if (value === 'sehra-of-mogra') return 'sehra';
   if (value === 'category-standard') return 'standard';
   return undefined;
@@ -39,7 +40,7 @@ const storeTheme = (theme: Theme) => {
 export function readTheme(): Theme {
   const query = parseTheme(new URLSearchParams(window.location.search).get('theme'));
   const stored = parseTheme(readStoredTheme());
-  const theme = query ?? stored ?? 'darwaza';
+  const theme = query ?? stored ?? 'kashi';
   storeTheme(theme);
   return theme;
 }
@@ -50,5 +51,5 @@ export function applyTheme(theme: Theme = readTheme()) {
 }
 
 export function useTheme(): Theme {
-  return (document.documentElement.dataset.theme as Theme | undefined) ?? 'darwaza';
+  return (document.documentElement.dataset.theme as Theme | undefined) ?? 'kashi';
 }

@@ -15,6 +15,11 @@ export interface Venue {
   mapUrl: string;
 }
 
+export interface ScheduleItem {
+  time: string;
+  title: Text;
+}
+
 export interface WeddingEvent {
   title: Text;
   /** YYYY-MM-DD */
@@ -24,6 +29,23 @@ export interface WeddingEvent {
   venue: Venue;
   dressCode?: Text;
   note?: Text;
+  /** Optional timeline / itinerary for this event. */
+  schedule?: readonly ScheduleItem[];
+  /** Optional manual Hijri date string. If omitted, computed automatically. */
+  hijriDate?: Text;
+}
+
+export interface HostContact {
+  name: Text;
+  role: Text;
+  phone: string;
+  whatsapp?: string;
+}
+
+export interface FamiliesInfo {
+  groomParents?: Text;
+  brideParents?: Text;
+  line?: Text;
 }
 
 export interface Guest {
@@ -45,4 +67,6 @@ export interface InvitationConfig {
   couple: Couple;
   events: Record<EventKey, WeddingEvent>;
   guests: readonly Guest[];
+  families?: FamiliesInfo;
+  hosts?: readonly HostContact[];
 }

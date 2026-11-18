@@ -1,146 +1,404 @@
+/* ==========================================================================
+   KASHI-KARI FULL-SCREEN ROYAL PORTAL & HERO
+   ========================================================================== */
+
 .hero {
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: calc(var(--m) * 3);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--m) * 2.5);
   min-height: 100vh;
   min-height: 100svh;
-  padding: calc(var(--m) * 9) calc(var(--m) * 2) calc(var(--m) * 12);
-  background: var(--ground);
+  padding: calc(var(--m) * 8) calc(var(--m) * 2.5) calc(var(--m) * 10);
+  background:
+    radial-gradient(ellipse at 50% 25%, rgb(10 36 99 / 0.75), transparent 70%),
+    radial-gradient(circle at 50% 85%, rgb(27 166 166 / 0.18), transparent 50%),
+    var(--ground);
   color: var(--ink);
   text-align: center;
   overflow: hidden;
 }
 
-/* Inside the niche */
-.star {
-  width: calc(var(--m) * 4);
-  height: calc(var(--m) * 4);
-  --tile-base: var(--gold-400);
-  --tile-main: var(--cobalt-900);
-  --tile-accent: var(--white-100);
+/* ==========================================================================
+   1. FULL-SCREEN GATE OVERLAY (CLOSED & LOCKING)
+   ========================================================================== */
+
+.gateOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #020b1e;
+  overflow: hidden;
+  transition: opacity 0.8s ease-out 1.8s, visibility 0.8s ease-out 1.8s;
+}
+
+.gateOverlay[data-phase="open"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Background atmosphere behind the doors */
+.gateBackdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 45%, rgb(242 201 76 / 0.25), transparent 45%),
+    radial-gradient(ellipse at 50% 60%, rgb(10 36 99 / 0.9), transparent 75%),
+    #020b1e;
+}
+
+/* Top utility bar holding Skip and Language toggle */
+.topBar {
+  position: absolute;
+  top: env(safe-area-inset-top, 16px);
+  right: env(safe-area-inset-right, 16px);
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--m) * 1.25);
+  padding-top: 12px;
+  padding-right: 12px;
+}
+
+.skipBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--gold-line);
+  border-radius: 2px;
+  background: rgb(6 22 56 / 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--gold-400);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.skipBtn:hover,
+.skipBtn:focus-visible {
+  background: var(--gold-400);
+  color: var(--cobalt-900);
+  border-color: var(--gold-400);
+}
+
+:global([dir="rtl"]) .skipBtn {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 0.95rem;
+}
+
+/* 3D Door Stage */
+.stage3d {
+  position: relative;
+  z-index: 105;
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  perspective: 1200px;
+  perspective-origin: center center;
+}
+
+/* Center light seam */
+.seamLight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1.5rem;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(242 201 76 / 0.4) 30%,
+    rgb(255 255 255 / 0.9) 50%,
+    rgb(242 201 76 / 0.4) 70%,
+    transparent 100%
+  );
+  filter: blur(3px);
+  pointer-events: none;
+  z-index: 110;
+  transition: opacity 0.4s ease;
+  animation: seamPulse 3s ease-in-out infinite;
+}
+
+@keyframes seamPulse {
+  0%, 100% { opacity: 0.65; transform: translateX(-50%) scaleX(1); }
+  50% { opacity: 0.95; transform: translateX(-50%) scaleX(1.4); }
+}
+
+.gateOverlay[data-phase="locking"] .seamLight {
+  opacity: 1;
+  width: 4rem;
+  filter: blur(8px);
+}
+
+/* Door track holding both leaves */
+.doorTrack {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Individual Door Leaf (Left & Right) */
+.doorLeaf {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform 2.2s cubic-bezier(0.42, 0.02, 0.2, 1);
+  box-shadow: inset 0 0 40px rgb(0 0 0 / 0.6);
+}
+
+.doorLeaf[data-side="left"] {
+  transform-origin: left center;
+}
+
+.doorLeaf[data-side="right"] {
+  transform-origin: right center;
+}
+
+.gateOverlay[data-phase="locking"] .doorLeaf[data-side="left"],
+.gateOverlay[data-phase="open"] .doorLeaf[data-side="left"] {
+  transform: rotateY(-105deg);
+}
+
+.gateOverlay[data-phase="locking"] .doorLeaf[data-side="right"],
+.gateOverlay[data-phase="open"] .doorLeaf[data-side="right"] {
+  transform: rotateY(105deg);
+}
+
+/* SVG Door Art */
+.doorSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Knocker zone */
+.knockerTrigger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 115;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.knockerTrigger:focus-visible {
+  box-shadow: 0 0 0 2px var(--gold-400);
+}
+
+/* Bottom prompt with dots */
+.promptWrap {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 24px) + 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 115;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.promptText {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin: 0;
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.8);
+}
+
+:global([dir="rtl"]) .promptText {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 1.05rem;
+}
+
+.dotsRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-400);
+  background: transparent;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.dot[data-active="true"] {
+  background: var(--gold-400);
+  box-shadow: 0 0 10px var(--gold-400);
+  transform: scale(1.2);
+}
+
+/* ==========================================================================
+   2. REVEALED HERO CONTENT (AFTER GATE OPENS)
+   ========================================================================== */
+
+.starsOverlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, #ffffff 1px, transparent 1.5px),
+    radial-gradient(circle, #f2c94c 0.8px, transparent 1.2px);
+  background-position: 0 0, 40px 60px;
+  background-size: 70px 90px, 110px 130px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.crescentMoon {
+  position: absolute;
+  top: calc(var(--m) * 6);
+  right: calc(var(--m) * 4);
+  width: 36px;
+  height: 36px;
+  opacity: 0.65;
+  color: var(--gold-400);
+  pointer-events: none;
 }
 
 .bismillah {
+  position: relative;
+  z-index: 2;
   font-family: 'Bismillah', var(--font-urdu);
-  font-size: 1.35rem;
+  font-size: clamp(1.3rem, 4.5vw, 1.6rem);
   line-height: 2.2;
   white-space: nowrap;
   color: var(--gold-400);
+  margin: 0;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.5);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--m) * 2.5);
+  max-width: 32rem;
+  width: 100%;
+}
+
+.namesBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--m) * 0.5);
 }
 
 .names {
-  display: grid;
-  justify-items: center;
   font-family: var(--font-script);
-  font-size: clamp(2.75rem, 12vw, 3.5rem);
+  font-size: clamp(3.2rem, 15vw, 4.8rem);
   font-weight: 400;
   line-height: 1.15;
   color: var(--white-100);
+  margin: 0;
+  text-shadow: 0 4px 20px rgb(0 0 0 / 0.6);
 }
 
-:global(html[lang='ur']) .names {
-  font-size: 2.6rem;
-  line-height: 1.9;
-}
-
-:global(html[lang='ur']) .guest {
-  line-height: 1.9;
-}
-
-:global(html[lang='ur']) .tap {
-  font-size: 1.25rem;
+:global([dir="rtl"]) .names {
+  font-size: clamp(2.8rem, 13vw, 4rem);
+  line-height: 1.8;
 }
 
 .and {
   font-family: var(--font-latin);
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   color: var(--gold-400);
+  margin-inline: 8px;
 }
 
-/* Beneath the arch: the tap prompt first, then the welcome, stacked in one cell so nothing shifts. */
-.below {
-  display: grid;
+.welcomeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--m) * 1.5);
+  padding: calc(var(--m) * 2.5) calc(var(--m) * 3);
+  border: 1px solid var(--gold-line);
+  border-radius: 4px;
+  background: rgb(6 22 56 / 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
   width: 100%;
   max-width: 26rem;
 }
 
-.below > * {
-  grid-area: 1 / 1;
+.guestBadge {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--white-100);
+  margin: 0;
 }
 
-.tap {
-  align-self: start;
+:global([dir="rtl"]) .guestBadge {
+  font-family: var(--font-urdu);
+  font-size: 1.35rem;
+  line-height: 1.9;
+}
+
+.guestName {
   color: var(--gold-400);
-  font-size: 1.125rem;
-  transition: opacity 0.6s var(--ease-out);
+  font-weight: 600;
 }
 
-:global(html[lang='en']) .tap {
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-size: 1rem;
+.inviteMessage {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--mist-blue);
+  margin: 0;
 }
 
-.welcome {
-  display: grid;
-  justify-items: center;
-  gap: calc(var(--m) * 1.5);
-  opacity: 0;
-  transform: translateY(var(--m));
-  transition:
-    opacity 1s var(--ease-out) 2.3s,
-    transform 1s var(--ease-out) 2.3s;
+:global([dir="rtl"]) .inviteMessage {
+  font-family: var(--font-urdu);
+  font-size: 1.15rem;
+  line-height: 2;
 }
 
-.guestLine {
-  color: var(--ink-muted);
-}
-
-.guest {
-  display: block;
-  overflow-wrap: anywhere;
-  font-family: var(--font-script);
-  font-size: 2.75rem;
-  line-height: 1.3;
+.guestNote {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-style: italic;
   color: var(--gold-400);
+  margin: 0;
 }
 
-.line {
-  max-width: 22rem;
-  overflow-wrap: anywhere;
-  color: var(--ink-muted);
-}
-
-/* Built: the prompt gives way to the welcome. */
-.hero[data-built='true'] .tap {
-  opacity: 0;
-}
-
-.hero[data-built='true'] .welcome {
-  opacity: 1;
-  transform: none;
-}
-
-/* Short screens: tighten the hero. The bottom padding keeps room for the scroll cue. */
-@media (max-height: 700px) {
-  .hero {
-    gap: calc(var(--m) * 2);
-    padding: calc(var(--m) * 5) calc(var(--m) * 2) calc(var(--m) * 10);
-  }
-}
-
-/* Very short screens keep the names and the cue; the long invite line drops below them. */
-@media (max-height: 620px) {
-  .line {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .welcome {
-    transform: none;
-    transition: opacity 0.4s ease;
-  }
+:global([dir="rtl"]) .guestNote {
+  font-family: var(--font-urdu);
+  font-size: 1.05rem;
+  font-style: normal;
 }

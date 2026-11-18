@@ -1,0 +1,140 @@
+.contactSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--m) * 8) calc(var(--m) * 2.5);
+  background:
+    radial-gradient(ellipse at 50% 50%, rgb(10 36 99 / 0.35), transparent 70%),
+    var(--ground);
+  color: var(--ink);
+  text-align: center;
+}
+
+.heading {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: calc(var(--m) * 1);
+}
+
+:global([dir="rtl"]) .heading {
+  font-family: var(--font-urdu);
+  letter-spacing: normal;
+  font-size: 1.15rem;
+}
+
+.subheading {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+  max-width: 24rem;
+  margin-bottom: calc(var(--m) * 4);
+}
+
+:global([dir="rtl"]) .subheading {
+  font-family: var(--font-urdu);
+  font-size: 1.05rem;
+}
+
+.cardsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--m) * 2.5);
+  width: 100%;
+  max-width: 32rem;
+}
+
+.card {
+  flex: 1 1 calc(50% - var(--m) * 2);
+  min-width: 14rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--m) * 1.5);
+  padding: calc(var(--m) * 3) calc(var(--m) * 2);
+  border: 1px solid var(--gold-line);
+  border-radius: 4px;
+  background: rgb(6 22 56 / 0.75);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.3);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-line);
+  background: rgb(10 36 99 / 0.6);
+  color: var(--gold-400);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--white-100);
+  margin: 0;
+}
+
+.role {
+  font-size: 0.85rem;
+  color: var(--gold-400);
+  margin: 0;
+}
+
+.phone {
+  font-size: 0.95rem;
+  color: var(--mist-blue);
+  direction: ltr;
+  margin: 0;
+}
+
+.buttonRow {
+  display: flex;
+  gap: calc(var(--m) * 1);
+  width: 100%;
+  margin-top: calc(var(--m) * 0.5);
+}
+
+.contactBtn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 calc(var(--m) * 1.25);
+  border: 1px solid var(--gold-line);
+  border-radius: 2px;
+  background: rgb(10 36 99 / 0.85);
+  color: var(--gold-400);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.contactBtn:hover,
+.contactBtn:focus-visible {
+  background: var(--gold-400);
+  color: var(--cobalt-900);
+}
+
+.whatsappBtn {
+  border-color: rgb(37 211 102 / 0.6);
+  color: rgb(37 211 102);
+}
+
+.whatsappBtn:hover,
+.whatsappBtn:focus-visible {
+  background: rgb(37 211 102);
+  color: #000;
+}

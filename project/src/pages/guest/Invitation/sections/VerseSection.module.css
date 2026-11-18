@@ -1,0 +1,181 @@
+.verseSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80svh;
+  padding: calc(var(--m) * 8) calc(var(--m) * 2.5);
+  background:
+    radial-gradient(ellipse at 50% 20%, rgb(10 36 99 / 0.45), transparent 70%),
+    radial-gradient(ellipse at 50% 90%, rgb(27 166 166 / 0.15), transparent 60%),
+    var(--ground);
+  color: var(--ink);
+  text-align: center;
+  overflow: hidden;
+}
+
+.panel {
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  padding: calc(var(--m) * 4) calc(var(--m) * 3);
+  border: 1px solid var(--gold-line);
+  border-radius: 4px;
+  background: rgb(6 22 56 / 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 16px 36px rgb(0 0 0 / 0.42);
+}
+
+.corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+}
+
+.cornerTopLeft {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--gold-400);
+  border-left: 2px solid var(--gold-400);
+}
+
+.cornerTopRight {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid var(--gold-400);
+  border-right: 2px solid var(--gold-400);
+}
+
+.cornerBottomLeft {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid var(--gold-400);
+  border-left: 2px solid var(--gold-400);
+}
+
+.cornerBottomRight {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--gold-400);
+  border-right: 2px solid var(--gold-400);
+}
+
+.bismillah {
+  font-family: 'Bismillah', var(--font-urdu);
+  font-size: 1.4rem;
+  line-height: 2;
+  color: var(--gold-400);
+  margin-bottom: calc(var(--m) * 2);
+}
+
+.arabicVerse {
+  font-family: var(--font-urdu);
+  font-size: clamp(1.2rem, 4.2vw, 1.45rem);
+  line-height: 2.1;
+  color: var(--white-100);
+  margin-bottom: calc(var(--m) * 2);
+  text-shadow: 0 2px 8px rgb(0 0 0 / 0.5);
+}
+
+.verseTranslation {
+  font-family: var(--font-body);
+  font-size: 1.025rem;
+  line-height: 1.7;
+  color: var(--mist-blue);
+  margin-bottom: calc(var(--m) * 1.5);
+  font-style: italic;
+}
+
+:global([dir="rtl"]) .verseTranslation {
+  font-family: var(--font-urdu);
+  font-size: 1.15rem;
+  line-height: 2;
+  font-style: normal;
+}
+
+.citation {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: calc(var(--m) * 3);
+}
+
+:global([dir="rtl"]) .citation {
+  letter-spacing: normal;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--m) * 1.5);
+  margin-block: calc(var(--m) * 2.5);
+}
+
+.rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+}
+
+.diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--gold-400);
+  transform: rotate(45deg);
+}
+
+.familiesBox {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--m) * 1.25);
+}
+
+.familyLine {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--white-100);
+}
+
+:global([dir="rtl"]) .familyLine {
+  font-family: var(--font-urdu);
+  font-size: 1.2rem;
+  line-height: 2;
+}
+
+.parentsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--m) * 2);
+  margin-top: calc(var(--m) * 1.5);
+}
+
+.parentGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.parentLabel {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+:global([dir="rtl"]) .parentLabel {
+  letter-spacing: normal;
+}
+
+.parentName {
+  font-size: 0.95rem;
+  color: var(--white-100);
+  font-weight: 500;
+}

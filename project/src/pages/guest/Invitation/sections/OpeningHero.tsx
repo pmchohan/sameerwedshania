@@ -10,6 +10,7 @@ interface OpeningHeroProps {
   guest: Guest;
   phase: Phase;
   onOpen: () => void;
+  onSkip?: () => void;
 }
 
 export default function OpeningHero(props: OpeningHeroProps) {

@@ -173,6 +173,15 @@ export const sound = {
       listeners.delete(listener);
     };
   },
+  /** Plays a single crisp brass knocker ring sound. */
+  playKnock() {
+    if (muted) return;
+    const engine = audio();
+    if (!engine) return;
+    const { ctx, out } = engine;
+    void ctx.resume();
+    rings(ctx, out, ctx.currentTime + 0.01);
+  },
   /** Plays the whole opening, timed to the door animation. Call it from the guest's tap. */
   playOpening() {
     if (muted) return;
