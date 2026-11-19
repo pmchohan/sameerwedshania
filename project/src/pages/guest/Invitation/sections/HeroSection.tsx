@@ -24,43 +24,10 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
   const doorStageRef = useRef<HTMLDivElement>(null);
   const doorLeftRef = useRef<HTMLDivElement>(null);
   const doorRightRef = useRef<HTMLDivElement>(null);
-  const plateLeftRef = useRef<HTMLDivElement>(null);
-  const plateRightRef = useRef<HTMLDivElement>(null);
   const knockZoneRef = useRef<HTMLButtonElement>(null);
 
   const isOpen = phase === 'locking' || phase === 'open';
   const names = { groom: t(couple.groom), bride: t(couple.bride) };
-
-  // Door Plate Sizing logic to maintain seamless 9:16 fit (384 x 1376 per leaf)
-  useEffect(() => {
-    function sizePlate(half: HTMLElement | null, plate: HTMLElement | null, side: 'left' | 'right') {
-      if (!half || !plate) return;
-      const rect = half.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      const n = Math.max(rect.width / 384, rect.height / 1376);
-      const w = 384 * n;
-      const h = 1376 * n;
-      plate.style.width = `${w}px`;
-      plate.style.height = `${h}px`;
-      plate.style.left = `${side === 'left' ? rect.width - w : 0}px`;
-      plate.style.top = `${(rect.height - h) / 2}px`;
-    }
-
-    function update() {
-      sizePlate(doorLeftRef.current, plateLeftRef.current, 'left');
-      sizePlate(doorRightRef.current, plateRightRef.current, 'right');
-    }
-
-    update();
-    const ro = new ResizeObserver(update);
-    if (doorStageRef.current) ro.observe(doorStageRef.current);
-    window.addEventListener('resize', update);
-
-    return () => {
-      ro.disconnect();
-      window.removeEventListener('resize', update);
-    };
-  }, []);
 
   // Remove the gate overlay once opening finishes
   useEffect(() => {
@@ -92,15 +59,16 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
 
   const rattleDoor = (el: HTMLElement | null, dir: number) => {
     if (!el) return;
+    el.getAnimations().forEach((anim) => anim.cancel());
     el.animate(
       [
         { transform: 'rotateY(0deg)' },
-        { transform: `rotateY(${-6.2 * dir}deg)` },
-        { transform: `rotateY(${2.6 * dir}deg)` },
-        { transform: `rotateY(${-1 * dir}deg)` },
+        { transform: `rotateY(${5 * dir}deg)` },
+        { transform: `rotateY(${-1.8 * dir}deg)` },
+        { transform: `rotateY(${0.6 * dir}deg)` },
         { transform: 'rotateY(0deg)' },
       ],
-      { duration: 520, easing: 'cubic-bezier(.2, .8, .3, 1)' },
+      { duration: 420, easing: 'cubic-bezier(.2, .8, .3, 1)' },
     );
   };
 
@@ -116,20 +84,26 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
 
     spawnDust(x, y);
     spawnFlash();
-    rattleDoor(doorLeftRef.current, 1);
-    rattleDoor(doorRightRef.current, -1);
 
     const next = knocks + 1;
     setKnocks(next);
 
     if (next >= 3) {
+      // 3rd Knock: cancel any previous rattle animations immediately!
+      doorLeftRef.current?.getAnimations().forEach((a) => a.cancel());
+      doorRightRef.current?.getAnimations().forEach((a) => a.cancel());
       sound.playOpening();
-      window.setTimeout(onOpen, 250);
+      onOpen();
+    } else {
+      rattleDoor(doorLeftRef.current, 1);
+      rattleDoor(doorRightRef.current, -1);
     }
   };
 
   const handleSkip = (ev?: React.MouseEvent) => {
     ev?.stopPropagation();
+    doorLeftRef.current?.getAnimations().forEach((a) => a.cancel());
+    doorRightRef.current?.getAnimations().forEach((a) => a.cancel());
     sound.playOpening();
     if (onSkip) onSkip();
     else onOpen();
@@ -162,13 +136,13 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
             {/* Left Leaf */}
             <div className={s.doorHalf} data-side="left" ref={doorLeftRef}>
               <div className={s.doorArt}>
-                <div className={s.doorPlate} ref={plateLeftRef}>
-                  <img
-                    src={`${base}assets/img/door-left.webp`}
-                    alt=""
-                    draggable="false"
-                  />
-                </div>
+                <img
+                  src={`${base}assets/img/door-left.webp`}
+                  alt=""
+                  draggable="false"
+                  loading="eager"
+                  fetchPriority="high"
+                />
                 <div className={s.doorShade} />
               </div>
             </div>
@@ -176,13 +150,13 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
             {/* Right Leaf */}
             <div className={s.doorHalf} data-side="right" ref={doorRightRef}>
               <div className={s.doorArt}>
-                <div className={s.doorPlate} ref={plateRightRef}>
-                  <img
-                    src={`${base}assets/img/door-right.webp`}
-                    alt=""
-                    draggable="false"
-                  />
-                </div>
+                <img
+                  src={`${base}assets/img/door-right.webp`}
+                  alt=""
+                  draggable="false"
+                  loading="eager"
+                  fetchPriority="high"
+                />
                 <div className={s.doorShade} />
               </div>
             </div>
@@ -218,9 +192,10 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
           <div className={s.heroPhotoScale} data-open={isOpen}>
             <div className={s.heroPhotoInner} data-open={isOpen}>
               <img
-                src={`${base}assets/img/courtyard-night.jpg`}
+                src={`${base}assets/img/courtyard-night.webp`}
                 alt="Illuminated palace courtyard at night"
                 fetchPriority="high"
+                loading="eager"
               />
             </div>
           </div>

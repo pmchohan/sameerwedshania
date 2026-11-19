@@ -15,7 +15,7 @@ export const events: Record<EventKey, WeddingEvent> = {
     venue: {
       name: 'Chohan\'s House',
       address: 'st4 Awami Colony, behind General Hospital, Lahore',
-      mapUrl: 'https://maps.app.goo.gl/Pkje8We1XD9ZGDKF9',
+      mapUrl: 'https://maps.google.com/?q=31.4288498,74.3358515+(Chohan%27s+House)',
     },
     dressCode: 'As you wish!',
     schedule: [
@@ -48,7 +48,8 @@ export const events: Record<EventKey, WeddingEvent> = {
     venue: {
       name: 'Mughal-e-Azam Banquet Complex',
       address: 'Usmani Rd, Aibak Block Garden Town, Lahore',
-      mapUrl: 'https://maps.app.goo.gl/EQoY2sPBjBorbxb9A',
+      mapUrl: 'https://maps.google.com/?q=31.499739,74.317199+(Mughal-e-Azam+Banquet+Complex)',
+      illustration: 'assets/img/mughal-e-azam-hall.webp',
     },
     dressCode: 'As you wish!',
     schedule: [

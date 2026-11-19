@@ -204,6 +204,29 @@
   max-width: 24rem;
 }
 
+.venueIllustration {
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  justify-content: center;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.6));
+}
+
+.venueIllustration img {
+  width: 100%;
+  height: auto;
+  max-height: 210px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.venueIllustration:hover img {
+  transform: scale(1.02);
+}
+
 .venueEyebrow {
   font-family: var(--font-body);
   font-size: 0.75rem;

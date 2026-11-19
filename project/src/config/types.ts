@@ -13,6 +13,8 @@ export interface Venue {
   address: Text;
   /** A Google Maps share link (https). */
   mapUrl: string;
+  /** Optional architectural 2D illustration asset path. */
+  illustration?: string;
 }
 
 export interface ScheduleItem {

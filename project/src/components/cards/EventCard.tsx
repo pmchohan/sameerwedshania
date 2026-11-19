@@ -58,6 +58,16 @@ export function EventCard({ event, eventKey, light }: EventCardProps) {
 
         <Reveal delay={220}>
           <div className={s.venueBlock}>
+            {event.venue.illustration && (
+              <div className={s.venueIllustration}>
+                <img
+                  src={`${import.meta.env.BASE_URL ?? '/'}${event.venue.illustration}`}
+                  alt={typeof event.venue.name === 'string' ? event.venue.name : event.venue.name.en}
+                  loading="lazy"
+                  draggable="false"
+                />
+              </div>
+            )}
             <p className={s.venueEyebrow}>{text('venue')}</p>
             <h3 className={s.venueName}><bdi>{t(event.venue.name)}</bdi></h3>
             <p className={s.address}><bdi>{t(event.venue.address)}</bdi></p>

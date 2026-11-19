@@ -25,7 +25,7 @@ export function PageLoader({ onComplete }: PageLoaderProps) {
     const imagesToPreload = [
       `${base}assets/img/door-left.webp`,
       `${base}assets/img/door-right.webp`,
-      `${base}assets/img/courtyard-night.jpg`,
+      `${base}assets/img/courtyard-night.webp`,
     ];
 
     let loadedCount = 0;
@@ -37,32 +37,50 @@ export function PageLoader({ onComplete }: PageLoaderProps) {
       setProgress(pct);
     };
 
-    // Preload critical door & hero images
-    imagesToPreload.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = updateProgress;
-      img.onerror = updateProgress;
-    });
+    // Preload & decode critical images into GPU memory
+    const preloadImage = (src: string): Promise<void> => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        const markDone = () => {
+          updateProgress();
+          resolve();
+        };
+        img
+          .decode()
+          .then(markDone)
+          .catch(() => {
+            img.onload = markDone;
+            img.onerror = markDone;
+          });
+      });
+    };
 
-    // Check fonts ready
-    if ('fonts' in document) {
-      document.fonts.ready.then(updateProgress).catch(updateProgress);
-    } else {
-      updateProgress();
-    }
+    const fontPromise =
+      'fonts' in document
+        ? document.fonts.ready.then(() => updateProgress()).catch(() => updateProgress())
+        : Promise.resolve().then(() => updateProgress());
 
-    // Minimum display time for royal luxury entrance
-    const minTimer = setTimeout(() => {
+    const minTimePromise = new Promise((resolve) => setTimeout(resolve, 1100));
+    const safetyTimeoutPromise = new Promise((resolve) => setTimeout(resolve, 8000));
+
+    // Wait until ALL images are fully loaded & decoded, fonts are ready,
+    // and minimum ceremonial presentation time has elapsed.
+    Promise.race([
+      Promise.all([
+        ...imagesToPreload.map(preloadImage),
+        fontPromise,
+        minTimePromise,
+      ]),
+      safetyTimeoutPromise,
+    ]).then(() => {
       setProgress(100);
       setTimeout(() => {
         setIsLoaded(true);
         if (onComplete) onComplete();
         setTimeout(() => setIsGone(true), 800);
-      }, 400);
-    }, 1300);
-
-    return () => clearTimeout(minTimer);
+      }, 350);
+    });
   }, [onComplete]);
 
   if (isGone) return null;
