@@ -4,12 +4,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--m) * 8) calc(var(--m) * 2.5);
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 50%, rgb(10 36 99 / 0.4), transparent 75%),
-    var(--ground);
+  padding: 0;
+  padding-bottom: calc(var(--m) * 6);
+  background: #179094;
   color: var(--ink);
   text-align: center;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  margin-inline: auto;
+  padding: calc(var(--m) * 3) calc(var(--m) * 2.5) 0;
 }
 
 .eyebrow {
@@ -25,7 +32,7 @@
 :global([dir="rtl"]) .eyebrow {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.05rem;
+  font-size: 0.82rem;
 }
 
 .heading {
@@ -38,7 +45,7 @@
 
 :global([dir="rtl"]) .heading {
   font-family: var(--font-urdu);
-  font-size: 1.85rem;
+  font-size: 1.55rem;
 }
 
 .subheading {
@@ -51,7 +58,7 @@
 
 :global([dir="rtl"]) .subheading {
   font-family: var(--font-urdu);
-  font-size: 1.05rem;
+  font-size: 0.88rem;
 }
 
 .contactsGrid {
@@ -88,13 +95,13 @@
   width: 4.2rem;
   height: 4.2rem;
   border-radius: 50%;
-  border: 1px solid rgb(247 217 120 / 0.45);
-  background: linear-gradient(135deg, rgb(10 36 99 / 0.8), rgb(6 22 56 / 0.9));
+  border: 1px solid rgba(247, 217, 120, 0.55);
+  background: linear-gradient(135deg, rgba(23, 144, 148, 0.55), rgba(6, 22, 56, 0.85));
   color: var(--gold-400);
   font-family: var(--font-latin);
   font-weight: 500;
   font-size: 1.45rem;
-  box-shadow: 0 8px 20px rgb(0 0 0 / 0.35);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 18px rgba(23, 144, 148, 0.3);
 }
 
 .name {
@@ -107,7 +114,7 @@
 
 :global([dir="rtl"]) .name {
   font-family: var(--font-urdu);
-  font-size: 1.3rem;
+  font-size: 1.08rem;
 }
 
 .role {
@@ -124,7 +131,7 @@
 :global([dir="rtl"]) .role {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 0.92rem;
+  font-size: 0.75rem;
 }
 
 .phone {

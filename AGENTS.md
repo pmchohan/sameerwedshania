@@ -47,11 +47,11 @@ Nine skills are installed (checked 2026-11-11). Pick by phase:
 |---|---|---|
 | `impeccable` | **Design lead.** Concept, layout, type, colour, motion, responsive, polish. Treat this surface as **Experience** mode (the artifact leads, the interface recedes). | `context` once per session. `init` for product facts only (it does not do visuals). `shape` for the plan. `new-work` for the visual world, seeded by `docs/design-brief.md`, which you read by hand (the file is not named `design.md` on purpose: Impeccable would treat that name as DESIGN.md). Then `typeset`, `animate`, `adapt` as needed. Finish with one `polish`, one `audit`, one `harden` (long names, Urdu, small screens); each at most once. Read `reference/craft-floor.md` before every UI edit. Run `document` when the design settles, to write DESIGN.md. |
 | `frontend-dev` | **Structure.** Folders, config-driven routes as data, route guard, naming, tokens, a11y basics. | At scaffold and whenever adding a route, page or shared component. Applied scaled down (`docs/engineering.md`). |
-| `ponytail` (level `full`) | **Code restraint.** Smallest complete change, no speculative abstraction or dependencies. End each coding reply with what was skipped and any risk. | Every coding task. It limits code and dependencies, never visual ambition or anything the owner asked for. |
 | `caveman-commit` | Commit message style. | Only when the owner asks for a commit. |
 
 **Not used**
 
+- `ponytail`: removed per owner request. Do not use or append ponytail notes.
 - `design-taste-frontend`: do not load it or run its scripts. It builds company, product and shop sites, and its rules contradict this brief: it bans fade-in-on-scroll reveals (requirement 3), wants photograph-led pages, bans captions under visuals, and limits addresses to street and district with no house number (venues need a usable address). Its Stop hook runs a gate that needs Chrome or Chromium; this machine has only Firefox, so the gate would block finishing.
 - `caveman`, `caveman-help`, `caveman-discover`: chat voice only, and only when the owner invokes it. Keep chat replies short and plain either way. Never use caveman voice in code, comments, docs or commit text.
 - `caveman-compress`: never run on this file or on `docs/`. It sends file text to a model provider and these files must stay readable.

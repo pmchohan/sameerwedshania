@@ -8,10 +8,10 @@ export function CornerOrnament({ className = '', position = 'tl' }: CornerOrname
   const src = `${base}assets/img/corner-ornament.webp`;
 
   const positionStyles: Record<string, React.CSSProperties> = {
-    tl: { top: 0, left: 0 },
-    tr: { top: 0, right: 0, transform: 'scaleX(-1)' },
-    bl: { bottom: 0, left: 0, transform: 'scaleY(-1)' },
-    br: { bottom: 0, right: 0, transform: 'scale(-1)' },
+    tl: { top: 'var(--corner-top, 0px)', left: 0 },
+    tr: { top: 'var(--corner-top, 0px)', right: 0, transform: 'scaleX(-1)' },
+    bl: { bottom: 'var(--corner-bottom, 0px)', left: 0, transform: 'scaleY(-1)' },
+    br: { bottom: 'var(--corner-bottom, 0px)', right: 0, transform: 'scale(-1)' },
   };
 
   return (

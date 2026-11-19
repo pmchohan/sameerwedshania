@@ -377,7 +377,7 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(180deg, #040d21 0%, #061638 18%, #040d21 100%);
+  background: linear-gradient(180deg, #040d21 0%, #061638 18%, #061638 100%);
   transition: opacity 3s ease-in-out;
 }
 
@@ -431,9 +431,9 @@
       180deg,
       rgba(4, 13, 33, 0.85) 0%,
       rgba(6, 22, 56, 0.4) 35%,
-      rgba(4, 13, 33, 0.3) 60%,
-      rgba(4, 13, 33, 0.85) 85%,
-      #040d21 100%
+      rgba(6, 22, 56, 0.6) 60%,
+      rgba(6, 22, 56, 0.9) 85%,
+      #061638 100%
     ),
     radial-gradient(ellipse 85% 25% at 50% 55%, rgba(6, 22, 56, 0.6), transparent 75%);
   opacity: 0.4;

@@ -32,10 +32,10 @@ describe('formatTime', () => {
     expect(formatTime('12:00', 'en')).toBe('12:00 PM');
   });
 
-  it('adds the Urdu day-period word', () => {
-    expect(formatTime('07:00', 'ur')).toBe('صبح 7:00 بجے');
+  it('adds the Urdu day-period word and formats hours without :00', () => {
+    expect(formatTime('07:00', 'ur')).toBe('صبح 7 بجے');
     expect(formatTime('13:15', 'ur')).toBe('دوپہر 1:15 بجے');
-    expect(formatTime('19:00', 'ur')).toBe('شام 7:00 بجے');
+    expect(formatTime('19:00', 'ur')).toBe('شام 7 بجے');
     expect(formatTime('21:30', 'ur')).toBe('رات 9:30 بجے');
   });
 });

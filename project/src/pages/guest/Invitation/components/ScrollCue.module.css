@@ -5,13 +5,25 @@
   align-items: center;
   gap: 0.35rem;
   color: var(--gold-400);
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.8s var(--ease-out);
+  transition: opacity 0.8s var(--ease-out), transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cue[data-visible='true'] {
   opacity: 1;
+  pointer-events: auto;
+}
+
+.cue:hover {
+  transform: translateY(2px);
+  color: #fff;
 }
 
 .label {

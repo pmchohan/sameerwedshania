@@ -8,9 +8,16 @@ function urduPeriod(hour: number): string {
   return 'رات';
 }
 
-/** "19:00" becomes "7:00 PM" in English and "شام 7:00 بجے" in Urdu. */
+/** "19:00" becomes "7:00 PM" in English and "شام 7 بجے" in Urdu (hours only if minute is 0). */
 export function formatTime(hhmm: string, lang: Lang): string {
   const [hour, minute] = hhmm.split(':').map(Number) as [number, number];
-  const clock = `${hour % 12 === 0 ? 12 : hour % 12}:${String(minute).padStart(2, '0')}`;
-  return lang === 'en' ? `${clock} ${hour < 12 ? 'AM' : 'PM'}` : `${urduPeriod(hour)} ${clock} بجے`;
+  const h12 = hour % 12 === 0 ? 12 : hour % 12;
+
+  if (lang === 'en') {
+    const clock = `${h12}:${String(minute).padStart(2, '0')}`;
+    return `${clock} ${hour < 12 ? 'AM' : 'PM'}`;
+  }
+
+  const urduClock = minute === 0 ? `${h12}` : `${h12}:${String(minute).padStart(2, '0')}`;
+  return `${urduPeriod(hour)} ${urduClock} بجے`;
 }

@@ -1,0 +1,19 @@
+.tileBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.85;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 6%, #000 16%, #000 84%, rgba(0, 0, 0, 0.4) 94%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 6%, #000 16%, #000 84%, rgba(0, 0, 0, 0.4) 94%, transparent 100%);
+}
+
+.tileSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

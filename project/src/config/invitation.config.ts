@@ -63,7 +63,7 @@ export const events: Record<EventKey, WeddingEvent> = {
 
 export const families = {
   groomParents: { en: 'Mr. & Mrs. Chohan', ur: 'فیصل صاحب اور بیگم' },
-  brideParents: { en: 'Mr. & Mrs. Nasir', ur: 'ناصر صاحب اور بیگم' },
+  brideParents: { en: 'Mr. & Mrs. Asim', ur: 'عاصم صاحب اور بیگم' },
   line: {
     en: 'Sameer & Hania invite you to share their joy.',
     ur: 'سمیر اور ہانیہ آپ کو اپنی شادی کے مسرت انگیز لمحات میں شرکت کی دعوت دیتے ہیں۔',

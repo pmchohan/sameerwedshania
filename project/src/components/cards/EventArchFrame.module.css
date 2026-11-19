@@ -1,0 +1,36 @@
+.archFrame {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.archTop {
+  width: 100%;
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.archTop svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.archContent {
+  position: relative;
+  z-index: 2;
+  margin-top: -4.5rem;
+  padding: 0 calc(var(--m) * 2.5) calc(var(--m) * 2.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

@@ -4,10 +4,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--m) * 4) calc(var(--m) * 2) calc(var(--m) * 2);
+  padding: calc(var(--m) * 2) calc(var(--m) * 2) calc(var(--m) * 1.5);
   background:
-    radial-gradient(ellipse 60% 50% at 50% 50%, rgb(10 36 99 / 0.45), transparent 70%),
-    var(--ground);
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(10, 36, 99, 0.45), transparent 70%),
+    linear-gradient(180deg, #061638 0%, #061638 100%);
   color: var(--ink);
   text-align: center;
 }
@@ -18,14 +18,14 @@
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--gold-400);
-  margin-bottom: calc(var(--m) * 3);
+  margin-bottom: calc(var(--m) * 2);
   opacity: 0.9;
 }
 
 :global([dir="rtl"]) .heading {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.15rem;
+  font-size: 0.88rem;
 }
 
 .grid {
@@ -102,7 +102,7 @@
 :global([dir="rtl"]) .label {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 0.88rem;
+  font-size: 0.72rem;
 }
 
 @media (min-width: 600px) {

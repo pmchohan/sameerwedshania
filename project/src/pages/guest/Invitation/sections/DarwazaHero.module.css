@@ -443,7 +443,7 @@
 }
 
 :global(html[lang='ur']) .names {
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 1.7;
 }
 
@@ -452,12 +452,12 @@
 }
 
 :global(html[lang='ur']) .line {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   line-height: 1.7;
 }
 
 :global(html[lang='ur']) .tap {
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 @keyframes knockerPulse {

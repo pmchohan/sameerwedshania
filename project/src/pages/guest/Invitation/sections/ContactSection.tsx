@@ -1,4 +1,5 @@
 import { Reveal } from '@/components/motion/Reveal';
+import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
 import { hosts } from '@/config/invitation.config';
 import { useLang } from '@/i18n/useLang';
 import s from './ContactSection.module.css';
@@ -10,7 +11,9 @@ export function ContactSection() {
 
   return (
     <section className={s.contactSection} aria-label={text('getInTouch')}>
-      <Reveal>
+      <ThemeOrnament />
+      <div className={s.content}>
+        <Reveal>
         <p className={s.eyebrow}>{text('getInTouch')}</p>
         <h2 className={s.heading}>{text('questionsTitle') || text('getInTouch')}</h2>
         <p className={s.subheading}>{text('getInTouchSub')}</p>
@@ -59,6 +62,7 @@ export function ContactSection() {
           })}
         </div>
       </Reveal>
+      </div>
     </section>
   );
 }

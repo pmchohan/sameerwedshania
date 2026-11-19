@@ -4,38 +4,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  min-height: 100svh;
-  background:
-    radial-gradient(ellipse 75% 55% at 50% 35%, rgb(10 36 99 / 0.5), transparent 75%),
-    linear-gradient(180deg, var(--ground) 0%, rgb(4 15 40) 100%);
   color: var(--ink);
   overflow: hidden;
-  padding-block: calc(var(--m) * 6);
+  padding-top: 0;
+  padding-bottom: calc(var(--m) * 4);
   transition: background 0.4s ease;
 }
 
-/* Distinctive atmospheric grounds for each Pakistani wedding event */
+/* Alternating authentic Kashi-Kari palette: Midnight Cobalt & Persian Turquoise (#179094) */
 .panel[data-event='mehndi'] {
   background:
-    radial-gradient(ellipse 80% 55% at 50% 35%, rgba(13, 84, 62, 0.55), transparent 75%),
-    radial-gradient(ellipse 60% 40% at 50% 85%, rgba(27, 166, 166, 0.2), transparent 70%),
-    linear-gradient(180deg, #021a14 0%, #03140f 100%);
+    radial-gradient(ellipse 80% 55% at 50% 40%, rgba(10, 36, 99, 0.55), transparent 75%),
+    radial-gradient(ellipse 60% 40% at 50% 85%, rgba(27, 166, 166, 0.16), transparent 70%),
+    linear-gradient(180deg, #061638 0%, #061638 100%);
 }
 
 .panel[data-event='barat'] {
-  background:
-    radial-gradient(ellipse 80% 55% at 50% 35%, rgba(56, 14, 75, 0.55), transparent 75%),
-    radial-gradient(ellipse 60% 40% at 50% 85%, rgba(16, 26, 75, 0.35), transparent 70%),
-    linear-gradient(180deg, #12051b 0%, #08020f 100%);
+  background: #179094;
 }
 
 .panel[data-event='walima'] {
   background:
-    radial-gradient(ellipse 80% 55% at 50% 35%, rgba(10, 36, 99, 0.55), transparent 75%),
-    radial-gradient(ellipse 60% 40% at 50% 85%, rgba(15, 90, 90, 0.25), transparent 70%),
-    linear-gradient(180deg, #040e26 0%, #020713 100%);
+    radial-gradient(ellipse 80% 55% at 50% 40%, rgba(10, 36, 99, 0.55), transparent 75%),
+    radial-gradient(ellipse 60% 40% at 50% 85%, rgba(27, 166, 166, 0.16), transparent 70%),
+    linear-gradient(180deg, #061638 0%, #061638 100%);
 }
 
 .body {
@@ -45,10 +37,11 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 32rem;
+  max-width: 100%;
   margin-inline: auto;
-  padding: calc(var(--m) * 4) calc(var(--m) * 2.5);
+  padding: 0;
   text-align: center;
+  z-index: 1;
 }
 
 .eyebrow {
@@ -64,7 +57,7 @@
 :global([dir="rtl"]) .eyebrow {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.05rem;
+  font-size: 0.85rem;
 }
 
 .titleWrap {
@@ -98,7 +91,7 @@
 
 :global([dir="rtl"]) .title {
   font-family: var(--font-urdu);
-  font-size: clamp(2.4rem, 9vw, 3.2rem);
+  font-size: clamp(2rem, 7.5vw, 2.6rem);
   line-height: 1.4;
 }
 
@@ -120,7 +113,7 @@
 :global([dir="rtl"]) .month {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.1rem;
+  font-size: 0.92rem;
 }
 
 .dateGrid {
@@ -144,7 +137,7 @@
 :global([dir="rtl"]) .weekday {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.1rem;
+  font-size: 0.92rem;
   text-align: end;
 }
 
@@ -173,7 +166,7 @@
 :global([dir="rtl"]) .time {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   text-align: start;
 }
 
@@ -196,7 +189,7 @@
 
 :global([dir="rtl"]) .hijri {
   font-family: var(--font-urdu);
-  font-size: 1.15rem;
+  font-size: 0.95rem;
 }
 
 .venueBlock {
@@ -240,7 +233,7 @@
 :global([dir="rtl"]) .venueEyebrow {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1rem;
+  font-size: 0.82rem;
 }
 
 .venueName {
@@ -254,7 +247,7 @@
 
 :global([dir="rtl"]) .venueName {
   font-family: var(--font-urdu);
-  font-size: clamp(1.4rem, 4.8vw, 1.85rem);
+  font-size: clamp(1.25rem, 4.2vw, 1.55rem);
   line-height: 1.6;
 }
 
@@ -269,7 +262,7 @@
 
 :global([dir="rtl"]) .address {
   font-family: var(--font-urdu);
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   line-height: 1.8;
 }
 
@@ -295,87 +288,140 @@
 
 .actions {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.85rem;
   width: 100%;
-  max-width: 18rem;
-  margin: calc(var(--m) * 2) auto 0;
-}
-
-@media (min-width: 480px) {
-  .actions {
-    flex-direction: row;
-    justify-content: center;
-    max-width: 26rem;
-  }
+  max-width: 26rem;
+  margin: calc(var(--m) * 2.5) auto 0;
 }
 
 .scheduleSection {
   margin-top: calc(var(--m) * 3);
   width: 100%;
-  max-width: 22rem;
-  padding-top: calc(var(--m) * 2.5);
-  border-top: 1px solid rgb(247 217 120 / 0.18);
+  max-width: 24rem;
+  padding: calc(var(--m) * 2) calc(var(--m) * 1.75) calc(var(--m) * 2.5);
+  background: rgba(6, 22, 56, 0.45);
+  border: 1px solid rgba(247, 217, 120, 0.22);
+  border-radius: 8px;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
+}
+
+.scheduleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.35rem;
 }
 
 .scheduleEyebrow {
   font-family: var(--font-body);
-  font-size: 0.78rem;
-  letter-spacing: 0.24em;
+  font-size: 0.8rem;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--gold-400);
-  margin-bottom: 1.25rem;
+  margin: 0;
 }
 
 :global([dir="rtl"]) .scheduleEyebrow {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.05rem;
+  font-size: 0.85rem;
 }
 
 .scheduleTimeline {
+  position: relative;
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 1.15rem;
+}
+
+/* Continuous vertical hairline gold cord connecting the milestone nodes */
+.scheduleTimeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 5.75rem;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(247, 217, 120, 0.5) 15%,
+    rgba(27, 166, 166, 0.5) 50%,
+    rgba(247, 217, 120, 0.5) 85%,
+    transparent 100%
+  );
+}
+
+:global([dir="rtl"]) .scheduleTimeline::before {
+  left: auto;
+  right: 5.75rem;
 }
 
 .scheduleStep {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-size: 0.92rem;
+  gap: 1.15rem;
+  font-size: 0.95rem;
 }
 
 .stepTime {
-  flex: 0 0 5.5rem;
+  flex: 0 0 5.25rem;
   text-align: end;
   font-family: var(--font-body);
-  font-weight: 500;
+  font-size: 0.88rem;
+  font-weight: 600;
   color: var(--gold-400);
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
 }
 
+:global([dir="rtl"]) .stepTime {
+  text-align: start;
+  font-family: var(--font-urdu);
+  font-size: 0.85rem;
+}
+
+/* Illuminated Kashi milestone jewel node */
 .stepDot {
+  position: relative;
+  z-index: 2;
   display: block;
-  width: 6px;
-  height: 6px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: var(--gold-400);
-  box-shadow: 0 0 6px var(--gold-400);
+  background: radial-gradient(circle, #f7d978 35%, #1ba6a6 100%);
+  border: 1.5px solid #061638;
+  box-shadow: 
+    0 0 0 2px rgba(247, 217, 120, 0.35),
+    0 0 8px rgba(27, 166, 166, 0.7);
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .stepTitle {
   flex: 1;
   text-align: start;
   color: var(--white-100);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 :global([dir="rtl"]) .stepTitle {
   text-align: end;
+  font-family: var(--font-urdu);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .note {
@@ -390,5 +436,5 @@
 :global([dir="rtl"]) .note {
   font-family: var(--font-urdu);
   font-style: normal;
-  font-size: 1rem;
+  font-size: 0.88rem;
 }

@@ -16,13 +16,28 @@ export function ScrollCue({ active }: { active: boolean }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, [active]);
 
+  const handleScrollClick = () => {
+    const nextSection = document.querySelector('header + section, main > section:first-of-type') as HTMLElement | null;
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className={s.cue} data-visible={active && !scrolled} aria-hidden="true">
+    <button
+      type="button"
+      className={s.cue}
+      data-visible={active && !scrolled}
+      onClick={handleScrollClick}
+      aria-label={text('scroll')}
+    >
       <span className={s.label}>{text('scroll')}</span>
       <svg className={s.chevrons} viewBox="0 0 24 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" focusable="false">
         <path d="M4 5 L12 13 L20 5" />
         <path d="M4 14 L12 22 L20 14" />
       </svg>
-    </div>
+    </button>
   );
 }

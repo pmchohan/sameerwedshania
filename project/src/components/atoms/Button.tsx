@@ -8,21 +8,34 @@ interface ButtonProps {
   href?: string;
   type?: 'button' | 'submit';
   onClick?: () => void;
+  variant?: 'primary' | 'secondary';
+  className?: string;
 }
 
-export function Button({ children, icon, href, type = 'button', onClick }: ButtonProps) {
+export function Button({
+  children,
+  icon,
+  href,
+  type = 'button',
+  onClick,
+  variant = 'primary',
+  className = '',
+}: ButtonProps) {
   const content = (
     <>
       <span>{children}</span>
       {icon}
     </>
   );
+
+  const buttonClasses = `${s.root} ${s[variant]} ${className}`.trim();
+
   return href ? (
-    <a className={s.root} href={href} target="_blank" rel="noopener noreferrer">
+    <a className={buttonClasses} href={href} target="_blank" rel="noopener noreferrer">
       {content}
     </a>
   ) : (
-    <button className={s.root} type={type} onClick={onClick}>
+    <button className={buttonClasses} type={type} onClick={onClick}>
       {content}
     </button>
   );

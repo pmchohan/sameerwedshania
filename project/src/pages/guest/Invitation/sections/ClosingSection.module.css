@@ -5,14 +5,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 90vh;
-  min-height: 90svh;
+  padding-top: 0;
+  padding-bottom: calc(var(--m) * 3);
   background:
-    radial-gradient(ellipse 70% 50% at 50% 60%, rgb(10 36 99 / 0.5), transparent 75%),
-    var(--ground);
+    radial-gradient(ellipse 70% 50% at 50% 60%, rgba(10, 36, 99, 0.45), transparent 70%),
+    linear-gradient(180deg, #061638 0%, #061638 100%);
   color: var(--ink);
   text-align: center;
-  padding-block: calc(var(--m) * 8);
   overflow: hidden;
 }
 
@@ -25,7 +24,7 @@
   width: 100%;
   max-width: 32rem;
   margin-inline: auto;
-  padding: calc(var(--m) * 4) calc(var(--m) * 2.5);
+  padding: calc(var(--m) * 3) calc(var(--m) * 2.5) 0;
 }
 
 .eyebrow {
@@ -41,7 +40,7 @@
 :global([dir="rtl"]) .eyebrow {
   font-family: var(--font-urdu);
   letter-spacing: normal;
-  font-size: 1.2rem;
+  font-size: 0.85rem;
 }
 
 .duaBlock {
@@ -72,7 +71,7 @@
 
 :global([dir="rtl"]) .duaTranslation {
   font-family: var(--font-urdu);
-  font-size: 1.1rem;
+  font-size: 0.92rem;
   font-style: normal;
   line-height: 1.9;
 }
@@ -88,7 +87,7 @@
 
 :global([dir="rtl"]) .closingNote {
   font-family: var(--font-urdu);
-  font-size: 1.15rem;
+  font-size: 0.92rem;
 }
 
 .signatureBlock {
@@ -106,7 +105,7 @@
 
 :global([dir="rtl"]) .names {
   font-family: var(--font-urdu);
-  font-size: clamp(2.4rem, 9vw, 3.2rem);
+  font-size: clamp(2rem, 7.5vw, 2.6rem);
 }
 
 .and {
@@ -123,12 +122,13 @@
 }
 
 .attribution {
-  margin-top: calc(var(--m) * 6);
+  margin-top: calc(var(--m) * 6.5);
+  margin-bottom: calc(var(--m) * 1.5);
   font-family: var(--font-body);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--ink-muted);
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 .attribution a {
