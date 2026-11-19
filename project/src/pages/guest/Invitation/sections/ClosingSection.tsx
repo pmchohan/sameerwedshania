@@ -43,6 +43,16 @@ export default function ClosingSection() {
             </p>
           </div>
         </Reveal>
+
+        <Reveal delay={360}>
+          <p className={s.attribution} dir="ltr">
+            inspired heavily by{' '}
+            <a href="https://bulaava.pk" target="_blank" rel="noopener noreferrer">
+              bulaava.pk
+            </a>{' '}
+            (deswork)
+          </p>
+        </Reveal>
       </div>
     </section>
   );

@@ -121,3 +121,24 @@
 :global([dir="rtl"]) .and {
   font-family: var(--font-urdu);
 }
+
+.attribution {
+  margin-top: calc(var(--m) * 6);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  opacity: 0.65;
+}
+
+.attribution a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.attribution a:hover {
+  color: var(--gold-400);
+  opacity: 1;
+}
