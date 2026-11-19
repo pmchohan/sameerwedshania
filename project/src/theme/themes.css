@@ -3,22 +3,22 @@ html[data-theme='sehra'] {
   --cobalt-900: #05231c;
   --cobalt-700: #0a3a2c;
   --lapis-800: #0d4a38;
-  --turquoise-600: #c7ecd8;
-  --turquoise-800: #0f5b43;
+  --turquoise-600: #1b8a6b;
+  --turquoise-800: #0a3a2c;
   --leaf-600: #2e8a63;
-  --gold-400: #dbe9ec;
+  --gold-400: #f7d978;
   --white-100: #f5fff9;
   --white-200: #e7f5ec;
   --mist-300: #aac8b8;
   --rose-300: #ffb4a6;
-  --line-rgb: 219 233 236;
+  --line-rgb: 247 217 120;
   --gold-line: rgb(var(--line-rgb) / 0.55);
   --toggle-bg: rgb(3 23 19 / 0.92);
-  --mogra-center: var(--turquoise-600);
+  --mogra-center: var(--gold-400);
 }
 
 html[data-theme='sehra'][lang='en'] {
-  --font-script: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-script: 'Pinyon Script', 'Alegreya Sans', cursive;
 }
 
 html[data-theme='sehra'] [data-light='dawn'] {

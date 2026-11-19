@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTheme } from '@/theme/theme';
 import s from './EventArchFrame.module.css';
 
 interface EventArchFrameProps {
@@ -8,11 +9,71 @@ interface EventArchFrameProps {
 
 /**
  * Architectural Niche (Mihrab / Iwan / Jharoka) framing each event:
- * - Mehndi: 5-Cusp Floral Jharoka Arch with leaf brackets & jasmine crest
- * - Barat: Pointed Persian Muqarnas Iwan with tiered stalactite facets & star crown
- * - Walima: Classical 9-Cusp Wazir Khan Arch with chevron spandrels & gold beaded rib
+ * - Kashi: Wazir Khan tilework arches (Mehndi, Barat, Walima)
+ * - Sehra: Royal Mughal floral jharoka arch with jasmine vine spandrels & pearl finial
  */
 export function EventArchFrame({ eventKey = 'walima', children }: EventArchFrameProps) {
+  const theme = useTheme();
+
+  if (theme === 'sehra') {
+    return (
+      <div className={s.archFrame} data-event={eventKey}>
+        <div className={s.archTop} aria-hidden="true">
+          <svg viewBox="0 0 400 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id={`sehra-spandrel-${eventKey}`} width="24" height="24" patternUnits="userSpaceOnUse">
+                <rect width="24" height="24" fill={eventKey === 'barat' ? '#0a3a2c' : '#031713'} />
+                <path d="M 0 12 Q 6 4 12 12 Q 18 20 24 12" stroke="rgba(247, 217, 120, 0.28)" strokeWidth="0.8" fill="none" />
+                <circle cx="12" cy="12" r="2.2" fill="#f7d978" opacity="0.6" />
+                <circle cx="6" cy="8" r="1.5" fill="#f5fff9" opacity="0.7" />
+                <circle cx="18" cy="16" r="1.5" fill="#f5fff9" opacity="0.7" />
+                <path d="M 12 4 Q 14 8 12 12 Q 10 8 12 4 Z" fill="#2e8a63" opacity="0.5" />
+              </pattern>
+            </defs>
+
+            {/* Top gold moulding line touching bottom of garland */}
+            <line x1="0" y1="1" x2="400" y2="1" stroke="#f7d978" strokeWidth="2" />
+            <line x1="0" y1="4" x2="400" y2="4" stroke="rgba(247, 217, 120, 0.4)" strokeWidth="0.8" strokeDasharray="2 3" />
+
+            {/* Spandrel fill above arch touching 0 and 400 edge-to-edge */}
+            <path
+              d="M 0 110 L 0 0 L 400 0 L 400 110 L 400 74 A 32 32 0 0 0 354 46 A 48 48 0 0 0 286 24 A 64 64 0 0 0 200 14 A 64 64 0 0 0 114 24 A 48 48 0 0 0 46 46 A 32 32 0 0 0 0 74 Z"
+              fill={`url(#sehra-spandrel-${eventKey})`}
+            />
+
+            {/* Outer arch moulding touching left and right edges */}
+            <path
+              d="M 0 110 L 0 74 A 32 32 0 0 1 46 46 A 48 48 0 0 1 114 24 A 64 64 0 0 1 200 14 A 64 64 0 0 1 286 24 A 48 48 0 0 1 354 46 A 32 32 0 0 1 400 74 L 400 110"
+              stroke="#f7d978"
+              strokeWidth="2"
+            />
+
+            {/* Inner scalloped pearl & gold rib */}
+            <path
+              d="M 5 110 L 5 77 A 29 29 0 0 1 48 50 A 45 45 0 0 1 115 29 A 60 60 0 0 1 200 19 A 60 60 0 0 1 285 29 A 45 45 0 0 1 352 50 A 29 29 0 0 1 395 77 L 395 110"
+              stroke="rgba(247, 217, 120, 0.6)"
+              strokeWidth="1.2"
+              strokeDasharray="2 4"
+            />
+
+            {/* Apex Motia Blossom & Pearl Drop Finial */}
+            <circle cx="200" cy="14" r="4" fill="#f7d978" />
+            <path d="M 200 2 Q 205 8 200 14 Q 195 8 200 2 Z" fill="#f5fff9" stroke="#f7d978" strokeWidth="0.8" />
+            <circle cx="200" cy="8" r="1.5" fill="#f7d978" />
+            <circle cx="192" cy="11" r="2" fill="#f5fff9" />
+            <circle cx="208" cy="11" r="2" fill="#f5fff9" />
+
+            {/* Left and Right corbel brackets */}
+            <circle cx="4" cy="74" r="3.5" fill="#f7d978" />
+            <circle cx="396" cy="74" r="3.5" fill="#f7d978" />
+          </svg>
+        </div>
+
+        <div className={s.archContent}>{children}</div>
+      </div>
+    );
+  }
+
   return (
     <div className={s.archFrame} data-event={eventKey}>
       {/* 1. ARCH TOP HEADER */}

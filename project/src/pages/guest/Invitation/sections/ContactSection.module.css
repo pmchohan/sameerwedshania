@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+:global(html[data-theme='sehra']) .contactSection {
+  background: #0a3a2c;
+}
+
 .content {
   position: relative;
   width: 100%;
