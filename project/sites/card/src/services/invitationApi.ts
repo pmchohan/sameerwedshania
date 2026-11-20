@@ -2,7 +2,7 @@ import { guests } from '@/config/invitation.config';
 import { findGuest } from '@/config/lookup';
 import type { Guest, EventKey } from '@/config/types';
 
-const FALLBACK_API_URL = 'https://enhancements-creates-topics-citysearch.trycloudflare.com/api';
+const FALLBACK_API_URL = 'https://blink-moore-enrollment-deeply.trycloudflare.com/api';
 
 function getApiBase(): string {
   if (typeof window !== 'undefined') {

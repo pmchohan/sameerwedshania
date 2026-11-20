@@ -114,7 +114,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
   return (
     <>
       {/* 1. 3D GRAND KASHI-KARI PORTAL (DOOR GATE) */}
-      <div className={s.gate} data-open={isOpen} data-gone={isGone} aria-hidden={isOpen}>
+      <div className={s.gate} dir="ltr" data-open={isOpen} data-gone={isGone} aria-hidden={isOpen}>
         <div className={s.gateBg} />
 
         <div className={s.doorControls}>
@@ -129,12 +129,12 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
           <SoundToggle />
         </div>
 
-        <div className={s.doorStage} ref={doorStageRef}>
+        <div className={s.doorStage} dir="ltr" ref={doorStageRef}>
           <div className={s.doorSeam} aria-hidden="true" />
 
-          <div className={s.doorTrack}>
+          <div className={s.doorTrack} dir="ltr">
             {/* Left Leaf */}
-            <div className={s.doorHalf} data-side="left" ref={doorLeftRef}>
+            <div className={s.doorHalf} dir="ltr" data-side="left" ref={doorLeftRef}>
               <div className={s.doorArt}>
                 <img
                   src={`${base}assets/img/door-left.webp`}
@@ -148,7 +148,7 @@ export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectio
             </div>
 
             {/* Right Leaf */}
-            <div className={s.doorHalf} data-side="right" ref={doorRightRef}>
+            <div className={s.doorHalf} dir="ltr" data-side="right" ref={doorRightRef}>
               <div className={s.doorArt}>
                 <img
                   src={`${base}assets/img/door-right.webp`}

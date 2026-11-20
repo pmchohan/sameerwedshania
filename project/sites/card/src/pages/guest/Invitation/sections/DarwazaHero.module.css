@@ -92,6 +92,7 @@
   max-width: min(94vw, 32rem);
   aspect-ratio: 4 / 5;
   flex: none;
+  direction: ltr !important;
 }
 
 .frame {
@@ -103,6 +104,7 @@
     0 22px 60px rgb(0 0 0 / 0.55),
     0 0 0 1px rgb(var(--line-rgb) / 0.5),
     0 0 50px rgb(242 201 76 / 0.16);
+  direction: ltr !important;
 }
 
 .doorway {
@@ -115,6 +117,7 @@
     inset 0 0 40px rgb(0 0 0 / 0.55);
   perspective: 1200px;
   transform-style: preserve-3d;
+  direction: ltr !important;
 }
 
 .curtain {
@@ -124,6 +127,7 @@
   display: flex;
   pointer-events: none;
   overflow: hidden;
+  direction: ltr !important;
 }
 
 .curtainLeft,

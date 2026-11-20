@@ -5,6 +5,7 @@ import { Invitation } from './invitations/entities/invitation.entity';
 import { WeddingSetting } from './settings/entities/setting.entity';
 import { InvitationsModule } from './invitations/invitations.module';
 import { SettingsModule } from './settings/settings.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SettingsModule } from './settings/settings.module';
     }),
     InvitationsModule,
     SettingsModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

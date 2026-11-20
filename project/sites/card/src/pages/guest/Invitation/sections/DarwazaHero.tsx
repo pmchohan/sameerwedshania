@@ -43,12 +43,12 @@ export function DarwazaHero({ guest, phase, onOpen }: DarwazaHeroProps) {
         بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
       </p>
 
-      <div className={s.portal}>
-        <div className={s.frame}>
-          <div className={s.doorway}>
+      <div className={s.portal} dir="ltr">
+        <div className={s.frame} dir="ltr">
+          <div className={s.doorway} dir="ltr">
             <DarwazaCourtyard />
 
-            <div className={s.curtain} aria-hidden="true">
+            <div className={s.curtain} dir="ltr" aria-hidden="true">
               <span className={s.curtainLeft} />
               <span className={s.curtainRight} />
             </div>
@@ -63,10 +63,10 @@ export function DarwazaHero({ guest, phase, onOpen }: DarwazaHeroProps) {
               <span className={s.rule} />
             </div>
 
-            <div className={s.leafLeft}>
+            <div className={s.leafLeft} dir="ltr">
               <DarwazaLeaf side="left" />
             </div>
-            <div className={s.leafRight}>
+            <div className={s.leafRight} dir="ltr">
               <DarwazaLeaf side="right" />
             </div>
             <span className={s.seam} aria-hidden="true" />

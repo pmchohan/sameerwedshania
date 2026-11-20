@@ -285,6 +285,5 @@ export const sound = {
     void ctx.resume();
     const start = ctx.currentTime + 0.02;
     rings(ctx, out, start + 0.1);
-    chime(ctx, out, start + 1.2);
   },
 };

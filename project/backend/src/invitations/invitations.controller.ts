@@ -8,10 +8,12 @@ import {
   Param,
   Query,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { InvitationsService } from './invitations.service';
 import { CreateInvitationDto } from './dto/create-invitation.dto';
 import { UpdateInvitationDto } from './dto/update-invitation.dto';
+import { AdminAuthGuard } from '../auth/auth.guard';
 
 @Controller()
 export class InvitationsController {
@@ -35,6 +37,7 @@ export class InvitationsController {
    * GET /api/admin/invitations?q=...&event=...
    */
   @Get('admin/invitations')
+  @UseGuards(AdminAuthGuard)
   async listAll(
     @Query('q') search?: string,
     @Query('event') event?: string,
@@ -52,6 +55,7 @@ export class InvitationsController {
    * POST /api/admin/invitations
    */
   @Post('admin/invitations')
+  @UseGuards(AdminAuthGuard)
   async create(@Body() dto: CreateInvitationDto) {
     const created = await this.invitationsService.create(dto);
     return {
@@ -65,6 +69,7 @@ export class InvitationsController {
    * GET /api/admin/invitations/:id
    */
   @Get('admin/invitations/:id')
+  @UseGuards(AdminAuthGuard)
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const data = await this.invitationsService.findOne(id);
     return {
@@ -78,6 +83,7 @@ export class InvitationsController {
    * PUT /api/admin/invitations/:id
    */
   @Put('admin/invitations/:id')
+  @UseGuards(AdminAuthGuard)
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateInvitationDto,
@@ -94,6 +100,7 @@ export class InvitationsController {
    * DELETE /api/admin/invitations/:id
    */
   @Delete('admin/invitations/:id')
+  @UseGuards(AdminAuthGuard)
   async remove(@Param('id', ParseIntPipe) id: number) {
     return this.invitationsService.remove(id);
   }

@@ -1,5 +1,6 @@
-import { Controller, Get, Put, Body } from '@nestjs/common';
+import { Controller, Get, Put, Body, UseGuards } from '@nestjs/common';
 import { SettingsService } from './settings.service';
+import { AdminAuthGuard } from '../auth/auth.guard';
 
 @Controller()
 export class SettingsController {
@@ -23,6 +24,7 @@ export class SettingsController {
    * PUT /api/admin/settings
    */
   @Put('admin/settings')
+  @UseGuards(AdminAuthGuard)
   async updateSettings(@Body() body: Record<string, any>) {
     for (const [key, val] of Object.entries(body)) {
       await this.settingsService.setSetting(key, val);

@@ -318,7 +318,7 @@
 }
 
 .scheduleSection {
-  margin-top: calc(var(--m) * 3);
+  margin: calc(var(--m) * 3) auto 0;
   width: 100%;
   max-width: 24rem;
   padding: calc(var(--m) * 2) calc(var(--m) * 1.75) calc(var(--m) * 2.5);
@@ -361,13 +361,14 @@
   gap: 1.15rem;
 }
 
-/* Continuous vertical hairline gold cord connecting the milestone nodes */
+/* Continuous vertical hairline gold cord connecting the milestone nodes down the exact center */
 .scheduleTimeline::before {
   content: '';
   position: absolute;
   top: 10px;
   bottom: 10px;
-  left: 5.75rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 1px;
   background: linear-gradient(
     180deg,
@@ -379,21 +380,17 @@
   );
 }
 
-:global([dir="rtl"]) .scheduleTimeline::before {
-  left: auto;
-  right: 5.75rem;
-}
-
 .scheduleStep {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 1.15rem;
+  justify-content: center;
+  gap: 1rem;
   font-size: 0.95rem;
 }
 
 .stepTime {
-  flex: 0 0 5.25rem;
+  flex: 1;
   text-align: end;
   font-family: var(--font-body);
   font-size: 0.88rem;
@@ -404,7 +401,6 @@
 }
 
 :global([dir="rtl"]) .stepTime {
-  text-align: start;
   font-family: var(--font-urdu);
   font-size: 0.85rem;
 }
@@ -437,7 +433,6 @@
 }
 
 :global([dir="rtl"]) .stepTitle {
-  text-align: end;
   font-family: var(--font-urdu);
   font-size: 0.95rem;
   line-height: 1.6;

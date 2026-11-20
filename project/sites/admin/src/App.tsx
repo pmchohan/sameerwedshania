@@ -1,11 +1,20 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Invitation, CreateInvitationInput } from './types';
-import { fetchInvitations, createInvitation, updateInvitation, deleteInvitation } from './api';
+import {
+  fetchInvitations,
+  createInvitation,
+  updateInvitation,
+  deleteInvitation,
+  isAuthenticated,
+  clearAuthToken,
+} from './api';
 import { InvitationCard } from './components/InvitationCard';
 import { InvitationModal } from './components/InvitationModal';
 import { SettingsModal } from './components/SettingsModal';
+import { LoginModal } from './components/LoginModal';
 
 export default function App() {
+  const [authed, setAuthed] = useState(() => isAuthenticated());
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [search, setSearch] = useState('');
   const [eventFilter, setEventFilter] = useState('all');
@@ -16,7 +25,20 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<Invitation | null>(null);
 
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      setAuthed(false);
+    };
+    window.addEventListener('admin:unauthorized', handleUnauthorized);
+    return () => window.removeEventListener('admin:unauthorized', handleUnauthorized);
+  }, []);
+
   const loadData = async () => {
+    if (!isAuthenticated()) {
+      setAuthed(false);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError('');
     try {
@@ -30,16 +52,19 @@ export default function App() {
   };
 
   useEffect(() => {
-    loadData();
-  }, [eventFilter]);
+    if (authed) {
+      loadData();
+    }
+  }, [authed, eventFilter]);
 
   // Debounced search
   useEffect(() => {
+    if (!authed) return;
     const timer = setTimeout(() => {
       loadData();
     }, 300);
     return () => clearTimeout(timer);
-  }, [search]);
+  }, [search, authed]);
 
   const handleSave = async (data: CreateInvitationInput, id?: number) => {
     if (id) {
@@ -67,6 +92,17 @@ export default function App() {
       walima: invitations.filter((i) => i.events?.includes('walima')).length,
     };
   }, [invitations]);
+
+  if (!authed) {
+    return (
+      <LoginModal
+        onSuccess={() => {
+          setAuthed(true);
+          loadData();
+        }}
+      />
+    );
+  }
 
   return (
     <div className="admin-app">
@@ -106,6 +142,18 @@ export default function App() {
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
               Create Invitation
+            </button>
+
+            <button
+              type="button"
+              className="btn-logout"
+              onClick={() => {
+                clearAuthToken();
+                setAuthed(false);
+              }}
+              title="Sign out of Admin Portal"
+            >
+              🔒 Logout
             </button>
           </div>
         </div>
