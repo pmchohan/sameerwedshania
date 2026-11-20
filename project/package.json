@@ -9,8 +9,10 @@
   "scripts": {
     "build:card": "npm --prefix sites/card run build",
     "dev:card": "npm --prefix sites/card run dev",
+    "deploy:card": "./scripts/deploy-card.sh",
     "build:admin": "npm --prefix sites/admin run build",
     "dev:admin": "npm --prefix sites/admin run dev",
+    "deploy:admin": "./scripts/deploy-admin.sh",
     "build:backend": "npm --prefix backend run build",
     "start:backend": "npm --prefix backend run start:prod"
   }
