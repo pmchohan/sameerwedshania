@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { SoundToggle } from '@/components/controls/SoundToggle';
-import { couple } from '@/config/invitation.config';
+import { useWeddingContent } from '@/config/WeddingContentContext';
 import type { Guest } from '@/config/types';
 import { fill } from '@/i18n/strings';
 import { useLang } from '@/i18n/useLang';
@@ -19,6 +19,7 @@ interface DarwazaHeroProps {
 
 /** The opening: a whole peacock-green door swings open onto a lit courtyard. */
 export function DarwazaHero({ guest, phase, onOpen }: DarwazaHeroProps) {
+  const { couple } = useWeddingContent();
   const { t, s: text } = useLang();
   const opened = useRef(false);
   const built = phase !== 'closed';

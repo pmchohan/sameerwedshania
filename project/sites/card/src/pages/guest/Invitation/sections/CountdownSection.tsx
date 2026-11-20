@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Reveal } from '@/components/motion/Reveal';
-import { events } from '@/config/invitation.config';
+import { useWeddingContent } from '@/config/WeddingContentContext';
 import type { Guest } from '@/config/types';
 import { useLang } from '@/i18n/useLang';
 import s from './CountdownSection.module.css';
@@ -28,6 +28,7 @@ function calculateTimeLeft(targetDateMs: number): TimeLeft {
 const CIRCUMFERENCE = 276.46; // 2 * PI * 44
 
 export function CountdownSection({ guest }: CountdownSectionProps) {
+  const { events } = useWeddingContent();
   const { s: text } = useLang();
 
   // Find the earliest event date/time that this guest is invited to

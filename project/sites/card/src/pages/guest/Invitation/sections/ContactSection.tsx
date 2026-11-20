@@ -1,10 +1,11 @@
 import { Reveal } from '@/components/motion/Reveal';
 import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
-import { hosts } from '@/config/invitation.config';
+import { useWeddingContent } from '@/config/WeddingContentContext';
 import { useLang } from '@/i18n/useLang';
 import s from './ContactSection.module.css';
 
 export function ContactSection() {
+  const { hosts } = useWeddingContent();
   const { t, s: text } = useLang();
 
   if (!hosts || hosts.length === 0) return null;

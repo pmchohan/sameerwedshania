@@ -12,9 +12,11 @@ import { InvitationCard } from './components/InvitationCard';
 import { InvitationModal } from './components/InvitationModal';
 import { SettingsModal } from './components/SettingsModal';
 import { LoginModal } from './components/LoginModal';
+import { ContentEditor } from './components/ContentEditor';
 
 export default function App() {
   const [authed, setAuthed] = useState(() => isAuthenticated());
+  const [mainTab, setMainTab] = useState<'invitations' | 'content'>('invitations');
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [search, setSearch] = useState('');
   const [eventFilter, setEventFilter] = useState('all');
@@ -157,49 +159,73 @@ export default function App() {
             </button>
           </div>
         </div>
+
+        {/* Top-Level Mode Tabs */}
+        <div className="header-tabs-bar">
+          <div className="header-tabs-container">
+            <button
+              type="button"
+              className={`header-tab ${mainTab === 'invitations' ? 'active' : ''}`}
+              onClick={() => setMainTab('invitations')}
+            >
+              ✉️ Guest Invitations ({invitations.length})
+            </button>
+            <button
+              type="button"
+              className={`header-tab ${mainTab === 'content' ? 'active' : ''}`}
+              onClick={() => setMainTab('content')}
+            >
+              💍 Wedding Content & Details
+            </button>
+          </div>
+        </div>
       </header>
 
       {/* Main Workspace */}
       <main className="admin-main">
-        {/* Controls Bar: Search & Filter Tabs */}
-        <section className="controls-bar">
-          <div className="search-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              type="text"
-              placeholder="Search by guest name or 6-char code..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            {search && (
-              <button type="button" className="clear-btn" onClick={() => setSearch('')}>
-                ✕
-              </button>
-            )}
-          </div>
+        {mainTab === 'content' ? (
+          <ContentEditor />
+        ) : (
+          <>
+            {/* Controls Bar: Search & Filter Tabs */}
+            <section className="controls-bar">
+              <div className="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search by guest name or 6-char code..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                {search && (
+                  <button type="button" className="clear-btn" onClick={() => setSearch('')}>
+                    ✕
+                  </button>
+                )}
+              </div>
 
-          <div className="filter-tabs">
-            {[
-              { id: 'all', label: 'All', count: stats.total },
-              { id: 'mehndi', label: 'Mehndi', count: stats.mehndi },
-              { id: 'barat', label: 'Barat', count: stats.barat },
-              { id: 'walima', label: 'Walima', count: stats.walima },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                className={`filter-tab ${eventFilter === tab.id ? 'active' : ''}`}
-                onClick={() => setEventFilter(tab.id)}
-              >
-                <span>{tab.label}</span>
-                <span className="count-badge">{tab.count}</span>
-              </button>
-            ))}
-          </div>
-        </section>
+              <div className="filter-tabs">
+                {[
+                  { id: 'all', label: 'All', count: stats.total },
+                  { id: 'mehndi', label: 'Mehndi', count: stats.mehndi },
+                  { id: 'barat', label: 'Barat', count: stats.barat },
+                  { id: 'walima', label: 'Walima', count: stats.walima },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    className={`filter-tab ${eventFilter === tab.id ? 'active' : ''}`}
+                    onClick={() => setEventFilter(tab.id)}
+                  >
+                    <span>{tab.label}</span>
+                    <span className="count-badge">{tab.count}</span>
+                  </button>
+                ))}
+              </div>
+            </section>
 
         {/* Status / Error Banner */}
         {error && (
@@ -257,6 +283,8 @@ export default function App() {
             ))
           )}
         </section>
+        </>
+        )}
       </main>
 
       {/* Add / Edit Modal */}

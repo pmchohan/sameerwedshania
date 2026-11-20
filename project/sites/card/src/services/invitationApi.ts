@@ -49,3 +49,22 @@ export async function resolveGuestByCode(code: string): Promise<Guest | undefine
   // 2. Fallback to static guests in config
   return findGuest(normalized, guests);
 }
+
+export async function fetchLiveWeddingDetails(): Promise<any | undefined> {
+  const apiBase = getApiBase();
+  if (!apiBase) return undefined;
+
+  try {
+    const url = `${apiBase.replace(/\/+$/, '')}/wedding-details`;
+    const res = await fetch(url);
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && json.data) {
+        return json.data;
+      }
+    }
+  } catch (e) {
+    console.warn('Backend API request for wedding-details failed, falling back to local config:', e);
+  }
+  return undefined;
+}

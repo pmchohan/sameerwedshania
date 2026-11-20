@@ -1,7 +1,7 @@
 import { Reveal } from '@/components/motion/Reveal';
 import { FourCorners } from '@/components/ornaments/CornerOrnament';
 import { RoseDivider } from '@/components/ornaments/RoseDivider';
-import { families } from '@/config/invitation.config';
+import { useWeddingContent } from '@/config/WeddingContentContext';
 import type { Guest } from '@/config/types';
 import { useLang } from '@/i18n/useLang';
 import s from './VerseSection.module.css';
@@ -11,6 +11,7 @@ interface VerseSectionProps {
 }
 
 export function VerseSection({ guest: _guest }: VerseSectionProps) {
+  const { families } = useWeddingContent();
   const { t, s: text } = useLang();
 
   return (

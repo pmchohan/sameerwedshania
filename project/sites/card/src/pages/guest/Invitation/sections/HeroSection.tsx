@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { couple } from '@/config/invitation.config';
+import { useWeddingContent } from '@/config/WeddingContentContext';
 import type { Guest } from '@/config/types';
 import { fill } from '@/i18n/strings';
 import { useLang } from '@/i18n/useLang';
@@ -17,6 +17,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ guest, phase, onOpen, onSkip }: HeroSectionProps) {
+  const { couple } = useWeddingContent();
   const { t, s: text } = useLang();
   const [knocks, setKnocks] = useState(0);
   const [isGone, setIsGone] = useState(phase === 'open');

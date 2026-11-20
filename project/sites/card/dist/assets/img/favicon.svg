@@ -1,5 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#2b1845"/>
-  <path d="M12 56V32a20 20 0 0 1 40 0v24" fill="none" stroke="#e8871e" stroke-width="4" stroke-linecap="round"/>
-  <path d="M23 56V35a9 9 0 0 1 18 0v21" fill="none" stroke="#e8871e" stroke-width="3.4" stroke-linecap="round" opacity=".55"/>
+  <defs>
+    <radialGradient id="kg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0a2864"/>
+      <stop offset="70%" stop-color="#061638"/>
+      <stop offset="100%" stop-color="#030b1c"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fceda2"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#9a7b1c"/>
+    </linearGradient>
+    <radialGradient id="turq" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2fe0d8"/>
+      <stop offset="60%" stop-color="#1ba6a6"/>
+      <stop offset="100%" stop-color="#0f6464"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Kashi Ceramic Tile Base with rounded corners -->
+  <rect width="64" height="64" rx="14" fill="url(#kg)"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="url(#gold)" stroke-width="1.2" opacity="0.65"/>
+  <rect x="5.5" y="5.5" width="53" height="53" rx="9" fill="none" stroke="#1ba6a6" stroke-width="0.8" opacity="0.45"/>
+
+  <!-- 8-Pointed Mughal Kashi Star (Two Intersecting Squares rotated 45 deg) -->
+  <g transform="translate(32 32)">
+    <!-- Outer Star -->
+    <rect x="-19" y="-19" width="38" height="38" rx="2" fill="none" stroke="url(#gold)" stroke-width="1.6"/>
+    <rect x="-19" y="-19" width="38" height="38" rx="2" fill="none" stroke="url(#gold)" stroke-width="1.6" transform="rotate(45)"/>
+
+    <!-- Turquoise Inset Star Petals -->
+    <rect x="-14.5" y="-14.5" width="29" height="29" rx="1" fill="#1ba6a6" fill-opacity="0.25" stroke="#1ba6a6" stroke-width="1.2"/>
+    <rect x="-14.5" y="-14.5" width="29" height="29" rx="1" fill="#1ba6a6" fill-opacity="0.25" stroke="#1ba6a6" stroke-width="1.2" transform="rotate(45)"/>
+
+    <!-- Central Kashi Medallion Core -->
+    <circle r="7.5" fill="url(#turq)" stroke="url(#gold)" stroke-width="1.2"/>
+    <circle r="3.2" fill="#fceda2"/>
+
+    <!-- 8 Corner Dots -->
+    <circle cx="0" cy="-24" r="1.4" fill="#f7d978"/>
+    <circle cx="0" cy="24" r="1.4" fill="#f7d978"/>
+    <circle cx="-24" cy="0" r="1.4" fill="#f7d978"/>
+    <circle cx="24" cy="0" r="1.4" fill="#f7d978"/>
+    <circle cx="-17" cy="-17" r="1.2" fill="#1ba6a6"/>
+    <circle cx="17" cy="-17" r="1.2" fill="#1ba6a6"/>
+    <circle cx="-17" cy="17" r="1.2" fill="#1ba6a6"/>
+    <circle cx="17" cy="17" r="1.2" fill="#1ba6a6"/>
+  </g>
 </svg>

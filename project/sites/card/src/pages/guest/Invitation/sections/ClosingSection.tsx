@@ -1,12 +1,13 @@
 import { Reveal } from '@/components/motion/Reveal';
 import { RoseDivider } from '@/components/ornaments/RoseDivider';
 import { ThemeOrnament } from '@/components/ornaments/ThemeOrnament';
-import { couple } from '@/config/invitation.config';
+import { useWeddingContent } from '@/config/WeddingContentContext';
 import { useLang } from '@/i18n/useLang';
 import s from './ClosingSection.module.css';
 
 /** The close: wedding dua, thank-you, botanical rose divider, and grand couple signature. */
 export default function ClosingSection() {
+  const { couple } = useWeddingContent();
   const { t, s: text } = useLang();
 
   return (
