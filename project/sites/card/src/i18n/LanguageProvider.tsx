@@ -40,13 +40,17 @@ export interface LanguageValue {
 export const LanguageContext = createContext<LanguageValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [start] = useState(() => ({
-    query: new URLSearchParams(window.location.search).get('lang'),
-    stored: readStored(),
-    browser: navigator.language,
-    // Read the guest straight from a direct link, so their default language is right on the first paint.
-    guest: findGuest(window.location.pathname.slice(import.meta.env.BASE_URL.length), guests)?.lang,
-  }));
+  const [start] = useState(() => {
+    const isUrduPath = window.location.pathname.endsWith('/ur') || window.location.pathname.endsWith('/ur/');
+    const cleanPath = window.location.pathname.slice(import.meta.env.BASE_URL.length).replace(/\/ur\/?$/, '');
+    return {
+      query: new URLSearchParams(window.location.search).get('lang') || (isUrduPath ? 'ur' : null),
+      stored: readStored(),
+      browser: navigator.language,
+      // Read the guest straight from a direct link, so their default language is right on the first paint.
+      guest: findGuest(cleanPath, guests)?.lang,
+    };
+  });
   const [guestLang, setGuestLang] = useState<Lang | undefined>();
   const [chosen, setChosen] = useState<Lang | undefined>();
   const lang = chosen ?? resolveLang({ ...start, guest: guestLang ?? start.guest });

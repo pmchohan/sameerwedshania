@@ -27,6 +27,7 @@ export default function App() {
               />
             ))}
             <Route path="/:code" element={<DynamicInvitation />} />
+            <Route path="/:code/ur" element={<DynamicInvitation />} />
             <Route path="*" element={<CodeEntry missed />} />
           </Routes>
         </WeddingContentProvider>
