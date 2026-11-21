@@ -154,23 +154,33 @@ async function main() {
   // Also ensure 404.html is written
   writeFileSync(resolve(distDir, '404.html'), baseHtml);
 
-  // Default guests from config
+  // Default guests from config (guaranteed fallback)
   const guestsMap = new Map();
   guestsMap.set('achunp', { code: 'achunp', name: 'Ali', nameUr: 'علی', events: ['walima'] });
   guestsMap.set('xzzium', { code: 'xzzium', name: 'Ahmed', nameUr: 'احمد', events: ['mehndi', 'barat', 'walima'] });
 
-  // Try fetching additional live guests from backend API if available
+  // Try fetching all live guests from backend API to pre-render newly added invitations
   try {
-    const res = await fetch('https://structure-partition-cowboy-ultimate.trycloudflare.com/api/wedding-details', { signal: AbortSignal.timeout(2000) });
+    const apiBase = process.env.VITE_API_URL || 'https://claimed-achieving-fifty-operators.trycloudflare.com/api';
+    const res = await fetch(`${apiBase}/invitations-manifest`, { signal: AbortSignal.timeout(3000) });
     if (res.ok) {
-      // Also try fetching guest invitations
-      const invRes = await fetch('https://structure-partition-cowboy-ultimate.trycloudflare.com/api/invitations/xzzium', { signal: AbortSignal.timeout(2000) });
-      if (invRes.ok) {
-        console.log('Backend connection active.');
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        for (const guest of json.data) {
+          if (guest.code && guest.name) {
+            guestsMap.set(guest.code.toLowerCase(), {
+              code: guest.code.toLowerCase(),
+              name: guest.name,
+              nameUr: guest.nameUr || '',
+              events: guest.events || ['mehndi', 'barat', 'walima'],
+            });
+          }
+        }
+        console.log(`Fetched ${json.data.length} invitations from backend API database.`);
       }
     }
-  } catch {
-    console.log('Using configured guest list.');
+  } catch (e) {
+    console.log('Backend connection timed out or inactive; using local configured guest list.');
   }
 
   // Pre-generate static files for each guest

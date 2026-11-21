@@ -1,6 +1,6 @@
 import { Invitation, CreateInvitationInput, WeddingSettings } from './types';
 
-const DEFAULT_API = import.meta.env.VITE_API_URL || 'https://structure-partition-cowboy-ultimate.trycloudflare.com/api';
+const DEFAULT_API = import.meta.env.VITE_API_URL || 'https://claimed-achieving-fifty-operators.trycloudflare.com/api';
 const DEFAULT_CARD_BASE = 'https://pmchohan.github.io/sameerwedshania';
 
 export function getAuthToken(): string {
@@ -46,8 +46,22 @@ export async function loginAdmin(password: string): Promise<string> {
   throw new Error('No token returned');
 }
 
+export function getDefaultApiBase(): string {
+  return DEFAULT_API;
+}
+
+export function resetApiBase() {
+  localStorage.removeItem('wedding_api_url');
+}
+
 export function getApiBase(): string {
-  return localStorage.getItem('wedding_api_url') || DEFAULT_API;
+  const custom = localStorage.getItem('wedding_api_url');
+  // If stored URL is an outdated trycloudflare tunnel and DEFAULT_API has changed, clean it up
+  if (custom && custom.includes('trycloudflare.com') && DEFAULT_API.includes('trycloudflare.com') && custom !== DEFAULT_API) {
+    localStorage.removeItem('wedding_api_url');
+    return DEFAULT_API;
+  }
+  return custom || DEFAULT_API;
 }
 
 export function setApiBase(url: string) {

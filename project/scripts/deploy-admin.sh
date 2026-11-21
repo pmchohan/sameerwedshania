@@ -20,7 +20,7 @@ rsync -av --delete --exclude=".git" "$DIR/sites/admin/dist/" "$ADMIN_REPO_DIR/"
 cd "$ADMIN_REPO_DIR"
 if [ -n "$(git status --porcelain)" ]; then
   git add -A
-  git commit -m "deploy: update admin dashboard build"
+  git commit -m "Update admin dashboard build"
   git push origin main
   git push origin main:gh-pages 2>/dev/null || true
   echo "Admin site deployed successfully to swh-admin repository!"

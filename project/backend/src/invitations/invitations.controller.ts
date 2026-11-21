@@ -33,6 +33,24 @@ export class InvitationsController {
   }
 
   /**
+   * Public: List all guest codes for static site generator / OG builds.
+   * GET /api/invitations-manifest
+   */
+  @Get('invitations-manifest')
+  async getManifest() {
+    const data = await this.invitationsService.findAll();
+    return {
+      success: true,
+      data: data.map((inv) => ({
+        code: inv.code,
+        name: inv.name,
+        nameUr: inv.nameUr,
+        events: inv.events,
+      })),
+    };
+  }
+
+  /**
    * Admin: List invitations with optional search query & event filter.
    * GET /api/admin/invitations?q=...&event=...
    */
