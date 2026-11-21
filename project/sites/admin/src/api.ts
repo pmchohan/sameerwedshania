@@ -1,6 +1,6 @@
 import { Invitation, CreateInvitationInput, WeddingSettings } from './types';
 
-const DEFAULT_API = import.meta.env.VITE_API_URL || 'https://soft-decide-coordinated-manhattan.trycloudflare.com/api';
+const DEFAULT_API = import.meta.env.VITE_API_URL || 'https://formerly-bones-ipod-compaq.trycloudflare.com/api';
 const DEFAULT_CARD_BASE = 'https://pmchohan.github.io/sameerwedshania';
 
 export function getAuthToken(): string {
