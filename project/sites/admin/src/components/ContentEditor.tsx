@@ -26,7 +26,7 @@ export function ContentEditor() {
         setToastWarning(res.warning);
       }
     } catch (err: any) {
-      alert(err.message || 'Groq AI translation failed');
+      alert(err.message || 'AI translation failed');
     } finally {
       setTranslatingKey(null);
     }
@@ -198,7 +198,7 @@ export function ContentEditor() {
                   )
                 }
               >
-                {translatingKey === 'groom' ? '⏳...' : '✨ Groq Autofill'}
+                {translatingKey === 'groom' ? '⏳...' : '✨ Urdu Autofill'}
               </button>
             </div>
             <input
@@ -264,7 +264,7 @@ export function ContentEditor() {
                   )
                 }
               >
-                {translatingKey === 'bride' ? '⏳...' : '✨ Groq Autofill'}
+                {translatingKey === 'bride' ? '⏳...' : '✨ Urdu Autofill'}
               </button>
             </div>
             <input
@@ -340,7 +340,7 @@ export function ContentEditor() {
                   )
                 }
               >
-                {translatingKey === 'groomParents' ? '⏳...' : '✨ Groq Autofill'}
+                {translatingKey === 'groomParents' ? '⏳...' : '✨ Urdu Autofill'}
               </button>
             </div>
             <input
@@ -421,7 +421,7 @@ export function ContentEditor() {
                   )
                 }
               >
-                {translatingKey === 'brideParents' ? '⏳...' : '✨ Groq Autofill'}
+                {translatingKey === 'brideParents' ? '⏳...' : '✨ Urdu Autofill'}
               </button>
             </div>
             <input
@@ -598,7 +598,7 @@ export function ContentEditor() {
                             'milestone',
                           )
                         }
-                        title="Autofill with Groq"
+                        title="Autofill Urdu"
                       >
                         {translatingKey === `milestone-${idx}` ? '⏳' : '✨'}
                       </button>
@@ -700,9 +700,9 @@ export function ContentEditor() {
                           'host_name',
                         )
                       }
-                      title="Autofill with Groq"
+                      title="Autofill Urdu"
                     >
-                      {translatingKey === `host-name-${idx}` ? '⏳...' : '✨ Groq'}
+                      {translatingKey === `host-name-${idx}` ? '⏳...' : '✨ Autofill'}
                     </button>
                   </div>
                   <input
@@ -750,9 +750,9 @@ export function ContentEditor() {
                           'host_role',
                         )
                       }
-                      title="Autofill with Groq"
+                      title="Autofill Urdu"
                     >
-                      {translatingKey === `host-role-${idx}` ? '⏳...' : '✨ Groq'}
+                      {translatingKey === `host-role-${idx}` ? '⏳...' : '✨ Autofill'}
                     </button>
                   </div>
                   <input

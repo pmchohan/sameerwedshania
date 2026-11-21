@@ -66,7 +66,7 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
         setToastWarning(res.warning);
       }
     } catch (err: any) {
-      setError(err.message || 'Groq AI translation failed');
+      setError(err.message || 'Urdu translation failed');
     } finally {
       setTranslatingField(null);
     }
@@ -160,9 +160,9 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
                 className="ai-assist-btn"
                 disabled={translatingField === 'name'}
                 onClick={() => handleAiFill('name')}
-                title="Autofill with Groq (translates English or converts Roman Urdu)"
+                title="Autofill Urdu (translates English or converts Roman Urdu)"
               >
-                {translatingField === 'name' ? '⏳ Converting...' : '✨ Groq Autofill'}
+                {translatingField === 'name' ? '⏳ Converting...' : '✨ Urdu Autofill'}
               </button>
             </div>
             <input
@@ -232,9 +232,9 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
                 className="ai-assist-btn"
                 disabled={translatingField === 'note'}
                 onClick={() => handleAiFill('note')}
-                title="Autofill with Groq (translates English or converts Roman Urdu)"
+                title="Autofill Urdu (translates English or converts Roman Urdu)"
               >
-                {translatingField === 'note' ? '⏳ Converting...' : '✨ Groq Autofill'}
+                {translatingField === 'note' ? '⏳ Converting...' : '✨ Urdu Autofill'}
               </button>
             </div>
             <textarea

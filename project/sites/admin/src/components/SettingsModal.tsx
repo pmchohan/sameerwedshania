@@ -70,16 +70,16 @@ export function SettingsModal({ isOpen, onClose, onRefresh }: SettingsModalProps
           </div>
 
           <div className="form-group">
-            <label htmlFor="groq-key">Groq API Key (for Urdu Autofill ✨)</label>
+            <label htmlFor="groq-key">AI Translation Key (for Urdu Autofill ✨)</label>
             <input
               id="groq-key"
               type="password"
-              placeholder="gsk_..."
+              placeholder="API key (gsk_...)"
               value={groqKey}
               onChange={(e) => setGroqKeyState(e.target.value)}
             />
             <span className="form-hint">
-              Powers automatic Urdu translation &amp; Roman Urdu phonetic conversion via Llama 3.3 70B (with Llama 3.1 8B fallback).
+              Powers automatic Urdu translation &amp; Roman Urdu phonetic conversion via high-speed AI models.
             </span>
           </div>
 

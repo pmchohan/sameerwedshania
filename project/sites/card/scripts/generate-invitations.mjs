@@ -161,7 +161,7 @@ async function main() {
 
   // Try fetching all live guests from backend API to pre-render newly added invitations
   try {
-    const apiBase = process.env.VITE_API_URL || 'https://formerly-bones-ipod-compaq.trycloudflare.com/api';
+    const apiBase = process.env.VITE_API_URL || 'https://debate-everyday-columns-simply.trycloudflare.com/api';
     const res = await fetch(`${apiBase}/invitations-manifest`, { signal: AbortSignal.timeout(3000) });
     if (res.ok) {
       const json = await res.json();

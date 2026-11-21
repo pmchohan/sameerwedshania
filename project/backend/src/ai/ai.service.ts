@@ -16,8 +16,14 @@ export interface UrduAssistResponse {
   warning?: string | null;
 }
 
-const PRIMARY_MODEL = 'llama-3.3-70b-versatile';
-const FALLBACK_MODEL = 'llama-3.1-8b-instant';
+const CANDIDATE_MODELS = [
+  'openai/gpt-oss-120b',
+  'openai/gpt-oss-20b',
+  'qwen/qwen3.8-27b',
+  'allam-2-7b',
+  'llama-3.3-70b-versatile',
+  'llama-3.1-8b-instant',
+];
 
 @Injectable()
 export class AiService {
@@ -30,7 +36,7 @@ export class AiService {
 
     if (!apiKey) {
       throw new HttpException(
-        'Groq API Key is not configured. Please set GROQ_API_KEY in .env or provide it in Admin Settings.',
+        'AI Translation Key is not configured. Please set GROQ_API_KEY in .env or provide it in Admin Settings.',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -69,47 +75,30 @@ RULES:
       ? `Field context: ${dto.field || 'general'}\nReference English: "${english}"\nUser input (Roman Urdu/Urdu to transcribe): "${urduOrRoman}"`
       : `Field context: ${dto.field || 'general'}\nTranslate this English wedding text to elegant Urdu script: "${english}"`;
 
-    // Attempt with Primary Model (llama-3.3-70b-versatile)
-    try {
-      this.logger.log(`Attempting Groq generation with primary model: ${PRIMARY_MODEL}`);
-      const text = await this.callGroq(apiKey, PRIMARY_MODEL, systemPrompt, userPrompt);
-      return {
-        success: true,
-        text,
-        model: PRIMARY_MODEL,
-        downgraded: false,
-      };
-    } catch (primaryErr: any) {
-      const isRateLimit =
-        primaryErr.status === 429 ||
-        primaryErr.message?.includes('429') ||
-        primaryErr.message?.toLowerCase().includes('rate limit') ||
-        primaryErr.message?.toLowerCase().includes('quota');
+    let lastError: any = null;
 
-      if (isRateLimit) {
-        this.logger.warn(`Primary model ${PRIMARY_MODEL} rate limit reached. Falling back to ${FALLBACK_MODEL}...`);
-        try {
-          const text = await this.callGroq(apiKey, FALLBACK_MODEL, systemPrompt, userPrompt);
-          return {
-            success: true,
-            text,
-            model: FALLBACK_MODEL,
-            downgraded: true,
-            warning:
-              'Rate limit reached for Llama 3.3 70B. Temporarily downgraded to Llama 3.1 8B. Output may have slight spelling differences.',
-          };
-        } catch (fallbackErr: any) {
-          this.logger.error(`Fallback model ${FALLBACK_MODEL} failed: ${fallbackErr.message}`);
-          throw new HttpException(
-            `Groq AI Service rate limit exceeded on both primary and fallback models. Please wait a minute and try again.`,
-            HttpStatus.TOO_MANY_REQUESTS,
-          );
-        }
+    for (let i = 0; i < CANDIDATE_MODELS.length; i++) {
+      const model = CANDIDATE_MODELS[i];
+      try {
+        this.logger.log(`Attempting AI generation with model: ${model}`);
+        const text = await this.callGroq(apiKey, model, systemPrompt, userPrompt);
+        return {
+          success: true,
+          text,
+          model,
+          downgraded: i > 0,
+          warning: i > 0 ? `Primary model unavailable or busy. Generated using fallback model (${model}).` : null,
+        };
+      } catch (err: any) {
+        lastError = err;
+        this.logger.warn(`Model ${model} failed (${err.message}). Trying next candidate...`);
       }
-
-      // If it wasn't a rate limit error (e.g. invalid API key or bad request)
-      throw new HttpException(primaryErr.message || 'Groq AI generation failed', HttpStatus.BAD_GATEWAY);
     }
+
+    throw new HttpException(
+      lastError?.message || 'AI service generation failed on all available models. Please check your API key.',
+      HttpStatus.BAD_REQUEST,
+    );
   }
 
   private async callGroq(apiKey: string, model: string, systemPrompt: string, userPrompt: string): Promise<string> {
@@ -126,25 +115,26 @@ RULES:
           { role: 'user', content: userPrompt },
         ],
         temperature: 0.2,
-        max_tokens: 150,
+        max_tokens: 600,
       }),
     });
 
     if (!res.ok) {
       const errBody = await res.text().catch(() => '');
-      this.logger.error(`Groq API returned HTTP ${res.status}: ${errBody}`);
-      const error: any = new Error(`Groq API error HTTP ${res.status}: ${errBody}`);
+      this.logger.error(`AI API returned HTTP ${res.status}: ${errBody}`);
+      const error: any = new Error(`AI API error HTTP ${res.status}: ${errBody}`);
       error.status = res.status;
       throw error;
     }
 
     const data = await res.json();
-    const content = data?.choices?.[0]?.message?.content?.trim();
+    let content = data?.choices?.[0]?.message?.content?.trim();
     if (!content) {
-      throw new Error('Groq returned empty response');
+      throw new Error('AI API returned empty response');
     }
 
-    // Clean any accidental enclosing quotes
+    // Clean any accidental reasoning/think tags and enclosing quotes
+    content = content.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
     return content.replace(/^["'«“‘]+|["'»”’]+$/g, '').trim();
   }
 }
