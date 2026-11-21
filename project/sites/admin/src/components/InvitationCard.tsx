@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Invitation } from '../types';
-import { getCardBaseUrl, getShareBaseUrl, getApiBase } from '../api';
+import { getCardBaseUrl } from '../api';
 
 interface InvitationCardProps {
   invitation: Invitation;
@@ -13,9 +13,8 @@ export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardP
   const [copiedType, setCopiedType] = useState<string | null>(null);
 
   const fullUrl = `${getCardBaseUrl()}/${invitation.code}`;
-  const waShareEn = getShareBaseUrl(invitation.code, 'en');
-  const waShareUr = getShareBaseUrl(invitation.code, 'ur');
-  const ogPreviewUrl = `${getApiBase()}/og/${invitation.code}`;
+  const fullUrlUr = `${getCardBaseUrl()}/${invitation.code}/ur`;
+  const ogPreviewUrl = `${getCardBaseUrl()}/assets/img/og-${invitation.code}.png`;
 
   const copyToClipboard = async (text: string, type: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -52,9 +51,9 @@ export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardP
             <button
               type="button"
               className={`copy-btn ${copiedType === 'header-share' ? 'copied' : ''}`}
-              onClick={(e) => copyToClipboard(waShareEn, 'header-share', e)}
-              title="Copy WhatsApp Share Link with Dynamic Kashi Preview"
-              aria-label="Copy WhatsApp invitation link"
+              onClick={(e) => copyToClipboard(fullUrl, 'header-share', e)}
+              title="Copy Invitation Link"
+              aria-label="Copy invitation link"
             >
               {copiedType === 'header-share' ? (
                 <>
@@ -69,7 +68,7 @@ export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardP
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                   </svg>
-                  <span>Copy WhatsApp Link</span>
+                  <span>Copy Link</span>
                 </>
               )}
             </button>
@@ -124,47 +123,33 @@ export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardP
             {/* Share Links Box */}
             <div className="share-links-box">
               <div className="share-link-row">
-                <span className="share-link-tag">WhatsApp (EN):</span>
-                <span className="share-link-text">{waShareEn}</span>
+                <span className="share-link-tag">Invitation Link (EN):</span>
+                <span className="share-link-text">{fullUrl}</span>
                 <button
                   type="button"
                   className="mini-copy-btn"
-                  onClick={() => copyToClipboard(waShareEn, 'wa-en')}
+                  onClick={() => copyToClipboard(fullUrl, 'wa-en')}
                 >
                   {copiedType === 'wa-en' ? '✓ Copied' : 'Copy'}
                 </button>
               </div>
 
               <div className="share-link-row">
-                <span className="share-link-tag">WhatsApp (اردو):</span>
-                <span className="share-link-text">{waShareUr}</span>
+                <span className="share-link-tag">Invitation Link (اردو):</span>
+                <span className="share-link-text">{fullUrlUr}</span>
                 <button
                   type="button"
                   className="mini-copy-btn"
-                  onClick={() => copyToClipboard(waShareUr, 'wa-ur')}
+                  onClick={() => copyToClipboard(fullUrlUr, 'wa-ur')}
                 >
                   {copiedType === 'wa-ur' ? '✓ Copied' : 'Copy'}
                 </button>
               </div>
 
               <div className="share-link-row">
-                <span className="share-link-tag">Direct Card:</span>
-                <a href={fullUrl} target="_blank" rel="noreferrer" className="preview-link">
-                  {fullUrl}
-                </a>
-                <button
-                  type="button"
-                  className="mini-copy-btn"
-                  onClick={() => copyToClipboard(fullUrl, 'direct')}
-                >
-                  {copiedType === 'direct' ? '✓ Copied' : 'Copy'}
-                </button>
-              </div>
-
-              <div className="share-link-row">
-                <span className="share-link-tag">OG Banner:</span>
+                <span className="share-link-tag">Kashi Banner:</span>
                 <a href={ogPreviewUrl} target="_blank" rel="noreferrer" className="preview-link">
-                  🖼️ View 1200x630 WhatsApp Banner
+                  🖼️ View 1200x630 Banner
                 </a>
               </div>
             </div>
