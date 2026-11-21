@@ -1,6 +1,6 @@
 import { Invitation, CreateInvitationInput, WeddingSettings } from './types';
 
-const DEFAULT_API = import.meta.env.VITE_API_URL || 'https://blink-moore-enrollment-deeply.trycloudflare.com/api';
+const DEFAULT_API = import.meta.env.VITE_API_URL || 'https://structure-partition-cowboy-ultimate.trycloudflare.com/api';
 const DEFAULT_CARD_BASE = 'https://pmchohan.github.io/sameerwedshania';
 
 export function getAuthToken(): string {
