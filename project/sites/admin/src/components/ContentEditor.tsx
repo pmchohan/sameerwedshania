@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { WeddingSettings, WeddingEventDetails, ScheduleItem } from '../types';
-import { fetchSettings, updateSettings } from '../api';
+import { fetchSettings, updateSettings, fetchUrduAssist } from '../api';
 
 export function ContentEditor() {
   const [settings, setSettings] = useState<WeddingSettings | null>(null);
@@ -8,6 +8,29 @@ export function ContentEditor() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [activeEventTab, setActiveEventTab] = useState<'mehndi' | 'barat' | 'walima'>('mehndi');
+  const [translatingKey, setTranslatingKey] = useState<string | null>(null);
+  const [toastWarning, setToastWarning] = useState<string | null>(null);
+
+  const triggerUrduAssist = async (
+    key: string,
+    english: string,
+    currentUrdu: string,
+    onGenerated: (text: string) => void,
+    context = 'general',
+  ) => {
+    setTranslatingKey(key);
+    try {
+      const res = await fetchUrduAssist(english, currentUrdu, context);
+      onGenerated(res.text);
+      if (res.downgraded && res.warning) {
+        setToastWarning(res.warning);
+      }
+    } catch (err: any) {
+      alert(err.message || 'Groq AI translation failed');
+    } finally {
+      setTranslatingKey(null);
+    }
+  };
 
   useEffect(() => {
     loadSettings();
@@ -116,6 +139,13 @@ export function ContentEditor() {
         </div>
       )}
 
+      {toastWarning && (
+        <div className="alert-warning-banner">
+          <span>⚠️ {toastWarning}</span>
+          <button type="button" className="close-warning-btn" onClick={() => setToastWarning(null)}>✕</button>
+        </div>
+      )}
+
       {/* 1. COUPLE & FAMILY */}
       <section className="editor-section">
         <h3 className="section-title">
@@ -140,7 +170,37 @@ export function ContentEditor() {
             />
           </div>
           <div className="form-group">
-            <label>Groom Name (Urdu)</label>
+            <div className="label-with-action">
+              <label>Groom Name (Urdu)</label>
+              <button
+                type="button"
+                className="ai-assist-btn"
+                disabled={translatingKey === 'groom'}
+                onClick={() =>
+                  triggerUrduAssist(
+                    'groom',
+                    settings.couple?.groom?.en || '',
+                    settings.couple?.groom?.ur || '',
+                    (val) =>
+                      setSettings((prev) =>
+                        prev
+                          ? {
+                              ...prev,
+                              couple: {
+                                ...prev.couple,
+                                groom: { ...prev.couple?.groom, ur: val, en: prev.couple?.groom?.en || '' },
+                                bride: prev.couple?.bride || { en: '', ur: '' },
+                              },
+                            }
+                          : prev,
+                      ),
+                    'groom_name',
+                  )
+                }
+              >
+                {translatingKey === 'groom' ? '⏳...' : '✨ Groq Autofill'}
+              </button>
+            </div>
             <input
               type="text"
               dir="rtl"
@@ -176,7 +236,37 @@ export function ContentEditor() {
             />
           </div>
           <div className="form-group">
-            <label>Bride Name (Urdu)</label>
+            <div className="label-with-action">
+              <label>Bride Name (Urdu)</label>
+              <button
+                type="button"
+                className="ai-assist-btn"
+                disabled={translatingKey === 'bride'}
+                onClick={() =>
+                  triggerUrduAssist(
+                    'bride',
+                    settings.couple?.bride?.en || '',
+                    settings.couple?.bride?.ur || '',
+                    (val) =>
+                      setSettings((prev) =>
+                        prev
+                          ? {
+                              ...prev,
+                              couple: {
+                                ...prev.couple,
+                                bride: { ...prev.couple?.bride, ur: val, en: prev.couple?.bride?.en || '' },
+                                groom: prev.couple?.groom || { en: '', ur: '' },
+                              },
+                            }
+                          : prev,
+                      ),
+                    'bride_name',
+                  )
+                }
+              >
+                {translatingKey === 'bride' ? '⏳...' : '✨ Groq Autofill'}
+              </button>
+            </div>
             <input
               type="text"
               dir="rtl"
@@ -217,7 +307,42 @@ export function ContentEditor() {
             />
           </div>
           <div className="form-group">
-            <label>Groom Parents (Urdu)</label>
+            <div className="label-with-action">
+              <label>Groom Parents (Urdu)</label>
+              <button
+                type="button"
+                className="ai-assist-btn"
+                disabled={translatingKey === 'groomParents'}
+                onClick={() =>
+                  triggerUrduAssist(
+                    'groomParents',
+                    settings.families?.groomParents?.en || '',
+                    settings.families?.groomParents?.ur || '',
+                    (val) =>
+                      setSettings((prev) =>
+                        prev
+                          ? {
+                              ...prev,
+                              families: {
+                                ...prev.families,
+                                groomParents: {
+                                  ...prev.families?.groomParents,
+                                  ur: val,
+                                  en: prev.families?.groomParents?.en || '',
+                                },
+                                brideParents: prev.families?.brideParents || { en: '', ur: '' },
+                                line: prev.families?.line || { en: '', ur: '' },
+                              },
+                            }
+                          : prev,
+                      ),
+                    'parents',
+                  )
+                }
+              >
+                {translatingKey === 'groomParents' ? '⏳...' : '✨ Groq Autofill'}
+              </button>
+            </div>
             <input
               type="text"
               dir="rtl"
@@ -263,7 +388,42 @@ export function ContentEditor() {
             />
           </div>
           <div className="form-group">
-            <label>Bride Parents (Urdu)</label>
+            <div className="label-with-action">
+              <label>Bride Parents (Urdu)</label>
+              <button
+                type="button"
+                className="ai-assist-btn"
+                disabled={translatingKey === 'brideParents'}
+                onClick={() =>
+                  triggerUrduAssist(
+                    'brideParents',
+                    settings.families?.brideParents?.en || '',
+                    settings.families?.brideParents?.ur || '',
+                    (val) =>
+                      setSettings((prev) =>
+                        prev
+                          ? {
+                              ...prev,
+                              families: {
+                                ...prev.families,
+                                brideParents: {
+                                  ...prev.families?.brideParents,
+                                  ur: val,
+                                  en: prev.families?.brideParents?.en || '',
+                                },
+                                groomParents: prev.families?.groomParents || { en: '', ur: '' },
+                                line: prev.families?.line || { en: '', ur: '' },
+                              },
+                            }
+                          : prev,
+                      ),
+                    'parents',
+                  )
+                }
+              >
+                {translatingKey === 'brideParents' ? '⏳...' : '✨ Groq Autofill'}
+              </button>
+            </div>
             <input
               type="text"
               dir="rtl"
@@ -412,18 +572,37 @@ export function ContentEditor() {
                         })
                       }
                     />
-                    <input
-                      type="text"
-                      dir="rtl"
-                      className="title-field urdu-field"
-                      placeholder="عنوان (اردو)"
-                      value={item.title?.ur || ''}
-                      onChange={(e) =>
-                        updateScheduleItem(idx, {
-                          title: { ur: e.target.value, en: item.title?.en || '' },
-                        })
-                      }
-                    />
+                    <div className="input-with-inline-action title-field">
+                      <input
+                        type="text"
+                        dir="rtl"
+                        className="urdu-field"
+                        placeholder="عنوان (اردو) - or type Roman Urdu"
+                        value={item.title?.ur || ''}
+                        onChange={(e) =>
+                          updateScheduleItem(idx, {
+                            title: { ur: e.target.value, en: item.title?.en || '' },
+                          })
+                        }
+                      />
+                      <button
+                        type="button"
+                        className="inline-ai-btn"
+                        disabled={translatingKey === `milestone-${idx}`}
+                        onClick={() =>
+                          triggerUrduAssist(
+                            `milestone-${idx}`,
+                            item.title?.en || '',
+                            item.title?.ur || '',
+                            (val) => updateScheduleItem(idx, { title: { ur: val, en: item.title?.en || '' } }),
+                            'milestone',
+                          )
+                        }
+                        title="Autofill with Groq"
+                      >
+                        {translatingKey === `milestone-${idx}` ? '⏳' : '✨'}
+                      </button>
+                    </div>
                     <button
                       type="button"
                       className="btn-remove-row"
@@ -502,7 +681,30 @@ export function ContentEditor() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Name (Urdu)</label>
+                  <div className="label-with-action">
+                    <label>Name (Urdu)</label>
+                    <button
+                      type="button"
+                      className="ai-assist-btn"
+                      disabled={translatingKey === `host-name-${idx}`}
+                      onClick={() =>
+                        triggerUrduAssist(
+                          `host-name-${idx}`,
+                          host.name?.en || '',
+                          host.name?.ur || '',
+                          (val) => {
+                            const next = [...(settings.hosts || [])];
+                            next[idx] = { ...host, name: { ...host.name, ur: val } };
+                            setSettings({ ...settings, hosts: next });
+                          },
+                          'host_name',
+                        )
+                      }
+                      title="Autofill with Groq"
+                    >
+                      {translatingKey === `host-name-${idx}` ? '⏳...' : '✨ Groq'}
+                    </button>
+                  </div>
                   <input
                     type="text"
                     dir="rtl"
@@ -529,7 +731,30 @@ export function ContentEditor() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Role / Relation (Urdu)</label>
+                  <div className="label-with-action">
+                    <label>Role / Relation (Urdu)</label>
+                    <button
+                      type="button"
+                      className="ai-assist-btn"
+                      disabled={translatingKey === `host-role-${idx}`}
+                      onClick={() =>
+                        triggerUrduAssist(
+                          `host-role-${idx}`,
+                          host.role?.en || '',
+                          host.role?.ur || '',
+                          (val) => {
+                            const next = [...(settings.hosts || [])];
+                            next[idx] = { ...host, role: { ...host.role, ur: val } };
+                            setSettings({ ...settings, hosts: next });
+                          },
+                          'host_role',
+                        )
+                      }
+                      title="Autofill with Groq"
+                    >
+                      {translatingKey === `host-role-${idx}` ? '⏳...' : '✨ Groq'}
+                    </button>
+                  </div>
                   <input
                     type="text"
                     dir="rtl"

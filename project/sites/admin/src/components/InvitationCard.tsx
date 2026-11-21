@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Invitation } from '../types';
-import { getCardBaseUrl } from '../api';
+import { getCardBaseUrl, getShareBaseUrl, getApiBase } from '../api';
 
 interface InvitationCardProps {
   invitation: Invitation;
@@ -10,19 +10,21 @@ interface InvitationCardProps {
 
 export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [copiedType, setCopiedType] = useState<string | null>(null);
 
   const fullUrl = `${getCardBaseUrl()}/${invitation.code}`;
+  const waShareEn = getShareBaseUrl(invitation.code, 'en');
+  const waShareUr = getShareBaseUrl(invitation.code, 'ur');
+  const ogPreviewUrl = `${getApiBase()}/og/${invitation.code}`;
 
-  const handleCopy = async (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const copyToClipboard = async (text: string, type: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     try {
-      await navigator.clipboard.writeText(fullUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(text);
+      setCopiedType(type);
+      setTimeout(() => setCopiedType(null), 2000);
     } catch {
-      // Fallback prompt if clipboard API is restricted
-      window.prompt('Copy invitation link:', fullUrl);
+      window.prompt('Copy invitation link:', text);
     }
   };
 
@@ -49,17 +51,17 @@ export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardP
 
             <button
               type="button"
-              className={`copy-btn ${copied ? 'copied' : ''}`}
-              onClick={handleCopy}
-              title="Copy Full Invitation URL"
-              aria-label="Copy invitation link"
+              className={`copy-btn ${copiedType === 'header-share' ? 'copied' : ''}`}
+              onClick={(e) => copyToClipboard(waShareEn, 'header-share', e)}
+              title="Copy WhatsApp Share Link with Dynamic Kashi Preview"
+              aria-label="Copy WhatsApp invitation link"
             >
-              {copied ? (
+              {copiedType === 'header-share' ? (
                 <>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Copied</span>
+                  <span>Copied!</span>
                 </>
               ) : (
                 <>
@@ -67,7 +69,7 @@ export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardP
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                   </svg>
-                  <span>Copy Link</span>
+                  <span>Copy WhatsApp Link</span>
                 </>
               )}
             </button>
@@ -119,16 +121,52 @@ export function InvitationCard({ invitation, onEdit, onDelete }: InvitationCardP
       {expanded && (
         <div className="card-details">
           <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Invitation Link:</span>
-              <a href={fullUrl} target="_blank" rel="noreferrer" className="preview-link">
-                {fullUrl}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </a>
+            {/* Share Links Box */}
+            <div className="share-links-box">
+              <div className="share-link-row">
+                <span className="share-link-tag">WhatsApp (EN):</span>
+                <span className="share-link-text">{waShareEn}</span>
+                <button
+                  type="button"
+                  className="mini-copy-btn"
+                  onClick={() => copyToClipboard(waShareEn, 'wa-en')}
+                >
+                  {copiedType === 'wa-en' ? '✓ Copied' : 'Copy'}
+                </button>
+              </div>
+
+              <div className="share-link-row">
+                <span className="share-link-tag">WhatsApp (اردو):</span>
+                <span className="share-link-text">{waShareUr}</span>
+                <button
+                  type="button"
+                  className="mini-copy-btn"
+                  onClick={() => copyToClipboard(waShareUr, 'wa-ur')}
+                >
+                  {copiedType === 'wa-ur' ? '✓ Copied' : 'Copy'}
+                </button>
+              </div>
+
+              <div className="share-link-row">
+                <span className="share-link-tag">Direct Card:</span>
+                <a href={fullUrl} target="_blank" rel="noreferrer" className="preview-link">
+                  {fullUrl}
+                </a>
+                <button
+                  type="button"
+                  className="mini-copy-btn"
+                  onClick={() => copyToClipboard(fullUrl, 'direct')}
+                >
+                  {copiedType === 'direct' ? '✓ Copied' : 'Copy'}
+                </button>
+              </div>
+
+              <div className="share-link-row">
+                <span className="share-link-tag">OG Banner:</span>
+                <a href={ogPreviewUrl} target="_blank" rel="noreferrer" className="preview-link">
+                  🖼️ View 1200x630 WhatsApp Banner
+                </a>
+              </div>
             </div>
 
             {invitation.note && (

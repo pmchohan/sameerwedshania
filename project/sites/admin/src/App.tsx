@@ -209,7 +209,7 @@ export default function App() {
 
               <div className="filter-tabs">
                 {[
-                  { id: 'all', label: 'All', count: stats.total },
+                  { id: 'all', label: 'Any', count: stats.total },
                   { id: 'mehndi', label: 'Mehndi', count: stats.mehndi },
                   { id: 'barat', label: 'Barat', count: stats.barat },
                   { id: 'walima', label: 'Walima', count: stats.walima },

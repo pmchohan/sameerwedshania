@@ -6,6 +6,8 @@ import { WeddingSetting } from './settings/entities/setting.entity';
 import { InvitationsModule } from './invitations/invitations.module';
 import { SettingsModule } from './settings/settings.module';
 import { AuthModule } from './auth/auth.module';
+import { AiModule } from './ai/ai.module';
+import { ShareModule } from './share/share.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { AuthModule } from './auth/auth.module';
     InvitationsModule,
     SettingsModule,
     AuthModule,
+    AiModule,
+    ShareModule,
   ],
 })
 export class AppModule {}

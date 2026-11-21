@@ -62,6 +62,63 @@ export function setCardBaseUrl(url: string) {
   localStorage.setItem('wedding_card_base_url', url.replace(/\/+$/, ''));
 }
 
+export function getGroqApiKey(): string {
+  return localStorage.getItem('wedding_groq_api_key') || '';
+}
+
+export function setGroqApiKey(key: string) {
+  if (key) {
+    localStorage.setItem('wedding_groq_api_key', key.trim());
+  } else {
+    localStorage.removeItem('wedding_groq_api_key');
+  }
+}
+
+export function getShareBaseUrl(code: string, lang?: 'en' | 'ur', version?: string): string {
+  const base = getApiBase();
+  const langParam = lang === 'ur' ? '?lang=ur' : '';
+  const vParam = version ? `${langParam ? '&' : '?'}v=${encodeURIComponent(version)}` : '';
+  return `${base}/share/${code}${langParam}${vParam}`;
+}
+
+export interface UrduAssistResult {
+  text: string;
+  model: string;
+  downgraded: boolean;
+  warning?: string | null;
+}
+
+export async function fetchUrduAssist(
+  english?: string,
+  urduOrRoman?: string,
+  field?: string,
+): Promise<UrduAssistResult> {
+  const groqKey = getGroqApiKey();
+  const headers: Record<string, string> = {};
+  if (groqKey) {
+    headers['x-groq-api-key'] = groqKey;
+  }
+
+  const res = await fetchJson<{
+    success: boolean;
+    text: string;
+    model: string;
+    downgraded: boolean;
+    warning?: string | null;
+  }>(`/admin/ai/urdu-assist`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ english, urduOrRoman, field, groqApiKey: groqKey || undefined }),
+  });
+
+  return {
+    text: res.text,
+    model: res.model,
+    downgraded: res.downgraded,
+    warning: res.warning,
+  };
+}
+
 async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const base = getApiBase();
   const url = `${base}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;

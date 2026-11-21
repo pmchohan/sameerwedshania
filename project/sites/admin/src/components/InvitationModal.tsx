@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Invitation, CreateInvitationInput } from '../types';
+import { fetchUrduAssist } from '../api';
 
 interface InvitationModalProps {
   isOpen: boolean;
@@ -27,6 +28,8 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
   const [noteUr, setNoteUr] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [translatingField, setTranslatingField] = useState<string | null>(null);
+  const [toastWarning, setToastWarning] = useState<string | null>(null);
 
   useEffect(() => {
     if (editingInvitation) {
@@ -45,7 +48,29 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
       setNoteUr('');
     }
     setError('');
+    setToastWarning(null);
   }, [editingInvitation, isOpen]);
+
+  const handleAiFill = async (target: 'name' | 'note') => {
+    setTranslatingField(target);
+    setError('');
+    try {
+      const res = await fetchUrduAssist(
+        target === 'name' ? name : note,
+        target === 'name' ? nameUr : noteUr,
+        target === 'name' ? 'guest_name' : 'guest_note',
+      );
+      if (target === 'name') setNameUr(res.text);
+      if (target === 'note') setNoteUr(res.text);
+      if (res.downgraded && res.warning) {
+        setToastWarning(res.warning);
+      }
+    } catch (err: any) {
+      setError(err.message || 'Groq AI translation failed');
+    } finally {
+      setTranslatingField(null);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -108,6 +133,13 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
         <form onSubmit={handleSubmit} className="modal-form">
           {error && <div className="form-error">{error}</div>}
 
+          {toastWarning && (
+            <div className="alert-warning-banner">
+              <span>⚠️ {toastWarning}</span>
+              <button type="button" className="close-warning-btn" onClick={() => setToastWarning(null)}>✕</button>
+            </div>
+          )}
+
           <div className="form-group">
             <label htmlFor="guest-name">Guest Name (English) *</label>
             <input
@@ -121,12 +153,23 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
           </div>
 
           <div className="form-group">
-            <label htmlFor="guest-name-ur">Guest Name (Urdu)</label>
+            <div className="label-with-action">
+              <label htmlFor="guest-name-ur">Guest Name (Urdu)</label>
+              <button
+                type="button"
+                className="ai-assist-btn"
+                disabled={translatingField === 'name'}
+                onClick={() => handleAiFill('name')}
+                title="Autofill with Groq (translates English or converts Roman Urdu)"
+              >
+                {translatingField === 'name' ? '⏳ Converting...' : '✨ Groq Autofill'}
+              </button>
+            </div>
             <input
               id="guest-name-ur"
               type="text"
               dir="rtl"
-              placeholder="مثال: علی خان"
+              placeholder="مثال: علی خان (or type Roman Urdu & click ✨)"
               value={nameUr}
               onChange={(e) => setNameUr(e.target.value)}
             />
@@ -182,12 +225,23 @@ export function InvitationModal({ isOpen, onClose, onSave, editingInvitation }: 
           </div>
 
           <div className="form-group">
-            <label htmlFor="guest-note-ur">Personalized Note (Urdu)</label>
+            <div className="label-with-action">
+              <label htmlFor="guest-note-ur">Personalized Note (Urdu)</label>
+              <button
+                type="button"
+                className="ai-assist-btn"
+                disabled={translatingField === 'note'}
+                onClick={() => handleAiFill('note')}
+                title="Autofill with Groq (translates English or converts Roman Urdu)"
+              >
+                {translatingField === 'note' ? '⏳ Converting...' : '✨ Groq Autofill'}
+              </button>
+            </div>
             <textarea
               id="guest-note-ur"
               rows={2}
               dir="rtl"
-              placeholder="دعوت نامے پر ذاتی پیغام..."
+              placeholder="دعوت نامے پر ذاتی پیغام... (or type Roman Urdu & click ✨)"
               value={noteUr}
               onChange={(e) => setNoteUr(e.target.value)}
             />

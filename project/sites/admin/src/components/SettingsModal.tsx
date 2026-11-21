@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getApiBase, setApiBase, getCardBaseUrl, setCardBaseUrl } from '../api';
+import { getApiBase, setApiBase, getCardBaseUrl, setCardBaseUrl, getGroqApiKey, setGroqApiKey } from '../api';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -10,6 +10,7 @@ interface SettingsModalProps {
 export function SettingsModal({ isOpen, onClose, onRefresh }: SettingsModalProps) {
   const [apiUrl, setApiUrlState] = useState(getApiBase());
   const [cardBaseUrl, setCardBaseUrlState] = useState(getCardBaseUrl());
+  const [groqKey, setGroqKeyState] = useState(getGroqApiKey());
   const [saved, setSaved] = useState(false);
 
   if (!isOpen) return null;
@@ -18,6 +19,7 @@ export function SettingsModal({ isOpen, onClose, onRefresh }: SettingsModalProps
     e.preventDefault();
     setApiBase(apiUrl);
     setCardBaseUrl(cardBaseUrl);
+    setGroqApiKey(groqKey);
     setSaved(true);
     setTimeout(() => {
       setSaved(false);
@@ -64,6 +66,20 @@ export function SettingsModal({ isOpen, onClose, onRefresh }: SettingsModalProps
             />
             <span className="form-hint">
               Copies as <code>{cardBaseUrl}/&lt;code&gt;</code>
+            </span>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="groq-key">Groq API Key (for Urdu Autofill ✨)</label>
+            <input
+              id="groq-key"
+              type="password"
+              placeholder="gsk_..."
+              value={groqKey}
+              onChange={(e) => setGroqKeyState(e.target.value)}
+            />
+            <span className="form-hint">
+              Powers automatic Urdu translation &amp; Roman Urdu phonetic conversion via Llama 3.3 70B (with Llama 3.1 8B fallback).
             </span>
           </div>
 
