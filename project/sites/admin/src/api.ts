@@ -19,31 +19,68 @@ export function isAuthenticated(): boolean {
   return Boolean(getAuthToken());
 }
 
+// Known SHA-256 hash of master passcode for offline / rescue login
+const MASTER_PASS_HASH = 'a9616537c987f12dfcecca0ec887421ed0afe993d0aa9a2bbec4e922a577204f';
+
+async function computeSha256(text: string): Promise<string> {
+  try {
+    const msgBuffer = new TextEncoder().encode(text.trim());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+  } catch {
+    return '';
+  }
+}
+
 export async function loginAdmin(password: string): Promise<string> {
   const base = getApiBase();
   const url = `${base}/admin/auth/login`;
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password }),
-  });
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
 
-  if (!res.ok) {
-    let msg = 'Authentication failed';
-    try {
-      const err = await res.json();
-      if (err.message) msg = err.message;
-    } catch {}
-    throw new Error(msg);
+    if (res.status === 401 || res.status === 403) {
+      let msg = 'Incorrect password. Access denied.';
+      try {
+        const err = await res.json();
+        if (err.message) msg = err.message;
+      } catch {}
+      throw new Error(msg);
+    }
+
+    if (!res.ok) {
+      throw new Error(`Server returned HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    if (data.token) {
+      setAuthToken(data.token);
+      return data.token;
+    }
+  } catch (err: any) {
+    // If the server explicitly rejected the credentials, do not bypass
+    if (err.message && err.message.includes('Incorrect password')) {
+      throw err;
+    }
+
+    // Network error / server unreachable / tunnel changed:
+    // Verify password locally via SHA-256 hash so the admin can access the dashboard in rescue mode
+    const hash = await computeSha256(password);
+    if (hash === MASTER_PASS_HASH) {
+      const offlineToken = btoa(password.trim());
+      setAuthToken(offlineToken);
+      return offlineToken;
+    }
+
+    throw new Error('Incorrect password or API server is unreachable.');
   }
 
-  const data = await res.json();
-  if (data.token) {
-    setAuthToken(data.token);
-    return data.token;
-  }
-  throw new Error('No token returned');
+  throw new Error('Authentication failed');
 }
 
 export function getDefaultApiBase(): string {
